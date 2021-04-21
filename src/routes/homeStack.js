@@ -1,11 +1,10 @@
-
-import { createAppContainer } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
 import Home from '../screens/Home/Home';
-import Header from '../shared/Header';
+import Header from '../shared/Header/Header';
 import React from 'react';
 import Cart from "../screens/Cart/Cart";
 import Search from "../screens/Search/Search";
+import {globalStyles} from '../styles/theme';
 
 const screens = {
     Home : {
@@ -30,14 +29,11 @@ const screens = {
     }
 }
 
-const homeStack = createStackNavigator(screens , {
-    defaultNavigationOptions: {
-        headerStyle: {
-            backgroundColor: 'green',
-            height: 60,
-        },
-        headerTintColor: 'white',
-    }
+const homeStack = createStackNavigator(screens, {
+  defaultNavigationOptions: {
+    headerStyle: globalStyles.headerStyle ,
+    headerTintColor: 'white',
+  },
 });
 
 export default homeStack;

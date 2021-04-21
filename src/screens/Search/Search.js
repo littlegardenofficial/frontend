@@ -1,5 +1,6 @@
 import React , {Component} from 'react';
 import {View , Text} from 'react-native';
+import styles from './SearchStyle';
 
 export default class Search extends Component {
 
@@ -9,7 +10,7 @@ export default class Search extends Component {
 
     render(){
         return (
-            <View style={{width: '100%' , height: '100%' }}>
+            <View style={styles.searchWrapper}>
                 <Text> Search Products </Text>
             </View>
         )

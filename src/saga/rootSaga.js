@@ -1,5 +1,5 @@
 import { call, put, takeEvery, takeLatest } from 'redux-saga/effects'
-import { REQUEST_REMOVE_MOVIE } from '../redux/actions/constants';
+import {REQUEST_FETCH_PRODUCTS} from '../redux/actions/constants';
 
 // worker Saga: will be fired on USER_FETCH_REQUESTED actions
 function* removeMovie(action) {
@@ -28,7 +28,7 @@ function* removeMovie(action) {
   and only the latest one will be run.
 */
 function* mySaga() {
-  yield takeLatest(REQUEST_REMOVE_MOVIE, removeMovie);
+  yield takeLatest(REQUEST_FETCH_PRODUCTS, removeMovie);
 }
 
 export default mySaga;

@@ -3,16 +3,12 @@ import {connect} from 'react-redux';
 import {
   View,
   Text,
-  StyleSheet,
-  Button,
-  FlatList,
   TouchableOpacity,
-  ScrollView
 } from 'react-native';
-import { Card } from 'react-native-elements';
-import globalStyles from '../../styles/globalStyles';
+import {Card} from 'react-native-elements';
 import HorizontalScrollCards from '../../containers/HorizontalScrollCards/HorizontalScrollCards';
 import InterCommRoutingService from '../../services/interCommRoutingService';
+import styles from './HomeStyle';
 
 class Home extends Component {
   constructor(props) {
@@ -27,50 +23,31 @@ class Home extends Component {
 
   onOpenCart = () => {
     this.props.navigation.navigate('Cart');
-  }
+  };
 
   render() {
     return (
-      <View style={globalStyles.homeStyle}>
-        <View style={{height: '92%'}}>
-          <View style={{marginVertical: 10 , flex: 2  , alignItems: 'center' , justifyContent: 'center'}}>
-            <HorizontalScrollCards autoScroll={true} cards={['Offer 1' , 'Offer 2', 'Offer 3' , 'Offer 4']}/>
+      <View style={styles.wrapper}>
+        <View style={styles.body}>
+          <View style={styles.discounts}>
+            <HorizontalScrollCards
+              autoScroll={true}
+              cards={['Offer 1', 'Offer 2', 'Offer 3', 'Offer 4']}
+            />
           </View>
-          <View style={{flex: 1, marginBottom: 4 , alignItems: 'center' , justifyContent: 'center',}}>
-            <HorizontalScrollCards autoScroll={false} cards={['filter 1' , 'filter 2', 'filter 3' , 'filter 4']}/>
+          <View style={styles.filters}>
+            <HorizontalScrollCards
+              autoScroll={false}
+              cards={['filter 1', 'filter 2', 'filter 3', 'filter 4']}
+            />
           </View>
-          <View style={{flex: 5 , zIndex: 1}}>
-            <Card
-              containerStyle={{
-                padding: 0,
-                height: '100%',
-                backgroundColor: 'grey',
-                borderRadius: 6,
-              }}></Card>
+          <View style={styles.products}>
+            <Card containerStyle={styles.productsContainer}></Card>
           </View>
         </View>
-        <View
-          style={{
-            backgroundColor: 'white',
-            width: '100%',
-            height: '5%',
-            alignItems: 'center',
-            position: 'absolute',
-            bottom: 0
-          }}>
-          <TouchableOpacity
-            style={{
-              backgroundColor: 'green',
-              width: '100%',
-              flex: 1,
-              borderTopLeftRadius: 8,
-              borderTopRightRadius: 8,
-              alignItems: 'center',
-              justifyContent: 'center',
-            }} onPress={this.onOpenCart}>
-            <Text style={{color: 'white', fontSize: 15, fontWeight: 'bold'}}>
-              Go To Cart
-            </Text>
+        <View style={styles.cartButtonContainer}>
+          <TouchableOpacity style={styles.cartButton} onPress={this.onOpenCart}>
+            <Text style={styles.cartTitle}>Go To Cart</Text>
           </TouchableOpacity>
         </View>
       </View>

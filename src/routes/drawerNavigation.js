@@ -2,7 +2,7 @@ import { createAppContainer } from "react-navigation";
 import { createDrawerNavigator } from "react-navigation-drawer";
 import aboutStack from "./aboutStack";
 import homeStack from "./homeStack";
-import SideMenu from '../shared/SideMenu'
+import SideMenu from '../shared/SideMenu/SideMenu';
 
 const drawerNavigation = createDrawerNavigator({
     Home : {
