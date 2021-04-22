@@ -20,7 +20,6 @@ class Header extends Component {
   };
 
   onSearch = key => {
-    console.log(key);
     this.props.navigation.navigate('Search');
   };
 

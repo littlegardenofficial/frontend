@@ -1,17 +1,19 @@
 import * as React from "react";
 import { StyleSheet, View, Text , ScrollView, Dimensions, Image } from "react-native";
-import styles from './HorizontalScrollCardsStyles';
+import getStyles from './HorizontalScrollCardsStyles';
 
 const DEVICE_WIDTH = Dimensions.get("window").width;
 
 class HorizontalScrollCards extends React.Component {
   scrollRef = React.createRef();
+  styles ;
   constructor(props) {
     super(props);
     this.state = {
       selectedIndex: 0
     };
     this.scrollRef = React.createRef();
+    this.styles = getStyles(this.props.cardWidth);
   }
 
   componentDidMount = () => {
@@ -27,7 +29,7 @@ class HorizontalScrollCards extends React.Component {
         () => {
           this.scrollRef.current.scrollTo({
             animated: true,
-            x: ( DEVICE_WIDTH ) * this.state.selectedIndex,
+            x: (this.props.cardWidth) * this.state.selectedIndex,
             y: 0
           });
         }
@@ -49,7 +51,7 @@ class HorizontalScrollCards extends React.Component {
     const { cards } = this.props;
     const { selectedIndex } = this.state;
     return (
-      <View style={styles.wrapper}>
+      <View style={this.styles.wrapper}>
         <ScrollView
           horizontal
           pagingEnabled
@@ -57,24 +59,26 @@ class HorizontalScrollCards extends React.Component {
           ref={this.scrollRef}>
           {cards.map((image, index) => (
             <View
-              style={styles.cardStyle}
+              style={this.styles.cardStyle}
               key={index}>
               <Text>{image}</Text>
             </View>
           ))}
         </ScrollView>
-        <View style={styles.circleDiv}>
+        {this.props.autoScroll ? 
+        <View style={this.styles.circleDiv}>
           {cards.map((image, i) => (
             <View
               style={[
-                styles.whiteCircle,
+                this.styles.whiteCircle,
                 {opacity: i === selectedIndex ? 0.5 : 1},
               ]}
               key={image}
               active={i === selectedIndex}
             />
           ))}
-        </View>
+        </View> : <View></View>
+        }
       </View>
     );
   }

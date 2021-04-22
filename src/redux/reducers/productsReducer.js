@@ -1,24 +1,20 @@
 import {
-  ADD_PRODUCT_TO_CART,
+  FETCH_PRODUCTS_FAILED,
+  FETCH_PRODUCTS_SUCCEEDED,
   REQUEST_FETCH_PRODUCTS,
 } from '../actions/constants';
 
-const initialState = [
-  {title: 'avengers 1', key: 1},
-  {title: 'avengers 2', key: 2},
-  {title: 'avengers 3', key: 3},
-  {title: 'avengers 4', key: 4},
-];
+const initialState = {loaded: false, productList: []};
 
 const productsReducer = (state = initialState, action) => {
   switch (action.type) {
-    // case REQUEST_FETCH_PRODUCTS: {
-    //   const newState = [...state, action.payload];
-    //   return newState;
-    // }
-    // case ADD_PRODUCT_TO_CART: {
-    //   return state.filter(movie => movie.key !== action.payload.id);
-    // }
+    case FETCH_PRODUCTS_SUCCEEDED: {
+      const newState = {loaded: true, productList: [...action.payload]};
+      return newState;
+    }
+    case FETCH_PRODUCTS_FAILED: {
+      return state;
+    }
     default: {
       return state;
     }

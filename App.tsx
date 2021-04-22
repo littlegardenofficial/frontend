@@ -16,13 +16,14 @@
 } from 'react-native-safe-area-context';
  
  class App extends Component {
-   render () {return (
-     <Provider store={store}>
-       <SafeAreaProvider initialMetrics={initialWindowMetrics}>
-       <Navigator />
-       </SafeAreaProvider>
-     </Provider>
-   );
+   render() {
+     return (
+       <Provider store={store}>
+         <SafeAreaProvider initialMetrics={initialWindowMetrics}>
+           <Navigator />
+         </SafeAreaProvider>
+       </Provider>
+     );
    }
  };
  
