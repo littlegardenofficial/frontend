@@ -6,7 +6,7 @@ const fetchProductList = () => {
       {
         id: 1,
         productName: 'Beans French Shimla',
-        productImage: null,
+        productImage: require('../../assets/images/download.jpg'),
         productSource: 'Himachal Pradesh',
         productPrice: 59,
         discountedPrice: 45,
@@ -14,12 +14,12 @@ const fetchProductList = () => {
         packSizeRange: '200 - 250',
         packUnit: 'gm',
         pricePerPack: 12,
-        stockStatus: 'ENOUGH', // ENOUGH , LIMITED , SOLD_OUT
+        stockStatus: 'LIMITED', // ENOUGH , LIMITED , SOLD_OUT
       },
       {
         id: 2,
         productName: 'Bottle Gourd Long (Lauki)',
-        productImage: null,
+        productImage: require('../../assets/images/bottlegourd.jpg'),
         productSource: 'Panipat',
         productPrice: 19,
         discountedPrice: 16,
@@ -27,12 +27,12 @@ const fetchProductList = () => {
         packSizeRange: '400-700',
         packUnit: 'gm',
         pricePerPack: 11,
-        stockStatus: 'ENOUGH', // ENOUGH , LIMITED , SOLD_OUT
+        stockStatus: 'SOLD_OUT', // ENOUGH , LIMITED , SOLD_OUT
       },
       {
         id: 3,
         productName: 'Brinjal Chu Chu (Baigan)',
-        productImage: null,
+        productImage: require('../../assets/images/brinjalchu.jpg'),
         productSource: 'Rajasthan',
         productPrice: 64,
         discountedPrice: 56,
@@ -40,12 +40,12 @@ const fetchProductList = () => {
         packSizeRange: '200 - 250',
         packUnit: 'gm',
         pricePerPack: 14,
-        stockStatus: 'LIMITED', // ENOUGH , LIMITED , SOLD_OUT
+        stockStatus: 'ENOUGH', // ENOUGH , LIMITED , SOLD_OUT
       },
       {
         id: 4,
         productName: 'Coccinia (Kandru)',
-        productImage: null,
+        productImage: 'bottlegourd.jpg',
         productSource: 'Panipat',
         productPrice: 80,
         discountedPrice: 72,

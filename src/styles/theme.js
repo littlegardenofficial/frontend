@@ -12,7 +12,7 @@ const globalStyles = StyleSheet.create({
   },
   headerStyle: {
     backgroundColor: 'green',
-    height: 60,
+    height: 50,
   },
 });
 

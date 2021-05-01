@@ -2,12 +2,13 @@ const {StyleSheet} = require('react-native');
 
 const styles = StyleSheet.create({
   wrapper: {
-    backgroundColor: 'white',
+    backgroundColor: 'green',
     width: '100%',
     height: '5%',
     alignItems: 'center',
     position: 'absolute',
     bottom: 0,
+    margin: 0,
     zIndex: 2,
   },
   cartButton: {

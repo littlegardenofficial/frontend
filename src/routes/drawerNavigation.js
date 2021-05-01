@@ -4,21 +4,23 @@ import aboutStack from "./aboutStack";
 import homeStack from "./homeStack";
 import SideMenu from '../shared/SideMenu/SideMenu';
 
-const drawerNavigation = createDrawerNavigator({
-    Home : {
-        screen: homeStack
+const drawerNavigation = createDrawerNavigator(
+  {
+    Home: {
+      screen: homeStack,
     },
-    About : {
-        screen : aboutStack
-    }
-    },{
-        initialRouteName: 'Home',
-        contentComponent: SideMenu,
-        drawerOpenRoute: 'DrawerOpen',
-        drawerCloseRoute: 'DrawerClose',
-        drawerToggleRoute: 'DrawerToggle',
-        drawerWidth: 300
-      }
-    );
+    // About : {
+    //     screen : aboutStack
+    // }
+  },
+  {
+    initialRouteName: 'Home',
+    contentComponent: SideMenu,
+    drawerOpenRoute: 'DrawerOpen',
+    drawerCloseRoute: 'DrawerClose',
+    drawerToggleRoute: 'DrawerToggle',
+    drawerWidth: 300,
+  },
+);
 
 export default createAppContainer(drawerNavigation);

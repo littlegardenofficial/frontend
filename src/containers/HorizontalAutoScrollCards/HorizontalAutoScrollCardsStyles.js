@@ -4,7 +4,7 @@ const DEVICE_WIDTH = Dimensions.get('window').width;
 
 const styles = (cardWidth) => {
   return StyleSheet.create({
-    wrapper: {height: '100%', width: DEVICE_WIDTH },
+    wrapper: {height: '100%', width: DEVICE_WIDTH},
     backgroundImage: {
       height: '100%',
       width: Dimensions.get('window').width,
@@ -20,17 +20,11 @@ const styles = (cardWidth) => {
       height: 10,
     },
     whiteCircle: {
-      width: 6,
+      width: 15,
       height: 6,
       borderRadius: 3,
-      margin: 5,
-      backgroundColor: '#fff',
-    },
-    cardStyle: {
-      backgroundColor: 'red',
-      width: cardWidth ,
-      // marginRight: 3,
-      // borderRadius: 5,
+      margin: 4,
+      backgroundColor: 'black',
     },
   });
 }

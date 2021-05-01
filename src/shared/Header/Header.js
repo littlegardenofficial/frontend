@@ -32,6 +32,7 @@ class Header extends Component {
           onPress={this.onOpenDrawer}
           buttonStyle={styles.noPaddingMargin}
         />
+        <Text style={styles.loginText}>Dailyish</Text>
         <View style={styles.searchLogin}>
           <Button
             icon={<Icon name="search" size={24} color="white" />}

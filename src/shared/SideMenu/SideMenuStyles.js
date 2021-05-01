@@ -6,7 +6,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'green',
     height: 300,
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'space-around',
     alignItems: 'center',
   },
   avatar: {

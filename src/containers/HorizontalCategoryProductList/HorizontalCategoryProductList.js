@@ -1,10 +1,11 @@
 import {connect} from 'react-redux';
 import React, {Component} from 'react';
-import {ScrollView, Text, View} from 'react-native';
-import styles from './ProductListStyles';
+import {ScrollView, View, Text} from 'react-native';
+import styles from './HorizontalCategoryProductListStyles';
 import Product from '../../components/Product/Product';
 import {requestFetchProducts} from '../../redux/actions/productsAction';
-class ProductList extends Component {
+
+class HorizontalCategoryProductList extends Component {
   constructor(props) {
     super(props);
     this.fetchProducts();
@@ -22,11 +23,18 @@ class ProductList extends Component {
     return (
       // <View style={{flex: 1}}>
       <View style={styles.wrapper}>
-        <View style={styles.productsContainer}>
+        <View>
+          <Text style={styles.categoryTitle}> Vegetables </Text>
+        </View>
+        <ScrollView
+          horizontal={true}
+          scrollEventThrottle={16}
+          contentContainerStyle={{paddingHorizontal: 8}}
+          showsHorizontalScrollIndicator={false}>
           {this.props.productList.map(product => (
             <Product key={product.id} item={product} />
           ))}
-        </View>
+        </ScrollView>
       </View>
     );
   }
@@ -49,4 +57,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProductList);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(HorizontalCategoryProductList);

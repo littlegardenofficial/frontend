@@ -5,15 +5,19 @@ const DEVICE_HEIGHT = Dimensions.get('window').height;
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
+    height: '100%',
+    // backgroundColor: 'lightpink',
   },
   body: {
-    height: '100%',
+    height: '95%',
+    flex: 1,
     position: 'absolute',
+    // backgroundColor: 'lightblue',
   },
   productsContainer: {
     padding: 0,
     height: '100%',
-    backgroundColor: 'grey',
+    // backgroundColor: 'grey',
     borderRadius: 6,
   },
 });

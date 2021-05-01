@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {
   View,
-  Text,
   ScrollView,
   TouchableOpacity,
   SafeAreaView,
@@ -10,6 +9,7 @@ import {
 } from 'react-native';
 import {DrawerItems} from 'react-navigation-drawer';
 import styles from './SideMenuStyles';
+import {Text} from 'react-native-elements';
 
 class SideMenu extends Component {
   constructor(props) {
@@ -24,6 +24,9 @@ class SideMenu extends Component {
             <View style={styles.avatar}>
               <Image source={require('../../../assets/images/logo.png')} />
             </View>
+            <Text h3 h3Style={{color: 'white'}} style={{letterSpacing: 2}}>
+                Dailyish
+            </Text>
           </View>
           <View>
             <DrawerItems {...this.props} />
@@ -31,7 +34,7 @@ class SideMenu extends Component {
         </ScrollView>
         <View style={styles.sidemenuFooter}>
           <TouchableOpacity>
-            <Text>Logout</Text>
+            <Text h4 h4Style={{color:'grey' , fontSize: 20}}>Logout</Text>
           </TouchableOpacity>
         </View>
       </SafeAreaView>

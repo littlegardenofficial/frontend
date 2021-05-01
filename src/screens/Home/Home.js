@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {View, ScrollView} from 'react-native';
 import InterCommRoutingService from '../../services/interCommRoutingService';
 import styles from './HomeStyle';
-import ProductList from '../../containers/ProductList/ProductList';
+import HorizontalCategoryProductList from '../../containers/HorizontalCategoryProductList/HorizontalCategoryProductList';
 import Offerlist from '../../containers/OfferList/OfferList';
 import FilterList from '../../containers/FilterList/FilterList';
 import CartButton from '../../containers/CartButton/CartButton';
@@ -24,14 +24,21 @@ class Home extends Component {
 
   render() {
     return (
-      <ScrollView contentContainerStyle={styles.wrapper}>
-        <View style={styles.body}>
+      <View style={styles.wrapper}>
+        <ScrollView
+          scrollEventThrottle={16}
+          showsVerticalScrollIndicator={false}
+          style={styles.body}
+          stickyHeaderIndices={[1]}>
           <Offerlist />
           <FilterList />
-          <ProductList />
-        </View>
+          <HorizontalCategoryProductList categoryName="Vegetables"   />
+          <HorizontalCategoryProductList categoryName="Fruits"   />
+          <HorizontalCategoryProductList categoryName="Cereals/Spices"   />
+          <HorizontalCategoryProductList categoryName="Navratri"   />
+        </ScrollView>
         <CartButton />
-      </ScrollView>
+      </View>
     );
   }
 }
