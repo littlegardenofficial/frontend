@@ -1,7 +1,6 @@
 import {
   FETCH_PRODUCTS_FAILED,
   FETCH_PRODUCTS_SUCCEEDED,
-  REQUEST_FETCH_PRODUCTS,
 } from '../actions/constants';
 
 const initialState = {loaded: false, productList: []};

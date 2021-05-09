@@ -1,7 +1,14 @@
 const {StyleSheet} = require('react-native');
 
 const styles = StyleSheet.create({
-  wrapper: {flex: 1, height: 180, zIndex: 1, width: '100%', marginVertical: 4},
+  wrapper: {
+    flex: 1,
+    height: 180,
+    zIndex: 1,
+    width: '100%',
+    marginVertical: 4,
+    backgroundColor: 'white',
+  },
   productsContainer: {
     flexGrow: 1,
     padding: 0,
@@ -11,8 +18,8 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
   categoryTitle: {
-    color: 'darkblue',
-    fontSize: 15,
+    color: 'darkgreen',
+    fontSize: 18,
     marginLeft: 5,
     fontWeight: 'bold',
     marginBottom: 3,

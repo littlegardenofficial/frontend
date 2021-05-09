@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import {DrawerItems} from 'react-navigation-drawer';
 import styles from './SideMenuStyles';
-import {Text} from 'react-native-elements';
+import {Text, Icon} from 'react-native-elements';
 
 class SideMenu extends Component {
   constructor(props) {
@@ -25,7 +25,7 @@ class SideMenu extends Component {
               <Image source={require('../../../assets/images/logo.png')} />
             </View>
             <Text h3 h3Style={{color: 'white'}} style={{letterSpacing: 2}}>
-                Dailyish
+              Dailyish
             </Text>
           </View>
           <View>
@@ -33,8 +33,11 @@ class SideMenu extends Component {
           </View>
         </ScrollView>
         <View style={styles.sidemenuFooter}>
-          <TouchableOpacity>
-            <Text h4 h4Style={{color:'grey' , fontSize: 20}}>Logout</Text>
+          <TouchableOpacity style={{flexDirection: 'row' , justifyContent: 'center' , alignItems: 'center'}}>
+            <Text h4 h4Style={{color: 'grey', fontSize: 18 , marginRight: 10}}>
+              Logout
+            </Text>
+            <Icon name="logout" color="grey" />
           </TouchableOpacity>
         </View>
       </SafeAreaView>

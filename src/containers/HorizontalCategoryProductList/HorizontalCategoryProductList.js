@@ -1,38 +1,47 @@
 import {connect} from 'react-redux';
 import React, {Component} from 'react';
-import {ScrollView, View, Text} from 'react-native';
+import {ScrollView, View, Text, TouchableOpacity} from 'react-native';
+import { Button , Icon} from 'react-native-elements';
 import styles from './HorizontalCategoryProductListStyles';
 import Product from '../../components/Product/Product';
-import {requestFetchProducts} from '../../redux/actions/productsAction';
+import { requestAddItemToCartAction } from '../../redux/actions/cartAction';
+
 
 class HorizontalCategoryProductList extends Component {
   constructor(props) {
     super(props);
-    this.fetchProducts();
   }
 
-  fetchProducts = () => {
-    if (!this.props.loaded) {
-      this.props.fetchProducts();
-    }
+  onAddingItemToCart = (item) => {
+    this.props.addItemToCart({...item , userId : this.props.cart.userId});
   };
-
-  onAddingItemToCart = () => {};
 
   render() {
     return (
-      // <View style={{flex: 1}}>
       <View style={styles.wrapper}>
-        <View>
-          <Text style={styles.categoryTitle}> Vegetables </Text>
+        <View style={{flexDirection: 'row' , justifyContent: 'space-between' , alignItems: 'center'}}>
+          <Text style={styles.categoryTitle}>
+            {
+            this.props.category.categoryTitle != null ? this.props.category.categoryTitle : ''
+            }
+          </Text>
+         <TouchableOpacity style={{flexDirection: 'row' , justifyContent: 'center' , alignItems: 'center'}}>
+           <Text style={{color: 'blue' , fontWeight: 'bold', marginRight: 0 , paddingRight: 0}}> Show All 
+            </Text>
+            <Icon
+              name="chevron-right"
+              size={30}
+              color="blue"
+            />
+          </TouchableOpacity>
         </View>
         <ScrollView
           horizontal={true}
           scrollEventThrottle={16}
-          contentContainerStyle={{paddingHorizontal: 8}}
+          contentContainerStyle={{paddingHorizontal: 5}}
           showsHorizontalScrollIndicator={false}>
-          {this.props.productList.map(product => (
-            <Product key={product.id} item={product} />
+          {this.props.category.productList.map(product => (
+            <Product key={product.id} addItem={this.onAddingItemToCart} item={product} />
           ))}
         </ScrollView>
       </View>
@@ -43,17 +52,16 @@ class HorizontalCategoryProductList extends Component {
 const mapStateToProps = (state, ownProps) => {
   return {
     ...ownProps,
-    productList: state.products.productList,
-    loaded: state.products.loaded,
+    cart: state.cart,
   };
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     ...ownProps,
-    fetchProducts: () => {
-      dispatch(requestFetchProducts(null));
-    },
+    addItemToCart : (item) => {
+      dispatch(requestAddItemToCartAction(item));
+    }
   };
 };
 

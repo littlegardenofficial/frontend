@@ -13,6 +13,7 @@ import getStyles from './HorizontalAutoScrollCardsStyles';
 const DEVICE_WIDTH = Dimensions.get('window').width;
 
 class HorizontalAutoScrollCards extends React.Component {
+  setIntervalSubscription ; 
   scrollRef = React.createRef();
   styles;
   constructor(props) {
@@ -26,7 +27,7 @@ class HorizontalAutoScrollCards extends React.Component {
 
   componentDidMount = () => {
     if (this.props.autoScroll) {
-      setInterval(() => {
+      this.setIntervalSubscription = setInterval(() => {
         this.setState(
           prev => ({
             selectedIndex:
@@ -45,6 +46,10 @@ class HorizontalAutoScrollCards extends React.Component {
       }, 3000);
     }
   };
+
+  componentWillUnmount(){
+    clearInterval(this.setIntervalSubscription);
+  }
 
   setSelectedIndex = event => {
     const contentOffset = event.nativeEvent.contentOffset;

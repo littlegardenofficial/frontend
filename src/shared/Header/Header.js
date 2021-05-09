@@ -19,6 +19,10 @@ class Header extends Component {
     InterCommRoutingService.routeToScreen('Search', null);
   };
 
+  openLoginPage = () => {
+    InterCommRoutingService.routeToScreen('Login', null);
+  };
+
   onSearch = key => {
     this.props.navigation.navigate('Search');
   };
@@ -39,7 +43,11 @@ class Header extends Component {
             type="clear"
             onPress={this.openSearchPage}
           />
-          <TouchableOpacity style={{marginLeft: 10}}>
+          <TouchableOpacity
+           
+            style={{marginLeft: 10}}
+           
+            onPress={this.openLoginPage}>
             <Text style={styles.loginText}>Login</Text>
           </TouchableOpacity>
         </View>

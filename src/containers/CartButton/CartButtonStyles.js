@@ -15,12 +15,13 @@ const styles = StyleSheet.create({
     backgroundColor: 'green',
     width: '100%',
     flex: 1,
+    flexDirection: 'row',
     borderTopLeftRadius: 8,
     borderTopRightRadius: 8,
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-around',
   },
-  cartTitle: {color: 'white', fontSize: 15, fontWeight: 'bold'},
+  cartTitle: {color: 'white', fontSize: 15, fontWeight: 'bold' , marginRight: 3},
 });
 
 export default styles;

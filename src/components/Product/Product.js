@@ -9,7 +9,7 @@ const Product = props => {
     if (product.stockStatus === 'LIMITED') {
       return (
         <View style={styles.limitedStock}>
-          <Text style={{color: 'black', fontWeight: '700'}}>Limited Stock</Text>
+          <Text style={{color: 'white', fontWeight: '700'}}>Limited Stock</Text>
         </View>
       );
     } else if (product.stockStatus === 'SOLD_OUT') {
@@ -113,6 +113,7 @@ const Product = props => {
           buttonStyle={styles.buttonStyle}
           containerStyle={{width: '30%'}}
           titleStyle={{color: 'white', fontSize: 12}}
+          onPress={() => props.addItem(props.item)}
         />
       </View>
     </View>

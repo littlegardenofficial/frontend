@@ -22,10 +22,10 @@ const styles = StyleSheet.create({
     shadowRadius: 3,
     elevation: 1,
     alignItems: 'center',
-    marginRight: 8
+    marginRight: 8,
   },
   productDetail: {
-    height: '75%',
+    height: '76%',
     width: '98%',
     borderRadius: 8,
     flexDirection: 'row',
@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
     flex: 1,
     marginBottom: 8,
     paddingHorizontal: 5,
-    height: '25%',
+    height: '24%',
     flexDirection: 'row',
     alignItems: 'flex-end',
     justifyContent: 'space-between',

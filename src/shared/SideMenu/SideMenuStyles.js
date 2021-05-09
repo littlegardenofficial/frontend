@@ -18,10 +18,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   sidemenuFooter: {
-    height: 60,
+    height: 50,
     flex: 1,
     position: 'absolute',
     width: '100%',
+    flexDirection: 'row',
     bottom: 0,
     justifyContent: 'center',
     alignItems: 'center',

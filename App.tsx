@@ -14,6 +14,7 @@
   SafeAreaProvider,
   initialWindowMetrics,
 } from 'react-native-safe-area-context';
+import FlashMessage from 'react-native-flash-message';
  
  class App extends Component {
    render() {
@@ -21,6 +22,7 @@
        <Provider store={store}>
          <SafeAreaProvider initialMetrics={initialWindowMetrics}>
            <Navigator />
+           <FlashMessage position="bottom" />
          </SafeAreaProvider>
        </Provider>
      );

@@ -6,7 +6,7 @@ const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
     height: '100%',
-    // backgroundColor: 'lightpink',
+    backgroundColor: 'white',
   },
   body: {
     height: '95%',
