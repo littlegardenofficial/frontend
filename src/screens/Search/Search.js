@@ -9,10 +9,6 @@ export default class Search extends Component {
     }
 
     render(){
-        return (
-            <View style={styles.searchWrapper}>
-                <Text> Search Products </Text>
-            </View>
-        )
+        return <View style={styles.searchWrapper}></View>;
     }
 }

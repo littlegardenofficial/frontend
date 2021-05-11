@@ -6,6 +6,8 @@ import Cart from "../screens/Cart/Cart";
 import Search from "../screens/Search/Search";
 import {globalStyles} from '../styles/theme';
 import Login from '../screens/Auth/login/Login';
+import SearchHeader from "../containers/SearchHeader/SearchHeader";
+import  VerticalCategoryProductList from '../containers/VerticalCategoryProductList/VerticalCategoryProductList';
 
 const screens = {
   Home: {
@@ -13,7 +15,7 @@ const screens = {
     navigationOptions: ({navigation}) => {
       return {
         headerTitle: () => (
-          <Header navigation={navigation} title="MovieReview" />
+          <Header navigation={navigation} />
         ),
       };
     },
@@ -26,9 +28,29 @@ const screens = {
   },
   Search: {
     screen: Search,
-    screenOptions: {
-      headerShown: false,
+    navigationOptions: ({navigation}) => {
+      return {
+        headerTitle: () => (
+          <SearchHeader navigation={navigation} />
+        ),
+        headerStyle: {
+          backgroundColor: 'green'
+        },
+        headerTintColor: 'white'
+      };
     },
+  },
+  CategoryProduct: {
+    screen: VerticalCategoryProductList,
+    navigationOptions: ({navigation}) => {
+      return {
+        title: navigation.state.params.categoryTitle,
+        headerStyle: {
+          backgroundColor: 'green'
+        },
+        headerTintColor: 'white'
+      };
+    }
   },
   Login: {
     screen: Login,
@@ -37,9 +59,9 @@ const screens = {
     },
     navigationOptions: {
         headerStyle: {
-            backgroundColor: 'white',
+            backgroundColor: 'green',
         },
-        headerTintColor: 'green'
+        headerTintColor: 'white'
     }
   },
 };

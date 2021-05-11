@@ -7,6 +7,7 @@ import {
   REQUEST_REMOVE_ITEM_FROM_CART_FAILED_ACTION,
   REQUEST_REMOVE_ITEM_FROM_CART_SUCCEED_ACTION,
 } from '../actions/constants';
+import {Vibration} from 'react-native';
 
 const initialState = {};
 
@@ -56,6 +57,7 @@ const cartReducer = (state = initialState, action) => {
         }
       }
       showSuccessFlashMessage('Added to Cart!');
+      // Vibration.vibrate();
       console.log('updated state', newState);
       return newState;
     }

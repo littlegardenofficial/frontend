@@ -5,16 +5,15 @@ import styles , {getCardStyles} from './FilterListStyles';
 const DEVICE_WIDTH = Dimensions.get('window').width;
 
 class FilterList extends React.Component {
-  
   constructor(props) {
     super(props);
-   
   }
 
-  componentDidUpdate = () => {
-  }
+  componentDidUpdate = () => {};
 
-  onCategorySelect = () => {};
+  onCategorySelect = category => {
+    this.props.navigation.navigate('CategoryProduct', category);
+  };
 
   render() {
     return (
@@ -23,9 +22,11 @@ class FilterList extends React.Component {
           horizontal={true}
           scrollEventThrottle={10}
           showsHorizontalScrollIndicator={false}>
-          {this.props.categoryProductMap.map((category , index) => {
+          {this.props.categoryProductMap.map((category, index) => {
             return (
-              <TouchableOpacity key={category.id}>
+              <TouchableOpacity
+                key={category.id}
+                onPress={() => this.onCategorySelect(category)}>
                 <ImageBackground
                   blurRadius={5}
                   imageStyle={{

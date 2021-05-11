@@ -12,27 +12,48 @@ class HorizontalCategoryProductList extends Component {
     super(props);
   }
 
-  onAddingItemToCart = (item) => {
-    this.props.addItemToCart({...item , userId : this.props.cart.userId});
+  onAddingItemToCart = item => {
+    this.props.addItemToCart({...item, userId: this.props.cart.userId});
+  };
+
+  openCategoryProductList = () => {
+    this.props.navigation.navigate('CategoryProduct', this.props.category);
   };
 
   render() {
     return (
       <View style={styles.wrapper}>
-        <View style={{flexDirection: 'row' , justifyContent: 'space-between' , alignItems: 'center'}}>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            marginTop: 6 , 
+          }}>
           <Text style={styles.categoryTitle}>
-            {
-            this.props.category.categoryTitle != null ? this.props.category.categoryTitle : ''
-            }
+            {this.props.category.categoryTitle != null
+              ? this.props.category.categoryTitle
+              : ''}
           </Text>
-         <TouchableOpacity style={{flexDirection: 'row' , justifyContent: 'center' , alignItems: 'center'}}>
-           <Text style={{color: 'blue' , fontWeight: 'bold', marginRight: 0 , paddingRight: 0}}> Show All 
+          <TouchableOpacity
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+            onPress={() => this.openCategoryProductList()}>
+            <Text
+              style={{
+                color: 'blue',
+                fontWeight: 'bold',
+                marginRight: 0,
+                paddingRight: 0,
+                fontSize: 14,
+              }}>
+              {' '}
+              Show All
             </Text>
-            <Icon
-              name="chevron-right"
-              size={30}
-              color="blue"
-            />
+            <Icon name="chevron-right" size={25} color="blue" />
           </TouchableOpacity>
         </View>
         <ScrollView
@@ -41,7 +62,11 @@ class HorizontalCategoryProductList extends Component {
           contentContainerStyle={{paddingHorizontal: 5}}
           showsHorizontalScrollIndicator={false}>
           {this.props.category.productList.map(product => (
-            <Product key={product.id} addItem={this.onAddingItemToCart} item={product} />
+            <Product
+              key={product.id}
+              addItem={this.onAddingItemToCart}
+              item={product}
+            />
           ))}
         </ScrollView>
       </View>

@@ -3,11 +3,10 @@ const {StyleSheet} = require('react-native');
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
-    height: 180,
+    height: '100%',
     zIndex: 1,
     width: '100%',
-    marginVertical: 4,
-    backgroundColor: 'white',
+    paddingTop: 10,
   },
   productsContainer: {
     flexGrow: 1,

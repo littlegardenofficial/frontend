@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-around',
   },
-  cartTitle: {color: 'white', fontSize: 15, fontWeight: 'bold' , marginRight: 3},
+  cartTitle: {color: 'white', fontSize: 15, fontWeight: 'bold', marginRight: 3},
 });
 
 export default styles;

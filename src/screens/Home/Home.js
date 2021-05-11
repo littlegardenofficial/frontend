@@ -35,32 +35,39 @@ class Home extends Component {
             <ScrollView
               scrollEventThrottle={16}
               showsVerticalScrollIndicator={false}
-              style={{...styles.body , height: (this.isCartButtonEnabled() ? '95%' : '100%')}}
+              style={{
+                ...styles.body,
+                height: this.isCartButtonEnabled() ? '95%' : '100%',
+              }}
               stickyHeaderIndices={[1]}>
               <Offerlist />
               {this.props.categoryProductMap != null &&
               this.props.categoryProductMap.length != 0 ? (
-                <FilterList categoryProductMap={this.props.categoryProductMap} />
+                <FilterList
+                  categoryProductMap={this.props.categoryProductMap}
+                  navigation={this.props.navigation}
+                />
               ) : (
                 <View></View>
               )}
               {this.props.categoryProductMap != null &&
-              this.props.categoryProductMap.length != 0
-                ? this.props.categoryProductMap
-                    .filter(category => category.productList.length != 0)
-                    .map(category => {
-                      return (
-                        <HorizontalCategoryProductList
-                          key={category.id}
-                          category={category}
-                        />
-                      );
-                    })
-                : <View></View>}
+              this.props.categoryProductMap.length != 0 ? (
+                this.props.categoryProductMap
+                  .filter(category => category.productList.length != 0)
+                  .map(category => {
+                    return (
+                      <HorizontalCategoryProductList
+                        key={category.id}
+                        category={category}
+                        navigation={this.props.navigation}
+                      />
+                    );
+                  })
+              ) : (
+                <View></View>
+              )}
             </ScrollView>
-            {(this.isCartButtonEnabled()) ? 
-              <CartButton/> :
-               <View></View>}
+            {this.isCartButtonEnabled() ? <CartButton /> : <View></View>}
           </View>
         );
   }

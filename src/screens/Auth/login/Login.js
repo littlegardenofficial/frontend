@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {View, Text, Image} from 'react-native';
 import {Input, Icon, Button} from 'react-native-elements';
+import styles from './LoginStyles';
 
 class Login extends Component {
   imageSource = require('../../../../assets/images/logo.png');
@@ -12,49 +13,35 @@ class Login extends Component {
   render() {
     return (
       <View
-        style={{
-          backgroundColor: 'white',
-          flex: 1,
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}>
+        style={styles.wrapper}>
         <View
-          style={{
-            width: '80%',
-            justifyContent: 'center',
-            alignItems: 'center',
-            backgroundColor: 'white',
-          }}>
+          style={styles.loginFormAndLogo}>
           <Image
             source={this.imageSource}
-            style={{
-              backgroundColor: 'white',
-              height: 200,
-              width: '100%',
-            }}></Image>
-          <View style={{width: '80%'}}>
+            style={styles.logoStyle}></Image>
+          <View style={styles.inputSection}>
             <Input
               placeholder="Email"
               leftIcon={<Icon name="email" size={20} color="green" />}
-              inputStyle={{color: 'green'}}
+              inputStyle={styles.emailElement}
               onChangeText={value => this.setState({email: value})}
             />
             <Input
               placeholder="Password"
-              inputStyle={{color: 'green', letterSpacing: 0.2}}
+              inputStyle={styles.passElement}
               leftIcon={<Icon name="lock" size={20} color="green" />}
               secureTextEntry={true}
               onChangeText={value => this.setState({password: value})}
             />
             <Button
               title="Login"
-              buttonStyle={{backgroundColor: 'green', marginBottom: 10}}
+              buttonStyle={styles.loginButton}
             />
             <Button
               title="Register"
               type="outline"
               raised={true}
-              titleStyle={{color: 'green'}}
+              titleStyle={styles.registerTitle}
             />
           </View>
         </View>
