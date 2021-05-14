@@ -1,4 +1,5 @@
 import {StyleSheet} from 'react-native';
+import {THEME_TEXT_COLOR} from '../../styles/theme';
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
@@ -13,7 +14,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     alignItems: 'center',
   },
-  loginText: {color: 'white', fontWeight: 'bold', fontSize: 18},
+  loginText: {color: THEME_TEXT_COLOR, fontWeight: 'bold', fontSize: 18},
 });
 
 export default styles;

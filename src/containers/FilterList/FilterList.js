@@ -1,8 +1,13 @@
 import React from 'react';
-import {View, Dimensions , ScrollView , Text, Image , ImageBackground, TouchableOpacity} from 'react-native';
-import styles , {getCardStyles} from './FilterListStyles';
-
-const DEVICE_WIDTH = Dimensions.get('window').width;
+import {
+  View,
+  ScrollView,
+  Text,
+  ImageBackground,
+  TouchableOpacity,
+} from 'react-native';
+import {SCROLL_EVENT_THROTTLE, HIDE_SCROLL_INDICATOR} from '../../styles/theme';
+import styles from './FilterListStyles';
 
 class FilterList extends React.Component {
   constructor(props) {
@@ -20,8 +25,8 @@ class FilterList extends React.Component {
       <View style={styles.wrapper}>
         <ScrollView
           horizontal={true}
-          scrollEventThrottle={10}
-          showsHorizontalScrollIndicator={false}>
+          scrollEventThrottle={SCROLL_EVENT_THROTTLE}
+          showsHorizontalScrollIndicator={HIDE_SCROLL_INDICATOR}>
           {this.props.categoryProductMap.map((category, index) => {
             return (
               <TouchableOpacity
@@ -29,32 +34,17 @@ class FilterList extends React.Component {
                 onPress={() => this.onCategorySelect(category)}>
                 <ImageBackground
                   blurRadius={5}
-                  imageStyle={{
-                    width: '98%',
-                    height: '95%',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}
-                  style={getCardStyles()}
+                  imageStyle={styles.imageBackground}
+                  style={styles.imageCard}
                   source={category.filterImage}>
-                  <View
-                    style={{
-                      height: 'auto',
-                      backgroundColor: '#000000a0',
-                      width: '100%',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                    }}>
+                </ImageBackground>
+                <View
+                    style={styles.filterTitleContainer}>
                     <Text
-                      style={{
-                        color: 'white',
-                        fontWeight: 'bold',
-                        fontSize: 20,
-                      }}>
+                      style={styles.filterTitle}>
                       {!!category.categoryTitle ? category.categoryTitle : ''}
                     </Text>
                   </View>
-                </ImageBackground>
               </TouchableOpacity>
             );
           })}

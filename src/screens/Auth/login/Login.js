@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {View, Text, Image} from 'react-native';
 import {Input, Icon, Button} from 'react-native-elements';
+import { THEME_COLOR } from '../../../styles/theme';
 import styles from './LoginStyles';
 
 class Login extends Component {
@@ -22,14 +23,14 @@ class Login extends Component {
           <View style={styles.inputSection}>
             <Input
               placeholder="Email"
-              leftIcon={<Icon name="email" size={20} color="green" />}
+              leftIcon={<Icon name="email" size={20} color={THEME_COLOR} />}
               inputStyle={styles.emailElement}
               onChangeText={value => this.setState({email: value})}
             />
             <Input
               placeholder="Password"
               inputStyle={styles.passElement}
-              leftIcon={<Icon name="lock" size={20} color="green" />}
+              leftIcon={<Icon name="lock" size={20} color={THEME_COLOR} />}
               secureTextEntry={true}
               onChangeText={value => this.setState({password: value})}
             />

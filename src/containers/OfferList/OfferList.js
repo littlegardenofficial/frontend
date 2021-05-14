@@ -1,9 +1,8 @@
 import React from 'react';
 import {View, Dimensions} from 'react-native';
+import {DEVICE_HEIGHT, DEVICE_WIDTH} from '../../utils/DeviceParamsUtil';
 import HorizontalAutoScrollCards from '../HorizontalAutoScrollCards/HorizontalAutoScrollCards';
 import styles from './OfferListStyles';
-
-const DEVICE_WIDTH = Dimensions.get('window').width;
 
 class OfferList extends React.Component {
   cardStyle = {
@@ -23,7 +22,7 @@ class OfferList extends React.Component {
     return (
       <View style={styles.wrapper}>
         <HorizontalAutoScrollCards
-          cardWidth={DEVICE_WIDTH}
+          cardWidth={DEVICE_HEIGHT}
           autoScroll={true}
           cardStyle={this.cardStyle}
           cards={[

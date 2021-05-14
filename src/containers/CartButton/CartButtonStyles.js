@@ -1,8 +1,10 @@
+import {THEME_COLOR, THEME_TEXT_COLOR} from '../../styles/theme';
+
 const {StyleSheet} = require('react-native');
 
 const styles = StyleSheet.create({
   wrapper: {
-    backgroundColor: 'green',
+    backgroundColor: THEME_COLOR,
     width: '100%',
     height: '5%',
     alignItems: 'center',
@@ -12,7 +14,7 @@ const styles = StyleSheet.create({
     zIndex: 2,
   },
   cartButton: {
-    backgroundColor: 'green',
+    backgroundColor: THEME_COLOR,
     width: '100%',
     flex: 1,
     flexDirection: 'row',
@@ -21,7 +23,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-around',
   },
-  cartTitle: {color: 'white', fontSize: 15, fontWeight: 'bold', marginRight: 3},
+  cartTitle: {
+    color: THEME_TEXT_COLOR,
+    fontSize: 15,
+    fontWeight: 'bold',
+    marginRight: 3,
+  },
 });
 
 export default styles;

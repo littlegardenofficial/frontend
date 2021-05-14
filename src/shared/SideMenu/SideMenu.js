@@ -4,7 +4,6 @@ import {
   ScrollView,
   TouchableOpacity,
   SafeAreaView,
-  StyleSheet,
   Image,
 } from 'react-native';
 import {DrawerItems} from 'react-navigation-drawer';
@@ -24,17 +23,15 @@ class SideMenu extends Component {
             <View style={styles.avatar}>
               <Image source={require('../../../assets/images/logo.png')} />
             </View>
-            <Text h3 h3Style={{color: 'white'}} style={{letterSpacing: 2}}>
-              Dailyish
-            </Text>
           </View>
           <View>
             <DrawerItems {...this.props} />
           </View>
         </ScrollView>
         <View style={styles.sidemenuFooter}>
-          <TouchableOpacity style={{flexDirection: 'row' , justifyContent: 'center' , alignItems: 'center'}}>
-            <Text h4 h4Style={{color: 'grey', fontSize: 18 , marginRight: 10}}>
+          <TouchableOpacity
+            style={styles.logoutButton}>
+            <Text h4 h4Style={styles.logoutTitle}>
               Logout
             </Text>
             <Icon name="logout" color="grey" />

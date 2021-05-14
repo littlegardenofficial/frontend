@@ -6,12 +6,14 @@ import styles from './HomeStyle';
 import HorizontalCategoryProductList from '../../containers/HorizontalCategoryProductList/HorizontalCategoryProductList';
 import Offerlist from '../../containers/OfferList/OfferList';
 import FilterList from '../../containers/FilterList/FilterList';
-import CartButton from '../../containers/CartButton/CartButton';
 import {fetchCategoryList} from '../../redux/actions/categoryAction';
 import {fetchUserCartAction} from '../../redux/actions/cartAction';
-import {isNotEmpty, isNotNullOrUndefined} from '../../utils/HelperUtil';
+import {SCROLL_EVENT_THROTTLE, HIDE_SCROLL_INDICATOR} from '../../styles/theme';
+import ROUTES from '../../routes/routeNames';
+import { renderCartButton  , isCartButtonEnabled} from '../../utils/ComponentRendererUtil';
 
 class Home extends Component {
+   
   constructor(props) {
     super(props);
     InterCommRoutingService.navigationProps = this.props.navigation;
@@ -19,70 +21,64 @@ class Home extends Component {
     this.props.fetchCartData(12);
   }
 
-  componentDidUpdate() {}
-
-  onPressHandler = item => {
-    this.props.navigation.navigate('Reviews', item);
-  };
-
   onOpenCart = () => {
-    this.props.navigation.navigate('Cart');
+    this.props.navigation.navigate(ROUTES.CART);
   };
+
+  getBodyStylesOnTheBasisOfCart = () => {
+    return {
+      ...styles.body,
+      height: isCartButtonEnabled(this.props) ? '95%' : '100%',
+    };
+  };
+
+  renderCategoryProductsList = () => {
+    return this.props.categoryProductMap != null &&
+    this.props.categoryProductMap.length != 0 ? (
+      this.props.categoryProductMap
+        .filter(category => category.productList.length != 0)
+        .map(category => {
+          return (
+            <HorizontalCategoryProductList
+              key={category.id}
+              category={category}
+              navigation={this.props.navigation}
+            />
+          );
+        })
+    ) : (
+      <View></View>
+    );
+  }
+
+  renderFilterList = () => {
+    return this.props.categoryProductMap != null &&
+    this.props.categoryProductMap.length != 0 ? (
+      <FilterList
+        categoryProductMap={this.props.categoryProductMap}
+        navigation={this.props.navigation}
+      />
+    ) : (
+      <View></View>
+    );
+  }
 
   render() {
-        return (
-          <View style={styles.wrapper}>
-            <ScrollView
-              scrollEventThrottle={16}
-              showsVerticalScrollIndicator={false}
-              style={{
-                ...styles.body,
-                height: this.isCartButtonEnabled() ? '95%' : '100%',
-              }}
-              stickyHeaderIndices={[1]}>
-              <Offerlist />
-              {this.props.categoryProductMap != null &&
-              this.props.categoryProductMap.length != 0 ? (
-                <FilterList
-                  categoryProductMap={this.props.categoryProductMap}
-                  navigation={this.props.navigation}
-                />
-              ) : (
-                <View></View>
-              )}
-              {this.props.categoryProductMap != null &&
-              this.props.categoryProductMap.length != 0 ? (
-                this.props.categoryProductMap
-                  .filter(category => category.productList.length != 0)
-                  .map(category => {
-                    return (
-                      <HorizontalCategoryProductList
-                        key={category.id}
-                        category={category}
-                        navigation={this.props.navigation}
-                      />
-                    );
-                  })
-              ) : (
-                <View></View>
-              )}
-            </ScrollView>
-            {this.isCartButtonEnabled() ? <CartButton /> : <View></View>}
-          </View>
-        );
+    return (
+      <View style={styles.wrapper}>
+        <ScrollView
+          scrollEventThrottle={SCROLL_EVENT_THROTTLE}
+          showsVerticalScrollIndicator={HIDE_SCROLL_INDICATOR}
+          style={this.getBodyStylesOnTheBasisOfCart()}
+          stickyHeaderIndices={[0]}>
+          {this.renderFilterList()}
+          <Offerlist />
+          {this.renderCategoryProductsList()}
+        </ScrollView>
+        {renderCartButton(this.props)}
+      </View>
+    );
   }
-  
-  isCartButtonEnabled = () => {
-    if (
-      isNotNullOrUndefined(this.props.cart) &&
-      isNotEmpty(this.props.cart.cartItems)
-    ) {
-      return true;
-    } else {
-      return false;
-    }
-  };
-
 }
 
 const mapStateToProps = (state, props) => {

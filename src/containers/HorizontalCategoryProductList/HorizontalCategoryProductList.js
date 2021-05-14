@@ -1,13 +1,16 @@
 import {connect} from 'react-redux';
 import React, {Component} from 'react';
 import {ScrollView, View, Text, TouchableOpacity} from 'react-native';
-import { Button , Icon} from 'react-native-elements';
+import {Icon} from 'react-native-elements';
 import styles from './HorizontalCategoryProductListStyles';
 import Product from '../../components/Product/Product';
 import { requestAddItemToCartAction } from '../../redux/actions/cartAction';
+import ROUTES from '../../routes/routeNames';
+import { DEVICE_WIDTH } from '../../utils/DeviceParamsUtil';
 
 
 class HorizontalCategoryProductList extends Component {
+  cardWidth = DEVICE_WIDTH - 30;
   constructor(props) {
     super(props);
   }
@@ -17,39 +20,34 @@ class HorizontalCategoryProductList extends Component {
   };
 
   openCategoryProductList = () => {
-    this.props.navigation.navigate('CategoryProduct', this.props.category);
+    this.props.navigation.navigate(ROUTES.CATEGORY_PRODUCT, this.props.category);
   };
+
+  renderProductList = () => {
+    return this.props.category.productList.map(product => (
+      <Product
+        productCardStyle={{width : this.cardWidth , marginRight: 8}}
+        key={product.id}
+        addItem={this.onAddingItemToCart}
+        item={product}
+      />
+    ));
+  }
 
   render() {
     return (
       <View style={styles.wrapper}>
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            marginTop: 6 , 
-          }}>
+        <View style={styles.productListContainer}>
           <Text style={styles.categoryTitle}>
             {this.props.category.categoryTitle != null
               ? this.props.category.categoryTitle
               : ''}
           </Text>
           <TouchableOpacity
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
+            style={styles.showMoreContainerStyle}
             onPress={() => this.openCategoryProductList()}>
             <Text
-              style={{
-                color: 'blue',
-                fontWeight: 'bold',
-                marginRight: 0,
-                paddingRight: 0,
-                fontSize: 14,
-              }}>
+              style={styles.showMoreTitleStyle}>
               {' '}
               Show All
             </Text>
@@ -61,13 +59,7 @@ class HorizontalCategoryProductList extends Component {
           scrollEventThrottle={16}
           contentContainerStyle={{paddingHorizontal: 5}}
           showsHorizontalScrollIndicator={false}>
-          {this.props.category.productList.map(product => (
-            <Product
-              key={product.id}
-              addItem={this.onAddingItemToCart}
-              item={product}
-            />
-          ))}
+          {this.renderProductList()}
         </ScrollView>
       </View>
     );

@@ -1,14 +1,15 @@
 import {connect} from 'react-redux';
 import React, {Component} from 'react';
-import {ScrollView, View, Text, TouchableOpacity} from 'react-native';
-import {Button, Icon} from 'react-native-elements';
+import {ScrollView, View, } from 'react-native';
 import styles from './VerticalCategoryProductListStyles';
 import Product from '../../components/Product/Product';
 import {requestAddItemToCartAction} from '../../redux/actions/cartAction';
-import CartButton from '../CartButton/CartButton';
-import {isNotEmpty, isNotNullOrUndefined} from '../../utils/HelperUtil';
+import {HIDE_SCROLL_INDICATOR, SCROLL_EVENT_THROTTLE} from '../../styles/theme';
+import {renderCartButton , isCartButtonEnabled} from '../../utils/ComponentRendererUtil';
+import { DEVICE_WIDTH } from '../../utils/DeviceParamsUtil';
 
 class VerticalCategoryProductList extends Component {
+  cardWidth = DEVICE_WIDTH - 20;
   constructor(props) {
     super(props);
   }
@@ -19,68 +20,39 @@ class VerticalCategoryProductList extends Component {
     this.props.addItemToCart({...item, userId: this.props.cart.userId});
   };
 
+  getProductListHeight = () => {
+    return {height: isCartButtonEnabled(this.props) ? '95%' : '100%'};
+  };
+
+  renderProductList = () => {
+    return this.props.navigation.state.params.productList.map(product => (
+      <View
+        style={styles.productCardWrapper}>
+        <Product
+          productCardStyle={{width : this.cardWidth , marginRight: 0}}
+          key={product.id}
+          addItem={this.onAddingItemToCart}
+          item={product}
+        />
+      </View>
+    ))
+  }
+
   render() {
     return (
       <View style={styles.wrapper}>
-        <View style={{height: this.isCartButtonEnabled() ? '95%' : '100%'}}>
+        <View style={this.getProductListHeight()}>
           <ScrollView
-            scrollEventThrottle={16}
-            contentContainerStyle={{
-              paddingHorizontal: 5,
-              width: '100%',
-            }}
-            showsVerticalScrollIndicator={false}>
-            {this.props.navigation.state.params.productList.map(product => (
-              <View
-                style={{
-                  height: 160,
-                  width: '100%',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  marginVertical: 5,
-                }}>
-                <Product
-                  cardWidth="100%"
-                  key={product.id}
-                  addItem={this.onAddingItemToCart}
-                  item={product}
-                />
-              </View>
-            ))}
-            {this.props.navigation.state.params.productList.map(product => (
-              <View
-                style={{
-                  height: 140,
-                  width: '100%',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  marginVertical: 5,
-                }}>
-                <Product
-                  cardWidth="100%"
-                  key={product.id}
-                  addItem={this.onAddingItemToCart}
-                  item={product}
-                />
-              </View>
-            ))}
+            scrollEventThrottle={SCROLL_EVENT_THROTTLE}
+            contentContainerStyle={styles.scrollContainerStyle}
+            showsVerticalScrollIndicator={HIDE_SCROLL_INDICATOR}>
+            {this.renderProductList()}
           </ScrollView>
         </View>
-        {this.isCartButtonEnabled() ? <CartButton /> : <View></View>}
+        {renderCartButton(this.props)}
       </View>
     );
   }
-
-  isCartButtonEnabled = () => {
-    if (
-      isNotNullOrUndefined(this.props.cart) &&
-      isNotEmpty(this.props.cart.cartItems)
-    ) {
-      return true;
-    } else {
-      return false;
-    }
-  };
 }
 
 const mapStateToProps = (state, ownProps) => {

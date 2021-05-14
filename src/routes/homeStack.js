@@ -4,13 +4,13 @@ import Header from '../shared/Header/Header';
 import React from 'react';
 import Cart from "../screens/Cart/Cart";
 import Search from "../screens/Search/Search";
-import {globalStyles} from '../styles/theme';
+import {THEME_TEXT_COLOR, GLOBAL_STYLES, THEME_COLOR} from '../styles/theme';
 import Login from '../screens/Auth/login/Login';
 import SearchHeader from "../containers/SearchHeader/SearchHeader";
 import  VerticalCategoryProductList from '../containers/VerticalCategoryProductList/VerticalCategoryProductList';
 
 const screens = {
-  Home: {
+  home : {
     screen: Home,
     navigationOptions: ({navigation}) => {
       return {
@@ -34,9 +34,9 @@ const screens = {
           <SearchHeader navigation={navigation} />
         ),
         headerStyle: {
-          backgroundColor: 'green'
+          backgroundColor: THEME_COLOR
         },
-        headerTintColor: 'white'
+        headerTintColor: THEME_TEXT_COLOR
       };
     },
   },
@@ -46,9 +46,9 @@ const screens = {
       return {
         title: navigation.state.params.categoryTitle,
         headerStyle: {
-          backgroundColor: 'green'
+          backgroundColor: THEME_COLOR
         },
-        headerTintColor: 'white'
+        headerTintColor: THEME_TEXT_COLOR
       };
     }
   },
@@ -59,17 +59,17 @@ const screens = {
     },
     navigationOptions: {
         headerStyle: {
-            backgroundColor: 'green',
+            backgroundColor: THEME_COLOR,
         },
-        headerTintColor: 'white'
+        headerTintColor: THEME_TEXT_COLOR
     }
   },
 };
 
 const homeStack = createStackNavigator(screens, {
   defaultNavigationOptions: {
-    headerStyle: globalStyles.headerStyle ,
-    headerTintColor: 'white',
+    headerStyle: GLOBAL_STYLES.headerStyle,
+    headerTintColor: THEME_TEXT_COLOR,
   },
 });
 

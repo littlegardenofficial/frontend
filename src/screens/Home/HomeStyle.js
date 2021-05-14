@@ -1,12 +1,11 @@
+import {APP_BACKGROUND} from '../../styles/theme';
 const {StyleSheet, Dimensions} = require('react-native');
-
-const DEVICE_HEIGHT = Dimensions.get('window').height;
 
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
     height: '100%',
-    backgroundColor: 'white',
+    backgroundColor: APP_BACKGROUND,
   },
   body: {
     height: '95%',
