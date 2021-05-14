@@ -16,6 +16,8 @@
 } from 'react-native-safe-area-context';
 import {ActivityIndicator} from 'react-native';
 import FlashMessage from 'react-native-flash-message';
+import SplashScreen from 'react-native-splash-screen';
+// import SplashScreen from 'react-native-splash-screen';
  
  class App extends Component {
    render() {
@@ -27,6 +29,10 @@ import FlashMessage from 'react-native-flash-message';
          </SafeAreaProvider>
        </Provider>
      );
+   }
+
+   componentDidMount() {
+     SplashScreen.hide();
    }
  };
  
