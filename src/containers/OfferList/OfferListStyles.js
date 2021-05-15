@@ -5,7 +5,7 @@ const offerSectionHeight = (height * 16) / 100;
 
 const styles = StyleSheet.create({
   wrapper: {
-    marginBottom: 2,
+    // marginBottom: 2,
     flex: 1,
     height: offerSectionHeight,
     alignItems: 'center',

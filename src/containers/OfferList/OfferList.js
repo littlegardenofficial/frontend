@@ -11,7 +11,6 @@ class OfferList extends React.Component {
     backgroundColor: 'white',
     height: '100%',
     resizeMode: 'stretch',
-    borderRadius: 5,
   };
 
   constructor(props) {

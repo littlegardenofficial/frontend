@@ -9,6 +9,7 @@ const cartData = {
   userName: 'Mritunjay Yadav',
   email: 'mj07yadav@gmail.com',
   itemCount: 0,
+  cartTotal: 0,
   cartItems: [],
 };
 
@@ -21,5 +22,12 @@ export const addItemToCart = request => {
       productName: request.productName,
       quantity: 1,
     });
+  });
+};
+
+export const removeItemFromCart = request => {
+  // send userId and productId to the request to backend
+  return new Promise((resolve, reject) => {
+    resolve({message: 'Item Removed'});
   });
 };

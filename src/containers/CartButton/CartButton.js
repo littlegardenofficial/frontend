@@ -1,29 +1,22 @@
 import React from 'react';
 import styles from './CartButtonStyles';
 import {View, TouchableOpacity, Text} from 'react-native';
-import {Icon, Badge} from 'react-native-elements';
+import {Icon} from 'react-native-elements';
 import { connect } from 'react-redux'
+import ROUTES from '../../routes/routeNames';
 
 class CartButton extends React.Component {
-  
   constructor(props) {
     super(props);
   }
 
-  componentDidUpdate(){
-  }
+  onOpenCart = () => {
+    this.props.navigation.navigate(ROUTES.CART);
+  };
 
-  // calculateTotalItemInCart = (cartItems) => {
-  //   console.log('calculate')
-  //   let totalElements = 0;
-  //   for(let i = 0;i< cartItems.length ;i++ ) {
-  //     totalElements += cartItems[i].quantity;
-  //   }
-  //   return totalElements;
-  // }
+  componentDidUpdate() {}
 
   render() {
-    console.log("in rerender")
     return (
       <View style={styles.wrapper}>
         <TouchableOpacity style={styles.cartButton} onPress={this.onOpenCart}>
@@ -41,9 +34,7 @@ class CartButton extends React.Component {
             />
           </View>
           <Text style={{color: 'white', fontSize: 20}}>
-            
-            {this.props.cart.itemCount}
-          
+                    {'\u20B9'} {this.props.cart.cartTotal}
           </Text>
         </TouchableOpacity>
       </View>

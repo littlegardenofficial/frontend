@@ -33,18 +33,15 @@ class FilterList extends React.Component {
                 key={category.id}
                 onPress={() => this.onCategorySelect(category)}>
                 <ImageBackground
-                  blurRadius={5}
+                  blurRadius={0}
                   imageStyle={styles.imageBackground}
                   style={styles.imageCard}
-                  source={category.filterImage}>
-                </ImageBackground>
-                <View
-                    style={styles.filterTitleContainer}>
-                    <Text
-                      style={styles.filterTitle}>
-                      {!!category.categoryTitle ? category.categoryTitle : ''}
-                    </Text>
-                  </View>
+                  source={category.filterImage}></ImageBackground>
+                <View style={styles.filterTitleContainer}>
+                  <Text style={styles.filterTitle}>
+                    {!!category.categoryTitle ? category.categoryTitle : ''}
+                  </Text>
+                </View>
               </TouchableOpacity>
             );
           })}

@@ -1,5 +1,6 @@
 import React , {Component} from 'react';
 import {View , Text} from 'react-native';
+import VerticalCategoryProductList from '../../containers/VerticalCategoryProductList/VerticalCategoryProductList';
 import styles from './CartStyles';
 
 export default class Cart extends Component {
@@ -11,7 +12,7 @@ export default class Cart extends Component {
     render(){
         return (
           <View style={styles.wrapper}>
-            <Text> User Cart </Text>
+            <VerticalCategoryProductList isForCart={true} />
           </View>
         );
     }

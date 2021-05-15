@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: THEME_COLOR,
     padding: 6,
-    marginBottom: 5
+    marginBottom: 5,
   },
   imageBackground: {
     width: '100%',
@@ -31,18 +31,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginVertical: 3,
   },
-  filterTitleContainer : {
+  filterTitleContainer: {
     height: 'auto',
     backgroundColor: THEME_COLOR,
     width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
   },
-  filterTitle : {
+  filterTitle: {
     color: THEME_TEXT_COLOR,
     fontWeight: '700',
     fontSize: 13,
-  }
+  },
 });
 
 export default styles;

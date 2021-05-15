@@ -7,6 +7,7 @@ const announcement = {
   height: '18%',
   width: '100%',
   alignItems: 'center',
+  borderTopLeftRadius: 5,
 };
 
 const getStyles = (productCardStyle) => {
@@ -28,24 +29,19 @@ const getStyles = (productCardStyle) => {
       },
       productDetail: {
         height: '76%',
-        width: '98%',
-        borderRadius: 8,
+        width: '100%',
+        borderRadius: 5,
         flexDirection: 'row',
-        // paddingLeft: 5,
         paddingRight: 0,
-        // backgroundColor: 'lightpink',
       },
       imageSection: {
         flex: 1,
         width: '40%',
-        paddingTop: 10,
-        // backgroundColor: THEME_COLOR,
       },
       descriptionSection: {
         width: '60%',
         padding: 15,
         paddingLeft: 20,
-        // backgroundColor: 'grey',
       },
       actions: {
         flex: 1,

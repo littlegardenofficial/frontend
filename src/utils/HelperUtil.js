@@ -23,3 +23,20 @@ export const isNotEmpty = arr => {
     return false;
   }
 };
+
+/**
+ * Sorts products on the basis of id 
+ * 
+ * @param {product} a 
+ * @param {product} b 
+ * @returns 
+ */
+export function sortProductByProductId (a, b)  {
+  if (a.id < b.id) {
+    return -1;
+  }
+  if (a.id > b.id) {
+    return 1;
+  }
+  return 0;
+};

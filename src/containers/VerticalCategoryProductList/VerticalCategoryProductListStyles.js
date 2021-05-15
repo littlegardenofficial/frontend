@@ -36,6 +36,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 5,
     width: '100%',
   },
+  checkoutButton: {
+    height: '8%',
+  },
 });
 
 export default styles;

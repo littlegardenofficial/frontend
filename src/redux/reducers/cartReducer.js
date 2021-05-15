@@ -1,4 +1,7 @@
-import {showSuccessFlashMessage} from '../../utils/FlashMessageUtil';
+import {
+  showSuccessFlashMessage,
+  showWarnFlashMessage,
+} from '../../utils/FlashMessageUtil';
 import {
   FETCH_USER_CART_DATA_FAILED_ACTION,
   FETCH_USER_CART_DATA_SUCCEED_ACTION,
@@ -8,6 +11,8 @@ import {
   REQUEST_REMOVE_ITEM_FROM_CART_SUCCEED_ACTION,
 } from '../actions/constants';
 import {Vibration} from 'react-native';
+import {ADDED_TO_CART, ITEM_REMOVED_FROM_CART} from '../../utils/AppConstants';
+import {isNotEmpty, isNotNullOrUndefined} from '../../utils/HelperUtil';
 
 const initialState = {};
 
@@ -22,16 +27,12 @@ const cartReducer = (state = initialState, action) => {
     }
     case REQUEST_ADD_ITEM_TO_CART_SUCCEED_ACTION: {
       const newState = {...state};
-      console.log(newState);
-      console.log(action.payload);
       if (
         newState != null &&
         newState.userId != null &&
         newState.userId != undefined
       ) {
         if (newState.userId === action.payload.userId) {
-          console.log(newState.cartItems);
-          console.log(action.payload);
           if (newState.cartItems != null) {
             let itemAlreadyPresent = false;
             let cartItems = newState.cartItems.map(item => {
@@ -39,7 +40,6 @@ const cartReducer = (state = initialState, action) => {
                 itemAlreadyPresent = true;
                 return {...item, quantity: item.quantity + 1};
               }
-
               return item;
             });
             if (itemAlreadyPresent) {
@@ -53,17 +53,41 @@ const cartReducer = (state = initialState, action) => {
               .reduce((total, item) => {
                 return total + item;
               });
+            
+            newState.cartTotal = newState.cartTotal + action.payload.pricePerPack
           }
         }
       }
-      showSuccessFlashMessage('Added to Cart!');
-      // Vibration.vibrate();
-      console.log('updated state', newState);
-      return newState;
+      showSuccessFlashMessage(ADDED_TO_CART);
+      return {...newState};
     }
     case REQUEST_ADD_ITEM_TO_CART_FAILED_ACTION: {
     }
     case REQUEST_REMOVE_ITEM_FROM_CART_SUCCEED_ACTION: {
+      let newState = {...state};
+      if (isNotEmpty(newState.cartItems)) {
+        let cartItems = [...newState.cartItems];
+        let index = cartItems.findIndex(
+          item => item.productId === action.payload.productId,
+        );
+        if (isNotNullOrUndefined(index)) {
+          let itemToBeUpdated = cartItems[index];
+          let quantity = itemToBeUpdated.quantity - 1;
+          cartItems.splice(index, 1);
+          if (quantity > 0) {
+            cartItems.push({...itemToBeUpdated, quantity: quantity});
+          } else {
+            showWarnFlashMessage(ITEM_REMOVED_FROM_CART);
+          }
+          let cartTotal = newState.cartTotal - itemToBeUpdated.pricePerPack;
+          let itemCount = newState.itemCount;
+          if(itemCount - 1 >= 0 )
+            itemCount = itemCount -  1;
+            
+          return {...newState , cartItems: [...cartItems] , cartTotal : cartTotal , itemCount: itemCount};
+        }
+      }
+      return newState;
     }
     case REQUEST_REMOVE_ITEM_FROM_CART_FAILED_ACTION: {
     }
