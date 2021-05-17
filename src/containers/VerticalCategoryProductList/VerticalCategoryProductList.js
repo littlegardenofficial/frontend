@@ -5,12 +5,12 @@ import styles from './VerticalCategoryProductListStyles';
 import Product from '../../components/Product/Product';
 import {requestAddItemToCartAction, requestRemoveItemFromCartAction} from '../../redux/actions/cartAction';
 import {HIDE_SCROLL_INDICATOR, SCROLL_EVENT_THROTTLE} from '../../styles/theme';
-import {renderCartButton , isCartButtonEnabled , renderCheckoutButton} from '../../utils/ComponentRendererUtil';
+import {renderCartButton , isCartButtonEnabled, isUserLoggedIn } from '../../utils/ComponentRendererUtil';
 import { DEVICE_WIDTH } from '../../utils/DeviceParamsUtil';
 import CartProduct from '../../components/CartProduct/CartProduct'
 import { sortProductByProductId } from '../../utils/HelperUtil';
-import { BottomSheet } from 'react-native-elements';
-import { FlashMessageTransition } from 'react-native-flash-message';
+import { showInfoFlashMessage } from '../../utils/FlashMessageUtil';
+import { PLEASE_LOGIN_TO_ADD_TO_CART } from '../../utils/AppConstants';
 
 class VerticalCategoryProductList extends Component {
   cardWidth = DEVICE_WIDTH - 20;
@@ -25,7 +25,11 @@ class VerticalCategoryProductList extends Component {
   fetchAllProductsForThisCategory = () => {};
 
   onAddingItemToCart = item => {
-    this.props.addItemToCart({...item, userId: this.props.cart.userId});
+    if(isUserLoggedIn(this.props.auth)){
+      this.props.addItemToCart({...item, userId: this.props.cart.userId});
+    }else{
+      showInfoFlashMessage(PLEASE_LOGIN_TO_ADD_TO_CART);
+    }
   };
 
   onRemovingItemToCart = item => {
@@ -40,16 +44,23 @@ class VerticalCategoryProductList extends Component {
     if(this.props.isForCart){
       // should show products from cart object 
       return this.props.cart.cartItems
-      .sort(sortProductByProductId)
-      .map(product => (
-        <CartProduct
-          productCardStyle={{width : DEVICE_WIDTH - 10 , marginBottom: 8, marginRight: 0 , height: 120}}
-          key={product.id}
-          addItem={this.onAddingItemToCart}
-          removeItem={this.onRemovingItemToCart}
-          item={product}
-        />
-      ));
+        .sort(sortProductByProductId)
+        .map(product => (
+          <View style={{...styles.productCardWrapper , height: 80}}>
+            <CartProduct
+              productCardStyle={{
+                width: this.cardWidth,
+                marginBottom: 8,
+                marginRight: 0,
+                height: 80,
+              }}
+              key={product.id}
+              addItem={this.onAddingItemToCart}
+              removeItem={this.onRemovingItemToCart}
+              item={product}
+            />
+          </View>
+        ));
     }else{
     return this.props.navigation.state.params.productList
     .sort(sortProductByProductId)
@@ -79,7 +90,6 @@ class VerticalCategoryProductList extends Component {
           </ScrollView>
         </View>
         {!this.props.isForCart ? renderCartButton(this.props) : <View></View>}
-        {this.props.isForCart ? renderCheckoutButton({styles : styles.checkoutButton , data : this.props.cart} ) : <View></View>}
       </View>
     );
   }
@@ -89,6 +99,7 @@ const mapStateToProps = (state, ownProps) => {
   return {
     ...ownProps,
     cart: state.cart,
+    auth: state.auth,
   };
 };
 

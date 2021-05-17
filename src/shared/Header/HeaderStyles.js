@@ -1,5 +1,10 @@
 import {StyleSheet} from 'react-native';
-import {THEME_TEXT_COLOR} from '../../styles/theme';
+import {ThemeColors} from 'react-navigation';
+import {
+  THEME_COLOR,
+  THEME_TEXT_COLOR,
+  THEME_CONTRAST_COLOR,
+} from '../../styles/theme';
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
@@ -15,6 +20,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   loginText: {color: THEME_TEXT_COLOR, fontWeight: 'bold', fontSize: 18},
+  avatartitle: {fontSize: 15, fontWeight: 'bold', color: THEME_COLOR},
+  avatarContainer: {backgroundColor: THEME_CONTRAST_COLOR},
 });
 
 export default styles;

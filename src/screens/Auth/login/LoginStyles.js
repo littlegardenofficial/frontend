@@ -2,7 +2,6 @@ import {StyleSheet} from 'react-native';
 import {
   THEME_COLOR,
   THEME_CONTRAST_COLOR,
-  THEME_TEXT_COLOR,
 } from '../../../styles/theme';
 
 const styles = StyleSheet.create({
@@ -20,10 +19,10 @@ const styles = StyleSheet.create({
   },
   logoStyle: {
     backgroundColor: THEME_CONTRAST_COLOR,
-    height: 200,
-    width: '100%',
+    height: 150,
+    width: 200,
   },
-  inputSection: {width: '80%'},
+  inputSection: {width: '80%' , marginTop: 10},
   emailElement: {color: THEME_COLOR},
   passElement: {color: THEME_COLOR, letterSpacing: 0.2},
   loginButton: {backgroundColor: THEME_COLOR, marginBottom: 10},

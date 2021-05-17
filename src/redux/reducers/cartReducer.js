@@ -10,7 +10,6 @@ import {
   REQUEST_REMOVE_ITEM_FROM_CART_FAILED_ACTION,
   REQUEST_REMOVE_ITEM_FROM_CART_SUCCEED_ACTION,
 } from '../actions/constants';
-import {Vibration} from 'react-native';
 import {ADDED_TO_CART, ITEM_REMOVED_FROM_CART} from '../../utils/AppConstants';
 import {isNotEmpty, isNotNullOrUndefined} from '../../utils/HelperUtil';
 

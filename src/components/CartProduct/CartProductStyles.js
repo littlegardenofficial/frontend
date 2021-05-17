@@ -5,14 +5,6 @@ import {
   THEME_TEXT_COLOR,
 } from '../../styles/theme';
 const {StyleSheet} = require('react-native');
-const {height, width} = Dimensions.get('window');
-
-const announcement = {
-  height: '18%',
-  width: '100%',
-  alignItems: 'center',
-  borderTopLeftRadius: 5,
-};
 
 const getStyles = productCardStyle => {
   return StyleSheet.create({
@@ -27,43 +19,47 @@ const getStyles = productCardStyle => {
       shadowRadius: 3,
       elevation: 1,
       alignItems: 'center',
+      justifyContent: 'center',
       marginRight: 8,
       backgroundColor: PRODUCT_CARD_COLOR,
       ...productCardStyle,
     },
     productDetail: {
-      height: '70%',
+      height: '100%',
       width: '100%',
       borderRadius: 5,
       flexDirection: 'row',
       paddingRight: 0,
+      justifyContent: 'center',
     },
     imageSection: {
       flex: 1,
-      width: '40%',
+      width: '20%',
       marginTop: 5,
     },
     descriptionSection: {
-      width: '60%',
+      width: '65%',
       padding: 15,
       paddingLeft: 20,
+      justifyContent: 'center',
     },
     actions: {
       flex: 1,
       marginVertical: 3,
       paddingHorizontal: 5,
-      height: '30%',
       flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'center',
+      height: '100%',
+      width: '35%',
       alignSelf: 'stretch',
+      justifyContent: 'center',
+      alignItems: 'center',
     },
     buttonStyle: {
       backgroundColor: THEME_COLOR,
       color: THEME_TEXT_COLOR,
       padding: 2,
       borderRadius: 6,
-      height: '100%',
+      height: '40%',
       marginHorizontal: 10,
     },
     imageStyle: {

@@ -9,6 +9,7 @@ const styles = StyleSheet.create({
     zIndex: 1,
     width: '100%',
     paddingTop: 10,
+    // backgroundColor: 'yellow',
   },
   productsContainer: {
     flexGrow: 1,
@@ -35,9 +36,6 @@ const styles = StyleSheet.create({
   scrollContainerStyle: {
     paddingHorizontal: 5,
     width: '100%',
-  },
-  checkoutButton: {
-    height: '8%',
   },
 });
 

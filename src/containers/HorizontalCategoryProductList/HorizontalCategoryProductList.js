@@ -7,6 +7,9 @@ import Product from '../../components/Product/Product';
 import { DEVICE_WIDTH } from '../../utils/DeviceParamsUtil';
 import CartProduct from '../../components/CartProduct/CartProduct';
 import { requestAddItemToCartAction } from '../../redux/actions/cartAction';
+import {isUserLoggedIn} from '../../utils/ComponentRendererUtil';
+import {showInfoFlashMessage} from '../../utils/FlashMessageUtil';
+import {PLEASE_LOGIN_TO_ADD_TO_CART} from '../../utils/AppConstants';
 
 class HorizontalCategoryProductList extends Component {
   cardWidth = DEVICE_WIDTH -30;
@@ -15,7 +18,11 @@ class HorizontalCategoryProductList extends Component {
   }
 
   onAddingItemToCart = item => {
-    this.props.addItemToCart({...item, userId: this.props.cart.userId});
+    if  (isUserLoggedIn(this.props.auth))  {
+      this.props.addItemToCart({...item, userId: this.props.cart.userId});
+    }  else  {
+      showInfoFlashMessage(PLEASE_LOGIN_TO_ADD_TO_CART);
+    }
   };
 
   renderProductList = () => {
@@ -70,6 +77,7 @@ const mapStateToProps = (state, ownProps) => {
   return {
     ...ownProps,
     cart: state.cart,
+    auth: state.auth,
   };
 };
 

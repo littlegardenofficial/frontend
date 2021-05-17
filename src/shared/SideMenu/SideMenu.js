@@ -9,6 +9,8 @@ import {
 import {DrawerItems} from 'react-navigation-drawer';
 import styles from './SideMenuStyles';
 import {Text, Icon} from 'react-native-elements';
+import {connect} from 'react-redux';
+import {logoutAction} from '../../redux/actions/authActions';
 
 class SideMenu extends Component {
   constructor(props) {
@@ -30,7 +32,8 @@ class SideMenu extends Component {
         </ScrollView>
         <View style={styles.sidemenuFooter}>
           <TouchableOpacity
-            style={styles.logoutButton}>
+            style={styles.logoutButton}
+            onPress={this.props.requestLogout}>
             <Text h4 h4Style={styles.logoutTitle}>
               Logout
             </Text>
@@ -42,4 +45,11 @@ class SideMenu extends Component {
   }
 }
 
-export default SideMenu;
+const mapDispatchToProps = (dispatch, props) => {
+  return {
+    ...props,
+    requestLogout: () => dispatch(logoutAction()),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(SideMenu);

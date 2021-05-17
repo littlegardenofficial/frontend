@@ -10,17 +10,20 @@ import {fetchCategoryList} from '../../redux/actions/categoryAction';
 import {fetchUserCartAction, requestAddItemToCartAction} from '../../redux/actions/cartAction';
 import {SCROLL_EVENT_THROTTLE, HIDE_SCROLL_INDICATOR} from '../../styles/theme';
 import ROUTES from '../../routes/routeNames';
-import { renderCartButton  , isCartButtonEnabled} from '../../utils/ComponentRendererUtil';
+import {
+  renderCartButton,
+  isCartButtonEnabled,
+  isUserLoggedIn,
+} from '../../utils/ComponentRendererUtil';
 
 class Home extends Component {
   constructor(props) {
     super(props);
     InterCommRoutingService.navigationProps = this.props.navigation;
     this.props.fetchCategoryList();
-    this.props.fetchCartData(12);
   }
 
-  openCategoryProductList = (category) => {
+  openCategoryProductList = category => {
     this.props.navigation.navigate(ROUTES.CATEGORY_PRODUCT, category);
   };
 
@@ -87,6 +90,7 @@ const mapStateToProps = (state, props) => {
     ...props,
     categoryProductMap: state.categoryProductMap,
     cart: state.cart,
+    auth: state.auth,
   };
 };
 
@@ -95,9 +99,6 @@ const mapDispatchToProps = (dispatch, props) => {
     ...props,
     fetchCategoryList: () => {
       dispatch(fetchCategoryList());
-    },
-    fetchCartData: userId => {
-      dispatch(fetchUserCartAction(userId));
     },
   };
 };

@@ -15,11 +15,11 @@ class CheckoutButton extends React.Component {
   };
 
   render() {
-    return this.props.data.cartTotal > 0 && this.props.data.itemCount > 0 ? (
+    return (
       <View style={{...styles.wrapper, ...this.props.styles}}>
         <TouchableOpacity
           style={styles.cartButton}
-          onPress={this.onOpenCheckoutPage}>
+          onPress={this.props.onPressButton}>
           <View
             style={{
               flexDirection: 'row',
@@ -33,8 +33,6 @@ class CheckoutButton extends React.Component {
           </View>
         </TouchableOpacity>
       </View>
-    ) : (
-      <View></View>
     );
   }
 }

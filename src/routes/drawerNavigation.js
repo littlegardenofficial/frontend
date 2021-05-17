@@ -8,6 +8,9 @@ const drawerNavigation = createDrawerNavigator(
   {
     Home: {
       screen: homeStack,
+      navigationOptions: {
+        title: 'Home',
+      },
     },
   },
   {
