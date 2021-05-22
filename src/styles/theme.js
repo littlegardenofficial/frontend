@@ -14,6 +14,7 @@ export const HIDE_SCROLL_INDICATOR = false;
 export const APP_NAME = 'Dailyish';
 export const APP_NAME_CAPS = 'DAILYISH';
 export const WHITE_BACKGROUND = 'white';
+export const BLUE_COLOR = '#315AEE';
 
 
 

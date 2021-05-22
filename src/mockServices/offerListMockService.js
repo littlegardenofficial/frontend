@@ -1,6 +1,8 @@
 const fetchOfferList = () => {
   return new Promise((resolve, reject) => {
-    resolve(offerList);
+    setTimeout(() => {
+        resolve(offerList);
+    }, 1000);;
   });
 };
 

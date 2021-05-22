@@ -5,16 +5,21 @@ import AppConfig from '../config/AppConfig';
 import {loginRequest} from '../mockServices/authMockService';
 import {loginRequestActionSucceeded} from '../redux/actions/authActions';
 import {fetchUserCartAction} from '../redux/actions/cartAction';
+import {
+  startLoadingAction,
+  stopLoadingAction,
+} from '../redux/actions/loadingAction';
 
 // worker Saga: will be fired on USER_FETCH_REQUESTED actions
 function* requestForLogin(action) {
   try {
+    yield put(startLoadingAction());
     const userData = yield call(AppConfig.STAND_ALONE ? loginRequest : null, {
       ...action.payload,
     });
-    console.log(userData);
     yield put(loginRequestActionSucceeded(userData));
     yield put(fetchUserCartAction(userData.userId));
+    yield put(stopLoadingAction());
   } catch (e) {
     //   yield put({type: "USER_FETCH_FAILED", message: e.message});
   }

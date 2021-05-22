@@ -2,11 +2,13 @@ import {call, put, takeEvery, takeLatest, fork} from 'redux-saga/effects';
 import {
   FETCH_USER_CART_DATA_ACTION,
   REQUEST_ADD_ITEM_TO_CART_ACTION,
+  REQUEST_PLACE_ORDER_ACTION,
   REQUEST_REMOVE_ITEM_FROM_CART_ACTION,
 } from '../redux/actions/constants';
 
 import AppConfig from '../config/AppConfig';
 import {
+  clearCartItemsAction,
   fetchUserCartSucceedAction,
   requestAddItemToCartSucceedAction,
   requestRemoveItemFromCartSucceedAction,
@@ -15,7 +17,13 @@ import {
   fetchCartData,
   addItemToCart,
   removeItemFromCart,
+  placeOrderRequest,
 } from '../mockServices/cartMockService';
+import {openOrderPlacedDialogAction} from '../redux/actions/orderPlacedDialogAction';
+import {
+  startLoadingAction,
+  stopLoadingAction,
+} from '../redux/actions/loadingAction';
 
 // worker Saga: will be fired on USER_FETCH_REQUESTED actions
 function* fetchUserCartData(action) {
@@ -62,6 +70,21 @@ function* removeItemFromUerCart(action) {
   } catch (e) {}
 }
 
+function* requestPlaceOrder(action) {
+  try {
+    console.log('inside request place order');
+    yield put(startLoadingAction());
+    const response = yield call(
+      AppConfig.STAND_ALONE ? placeOrderRequest : null,
+      action.payload,
+    );
+    console.log(response);
+    yield put(clearCartItemsAction());
+    yield put(stopLoadingAction());
+    yield put(openOrderPlacedDialogAction());
+  } catch (e) {}
+}
+
 function* fetchCartDataSaga() {
   yield takeLatest(FETCH_USER_CART_DATA_ACTION, fetchUserCartData);
 }
@@ -74,10 +97,15 @@ function* removeItemFromCartSaga() {
   yield takeLatest(REQUEST_REMOVE_ITEM_FROM_CART_ACTION, removeItemFromUerCart);
 }
 
+function* placeOrderSaga() {
+  yield takeLatest(REQUEST_PLACE_ORDER_ACTION, requestPlaceOrder);
+}
+
 function* cartSaga() {
   yield fork(fetchCartDataSaga);
   yield fork(addItemToCartSaga);
   yield fork(removeItemFromCartSaga)
+  yield fork(placeOrderSaga)
 }
 
 export default cartSaga;

@@ -9,43 +9,47 @@ const styles = StyleSheet.create({
   },
   bottomSheetItem: {
     backgroundColor: THEME_CONTRAST_COLOR,
-    padding: 15 ,
-    flexDirection :'row',
+    padding: 15,
+    flexDirection: 'row',
     justifyContent: 'space-between',
   },
-  bottomSheetContainer : {backgroundColor: THEME_CONTRAST_COLOR},
-  smallTitle : {
-    fontSize: 16 ,
+  bottomSheetContainer: {backgroundColor: THEME_CONTRAST_COLOR},
+  smallTitle: {
+    fontSize: 16,
     fontWeight: '600',
   },
   price: {
-    fontSize: 18 ,
+    fontSize: 18,
     fontWeight: 'bold',
   },
   discount: {
-    color: THEME_COLOR
+    color: THEME_COLOR,
   },
-  finalPrice : {
+  finalPrice: {
     color: 'blue',
   },
-  divider : {
-    borderWidth: 0 ,
-    borderBottomWidth: 2 ,
+  divider: {
+    borderWidth: 0,
+    borderBottomWidth: 2,
     borderColor: 'lightgrey',
   },
-  placeOrderButton : {
+  placeOrderButton: {
     backgroundColor: '#315AEE',
     justifyContent: 'center',
     alignItems: 'center',
     height: 50,
   },
-  closeBottomSheet : {
+  closeBottomSheet: {
     backgroundColor: 'red',
     justifyContent: 'center',
     alignItems: 'center',
     height: 50,
   },
-  actionButtonTitle : {color: THEME_TEXT_COLOR , fontSize: 16 , fontWeight: 'bold'},
+  actionButtonTitle: {
+    color: THEME_TEXT_COLOR,
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
 });
 
 export default styles;

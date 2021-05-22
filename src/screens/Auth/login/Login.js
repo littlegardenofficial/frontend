@@ -13,31 +13,28 @@ class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email : '',
-      password : '',
-    }
-    console.log(this.props.auth);
+      email: '',
+      password: '',
+    };
   }
 
   requestLogin = () => {
-    this.props.requestForLoginUser({email: this.state.email , password : this.state.password});
-  }
-  
+    this.props.requestForLoginUser({
+      email: this.state.email,
+      password: this.state.password,
+    });
+  };
+
   userIsLoggedIn = () => {
-    console.log('user is logged in');
     this.props.navigation.goBack();
-  }
+  };
 
   render() {
     return (
-      <View
-        style={styles.wrapper}>
-        <View
-          style={styles.loginFormAndLogo}>
-            {this.props.auth !== null ? this.userIsLoggedIn() : <View></View>}
-          <Image
-            source={this.imageSource}
-            style={styles.logoStyle}></Image>
+      <View style={styles.wrapper}>
+        <View style={styles.loginFormAndLogo}>
+          {this.props.auth !== null ? this.userIsLoggedIn() : <View></View>}
+          <Image source={this.imageSource} style={styles.logoStyle}></Image>
           <View style={styles.inputSection}>
             <Input
               placeholder="Email"
@@ -55,7 +52,7 @@ class Login extends Component {
             <Button
               title="Login"
               buttonStyle={styles.loginButton}
-              onPress = {this.requestLogin}
+              onPress={this.requestLogin}
             />
             <Button
               title="Register"

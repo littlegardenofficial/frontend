@@ -3,6 +3,7 @@ import {
   showWarnFlashMessage,
 } from '../../utils/FlashMessageUtil';
 import {
+  CLEAR_CART_ACTION,
   FETCH_USER_CART_DATA_FAILED_ACTION,
   FETCH_USER_CART_DATA_SUCCEED_ACTION,
   REQUEST_ADD_ITEM_TO_CART_FAILED_ACTION,
@@ -52,8 +53,9 @@ const cartReducer = (state = initialState, action) => {
               .reduce((total, item) => {
                 return total + item;
               });
-            
-            newState.cartTotal = newState.cartTotal + action.payload.pricePerPack
+
+            newState.cartTotal =
+              newState.cartTotal + action.payload.pricePerPack;
           }
         }
       }
@@ -80,15 +82,24 @@ const cartReducer = (state = initialState, action) => {
           }
           let cartTotal = newState.cartTotal - itemToBeUpdated.pricePerPack;
           let itemCount = newState.itemCount;
-          if(itemCount - 1 >= 0 )
-            itemCount = itemCount -  1;
-            
-          return {...newState , cartItems: [...cartItems] , cartTotal : cartTotal , itemCount: itemCount};
+          if (itemCount - 1 >= 0) itemCount = itemCount - 1;
+
+          return {
+            ...newState,
+            cartItems: [...cartItems],
+            cartTotal: cartTotal,
+            itemCount: itemCount,
+          };
         }
       }
       return newState;
     }
     case REQUEST_REMOVE_ITEM_FROM_CART_FAILED_ACTION: {
+    }
+    case CLEAR_CART_ACTION: {
+      let newState = {...state};
+
+      return {...newState, cartItems: [], cartTotal: 0, itemCount: 0};
     }
     default: {
       return state;

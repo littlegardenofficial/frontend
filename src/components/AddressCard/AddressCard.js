@@ -33,14 +33,6 @@ const AddressCard = props => {
           />
           <Button
             type="clear"
-            title="Edit"
-            buttonStyle={styles.buttonStyle}
-            containerStyle={{width: '100%'}}
-            titleStyle={styles.buttonTitleStyle}
-            onPress={() => {}}
-          />
-          <Button
-            type="clear"
             title="Change"
             buttonStyle={styles.buttonStyle}
             containerStyle={{width: '100%'}}

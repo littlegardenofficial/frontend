@@ -40,7 +40,7 @@ const getStyles = addressCardStyle => {
     },
     actions: {
       flex: 1,
-      paddingVertical: 2,
+      justifyContent: 'center',
       height: '100%',
       width: '20%',
       marginRight: 5,
@@ -50,14 +50,14 @@ const getStyles = addressCardStyle => {
       color: THEME_TEXT_COLOR,
       padding: 2,
       borderRadius: 6,
-      //   marginVertical: 5,
+        marginVertical: 3,
     },
     buttonTitleStyle: {
       color: 'blue',
-      fontSize: 15,
+      fontSize: 13,
       textDecorationLine: 'underline',
     },
-    addressLine: {fontSize: 15, fontWeight: 'bold', color: THEME_COLOR},
+    addressLine: {fontSize: 13, fontWeight: 'bold', color: THEME_COLOR},
   });
 };
 

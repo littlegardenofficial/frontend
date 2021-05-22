@@ -19,6 +19,7 @@ const styles = StyleSheet.create({
     // backgroundColor: 'grey',
     borderRadius: 6,
   },
+  modalWrapper: {flex: 1, justifyContent: 'center', alignItems: 'center'},
 });
 
 export default styles;

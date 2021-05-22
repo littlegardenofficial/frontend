@@ -7,7 +7,6 @@ import {THEME_CONTRAST_COLOR, THEME_TEXT_COLOR} from '../../styles/theme';
 class CheckoutButton extends React.Component {
   constructor(props) {
     super(props);
-    console.log(this.props.data);
   }
 
   onOpenCheckoutPage = () => {

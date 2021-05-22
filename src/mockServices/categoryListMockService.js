@@ -1,6 +1,8 @@
 const fetchCategoryList = () => {
   return new Promise((resolve, reject) => {
-    resolve(categoryList);
+    setTimeout(() => {
+      resolve(categoryList);
+    }, 1000);;
   });
 };
 

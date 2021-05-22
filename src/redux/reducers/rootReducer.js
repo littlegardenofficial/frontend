@@ -3,6 +3,9 @@ import cartReducer from './cartReducer';
 import categoryReducer from './categoryReducer';
 import productsReducer from './productsReducer';
 import authReducer from './authReducer';
+import loadingReducer from './loadingReducer';
+import orderPlacedDialog from './orderPlacedDialogReducer';
+
 
 
 const rootReducer = combineReducers({
@@ -10,6 +13,8 @@ const rootReducer = combineReducers({
   categoryProductMap: categoryReducer,
   cart: cartReducer,
   auth: authReducer,
+  isLoading: loadingReducer,
+  orderPlacedDialog: orderPlacedDialog,
 });
 
 

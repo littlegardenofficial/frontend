@@ -1,6 +1,8 @@
 export const loginRequest = ({email, password}) => {
   return new Promise((resolve, reject) => {
-    resolve(successLoginData);
+    setTimeout(() => {
+      resolve(successLoginData);
+    }, 1000);
   });
 };
 

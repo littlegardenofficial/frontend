@@ -31,3 +31,11 @@ export const removeItemFromCart = request => {
     resolve({message: 'Item Removed'});
   });
 };
+
+export const placeOrderRequest = request => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve({message: 'Order Placed Successfully'});
+    }, 1000);
+  });
+};

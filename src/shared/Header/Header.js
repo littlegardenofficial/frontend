@@ -8,6 +8,7 @@ import {THEME_TEXT_COLOR, APP_NAME, THEME_COLOR_DARK, THEME_CONTRAST_COLOR, THEM
 import {isUserLoggedIn} from '../../utils/ComponentRendererUtil';
 import styles from './HeaderStyles';
 import {connect} from 'react-redux';
+import { getTitleFromRouteNameForSideMenu } from '../../utils/HelperUtil';
 
 class Header extends Component {
   search;
@@ -27,16 +28,36 @@ class Header extends Component {
     InterCommRoutingService.routeToScreen(ROUTES.LOGIN, null);
   };
 
+  openProfilePage = () => {
+    InterCommRoutingService.routeToScreen(ROUTES.PROFILE ,  null);
+  }
+
+  routeBackToHome = () => {
+    InterCommRoutingService.routeToScreen(ROUTES.HOME, null);
+  };
+
+  renderNavigationButton = () => {
+    return this.props.toHomeButton ? (
+      <Button
+          icon={<Icon name="west" size={20} color={THEME_TEXT_COLOR} />}
+          type="clear"
+          onPress={this.routeBackToHome}
+          buttonStyle={styles.noPaddingMargin}
+        /> 
+    ) :
+    (<Button
+      icon={<Icon name="segment" size={30} color={THEME_TEXT_COLOR} />}
+      type="clear"
+      onPress={this.onOpenDrawer}
+      buttonStyle={styles.noPaddingMargin}
+    />);
+  }
+
   render() {
     return (
       <View style={styles.wrapper}>
-        <Button
-          icon={<Icon name="segment" size={30} color={THEME_TEXT_COLOR} />}
-          type="clear"
-          onPress={this.onOpenDrawer}
-          buttonStyle={styles.noPaddingMargin}
-        />
-        <Text style={styles.loginText}>{APP_NAME}</Text>
+       {this.renderNavigationButton()}
+        <Text style={styles.loginText}>{this.props.toHomeButton ? getTitleFromRouteNameForSideMenu(this.props.routeName) : APP_NAME}</Text>
         <View style={styles.searchLogin}>
           <Button
             icon={<Icon name="search" size={24} color={THEME_TEXT_COLOR} />}
@@ -47,10 +68,10 @@ class Header extends Component {
             <Avatar
               size="small"
               rounded
-              containerStyle = {styles.avatarContainer}
-              titleStyle = {styles.avatartitle}
-              title= {this.props.auth.userName.substring(0,2)}
-              onPress={() => console.log('Works!')}
+              containerStyle={styles.avatarContainer}
+              titleStyle={styles.avatartitle}
+              title={this.props.auth.userName.substring(0, 2)}
+              onPress={this.openProfilePage}
               activeOpacity={0.7}
             />
           ) : (
@@ -59,7 +80,7 @@ class Header extends Component {
               onPress={this.openLoginPage}>
               <Text style={styles.loginText}>Login</Text>
             </TouchableOpacity>
-          ) }
+          )}
         </View>
       </View>
     );

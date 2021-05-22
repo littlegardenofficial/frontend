@@ -11,6 +11,7 @@ import styles from './SideMenuStyles';
 import {Text, Icon} from 'react-native-elements';
 import {connect} from 'react-redux';
 import {logoutAction} from '../../redux/actions/authActions';
+import DrawerOptionItem from '../../components/DrawerOptionItem/DrawerOptionItem';
 
 class SideMenu extends Component {
   constructor(props) {
@@ -27,7 +28,12 @@ class SideMenu extends Component {
             </View>
           </View>
           <View>
-            <DrawerItems {...this.props} />
+            <DrawerItems
+              {...this.props}
+              getLabel={scene => (
+                <DrawerOptionItem scene={scene}></DrawerOptionItem>
+              )}
+            />
           </View>
         </ScrollView>
         <View style={styles.sidemenuFooter}>
@@ -37,7 +43,7 @@ class SideMenu extends Component {
             <Text h4 h4Style={styles.logoutTitle}>
               Logout
             </Text>
-            <Icon name="logout" color="grey" />
+            <Icon name="logout" color="red" />
           </TouchableOpacity>
         </View>
       </SafeAreaView>

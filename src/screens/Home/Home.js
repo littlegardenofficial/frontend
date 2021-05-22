@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {View, ScrollView} from 'react-native';
+import {View, ScrollView , Modal } from 'react-native';
 import InterCommRoutingService from '../../services/interCommRoutingService';
 import styles from './HomeStyle';
 import HorizontalCategoryProductList from '../../containers/HorizontalCategoryProductList/HorizontalCategoryProductList';
@@ -15,6 +15,8 @@ import {
   isCartButtonEnabled,
   isUserLoggedIn,
 } from '../../utils/ComponentRendererUtil';
+import OrderPlaced from '../../components/modalComponents/OrderPlaced/OrderPlaced';
+import { closeOrderPlacedDialogAction } from '../../redux/actions/orderPlacedDialogAction';
 
 class Home extends Component {
   constructor(props) {
@@ -27,12 +29,20 @@ class Home extends Component {
     this.props.navigation.navigate(ROUTES.CATEGORY_PRODUCT, category);
   };
 
+  openMyOrders = () => {
+    this.props.navigation.navigate(ROUTES.MY_ORDERS);
+  }
+
   getBodyStylesOnTheBasisOfCart = () => {
     return {
       ...styles.body,
       height: isCartButtonEnabled(this.props) ? '95%' : '100%',
     };
   };
+
+  onClosePopup = () => {
+    this.props.closePlaceOrderDialog();
+  }
 
   renderCategoryProductsList = () => {
     return this.props.categoryProductMap != null &&
@@ -67,9 +77,29 @@ class Home extends Component {
     );
   };
 
+  renderPlaceOrderModalComponent = () => {
+    return (
+      <Modal
+          animationType="fade"
+          style={styles.modalWrapper}
+          transparent={true}
+          visible={this.props.orderPlacedDialog}
+          statusBarTranslucent ={true}
+          onRequestClose={() => {}}
+        >
+          <OrderPlaced 
+            onPopupClose={this.props.closePlaceOrderDialog} 
+            openMyOrders={this.openMyOrders}
+            >
+            </OrderPlaced>
+        </Modal>
+    );
+  }
+
   render() {
     return (
       <View style={styles.wrapper}>
+        {this.renderPlaceOrderModalComponent()}
         <ScrollView
           scrollEventThrottle={SCROLL_EVENT_THROTTLE}
           showsVerticalScrollIndicator={HIDE_SCROLL_INDICATOR}
@@ -91,6 +121,7 @@ const mapStateToProps = (state, props) => {
     categoryProductMap: state.categoryProductMap,
     cart: state.cart,
     auth: state.auth,
+    orderPlacedDialog : state.orderPlacedDialog,
   };
 };
 
@@ -100,6 +131,7 @@ const mapDispatchToProps = (dispatch, props) => {
     fetchCategoryList: () => {
       dispatch(fetchCategoryList());
     },
+    closePlaceOrderDialog : () => {dispatch(closeOrderPlacedDialogAction())},
   };
 };
 

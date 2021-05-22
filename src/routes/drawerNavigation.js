@@ -3,6 +3,11 @@ import {createDrawerNavigator} from 'react-navigation-drawer';
 import homeStack from "./homeStack";
 import SideMenu from '../shared/SideMenu/SideMenu';
 import {DRAWER_WIDTH} from '../styles/theme';
+import Profile from '../screens/Profile/Profile';
+import ServiceableAreas from '../screens/ServiceAreas/ServiceableAreas';
+import ordersStack from './orderStack';
+import profileStack from './profileStack';
+import serviceAreaStack from './serviceAreaStack';
 
 const drawerNavigation = createDrawerNavigator(
   {
@@ -10,6 +15,24 @@ const drawerNavigation = createDrawerNavigator(
       screen: homeStack,
       navigationOptions: {
         title: 'Home',
+      },
+    },
+    Profile: {
+      screen: profileStack,
+      navigationOptions: {
+        title: 'My Profile',
+      },
+    },
+    ServiceAreas: {
+      screen: serviceAreaStack,
+      navigationOptions: {
+        title: 'Serviceable Areas',
+      },
+    },
+    MyOrders: {
+      screen: ordersStack,
+      navigationOptions: {
+        title: 'My Orders',
       },
     },
   },
