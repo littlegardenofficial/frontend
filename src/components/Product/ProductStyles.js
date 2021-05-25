@@ -7,7 +7,7 @@ const announcement = {
   height: '18%',
   width: '100%',
   alignItems: 'center',
-  borderTopLeftRadius: 5,
+  borderTopLeftRadius: 3,
 };
 
 const getStyles = (productCardStyle) => {

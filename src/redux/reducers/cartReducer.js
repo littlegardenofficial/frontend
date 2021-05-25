@@ -59,7 +59,6 @@ const cartReducer = (state = initialState, action) => {
           }
         }
       }
-      showSuccessFlashMessage(ADDED_TO_CART);
       return {...newState};
     }
     case REQUEST_ADD_ITEM_TO_CART_FAILED_ACTION: {

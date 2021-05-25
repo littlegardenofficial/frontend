@@ -25,19 +25,11 @@ const AddressCard = props => {
         <View style={styles.actions}>
           <Button
             type="clear"
-            title="View"
-            buttonStyle={styles.buttonStyle}
-            containerStyle={{width: '100%'}}
-            titleStyle={styles.buttonTitleStyle}
-            onPress={() => {}}
-          />
-          <Button
-            type="clear"
             title="Change"
             buttonStyle={styles.buttonStyle}
             containerStyle={{width: '100%'}}
             titleStyle={styles.buttonTitleStyle}
-            onPress={() => {}}
+            onPress={props.onPressChange}
           />
         </View>
       </View>

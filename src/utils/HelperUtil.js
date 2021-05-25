@@ -1,4 +1,13 @@
 import ROUTES from '../routes/routeNames';
+import {
+  ORDER_DELIVERED,
+  ORDER_IN_TRANSIT,
+  ORDER_OUT_FOR_DELIVERY,
+  ORDER_PLACED,
+  ORDER_SHIPPED,
+} from './AppConstants';
+import AsyncStorage from '@react-native-community/async-storage';
+import {async} from 'rxjs';
 
 /**
  * this method returns boolean value if object is not null and not undefined
@@ -42,6 +51,24 @@ export function sortProductByProductId(a, b) {
   }
   return 0;
 }
+
+/**
+ * Sorts address on the basis of id
+ *
+ * @param {address} a
+ * @param {address} b
+ * @returns
+ */
+ export function sortAddressByAddressId(a, b) {
+  if (a.addressId < b.addressId) {
+    return -1;
+  }
+  if (a.addressId > b.addressId) {
+    return 1;
+  }
+  return 0;
+}
+
 
 /**
  *  For rendering icon according to routeName on the sideMenu
@@ -101,3 +128,62 @@ export const getTitleFromRouteNameForSideMenu = routeName => {
 
   return title;
 };
+
+/**
+ *  return Order Status Title for orders
+ * @param {*} orderStatus 
+ * @returns 
+ */
+export const getOrderStatusTitle = orderStatus => {
+  let orderStatusTitle = '';
+  switch (orderStatus) {
+    case ORDER_PLACED:
+      orderStatusTitle = 'Placed';
+      break;
+    case ORDER_DELIVERED:
+      orderStatusTitle = 'Delivered';
+      break;
+    case ORDER_SHIPPED:
+      orderStatusTitle = 'Shipped';
+      break;
+    case ORDER_IN_TRANSIT:
+      orderStatusTitle = 'In Transit';
+      break;
+    case ORDER_OUT_FOR_DELIVERY:
+      orderStatusTitle = 'Out for Delivery';
+      break;
+    default:
+      break;
+  }
+
+  return orderStatusTitle;
+};
+
+/**
+ * Utility to save redux state to local Storage in the form of json
+ * @param {} key 
+ * @param {*} data 
+ */
+export const saveDataInLocalStorage = async (key , data) => {
+  try {
+    await AsyncStorage.setItem(key, isNotNullOrUndefined(data) ?  JSON.stringify(data) : null);
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+/**
+ * Utility to load redux state from local Storage in the form of json
+ * @param {*} key 
+ * @returns 
+ */
+export const loadDataFromLocalStorage = async (key ) => {
+  try {
+    let data = await AsyncStorage.getItem(key);
+    data = isNotNullOrUndefined(data) ? JSON.parse(data) : null;
+    console.log(data);
+    return data;
+  } catch (err) {
+    console.log(err);
+  }
+}

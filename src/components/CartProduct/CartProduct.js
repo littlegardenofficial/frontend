@@ -2,15 +2,13 @@ import React from 'react';
 import {View, Image} from 'react-native';
 import {Button, Text, Icon} from 'react-native-elements';
 import {
-  THEME_COLOR,
-  THEME_COLOR_DARK,
-  THEME_COLOR_LIGHT,
-  THEME_CONTRAST_COLOR,
+  THEME_COLOR, THEME_COLOR_DARK,
 } from '../../styles/theme';
+import { getOrderStatusTitle } from '../../utils/HelperUtil';
 import getStyles from './CartProductStyles';
 
 const CartProduct = props => {
-  styles = getStyles(props.productCardStyle);
+  const styles = getStyles(props.productCardStyle);
 
   return (
     <View style={styles.productCard}>
@@ -32,9 +30,20 @@ const CartProduct = props => {
           <Text style={{marginTop: 3 , color: 'black' , fontWeight: 'bold'}}>
           {'\u20B9'} {props.item.pricePerPack * props.item.quantity}
           </Text>
+          {props.isOrdered ? 
+          <Text style={{marginTop: 3 , color: 'blue' , fontWeight: 'bold'}}>
+            {getOrderStatusTitle(props.item.orderStatus)}
+          </Text> : <View></View>}
         </View>
-        <View style={styles.actions}>
-                <Button
+        {props.isOrdered ? 
+          <View style={{...styles.actions , marginVertical: 0}}>
+            <Image 
+              source={props.item.productImage} 
+              style={{height: props.productCardStyle.height - 20 , width: '100%'}}>
+              </Image>
+          </View>
+          : <View style={styles.actions}>
+                 <Button
                   type="clear"
                   icon={<Icon name="remove" size={25} color="white" />}
                   buttonStyle={styles.buttonStyle}
@@ -54,7 +63,7 @@ const CartProduct = props => {
                   titleStyle={{color: 'white', fontSize: 15}}
                   onPress={() => props.addItem(props.item)}
                 />
-        </View>
+              </View> }
       </View>
     </View>
   );

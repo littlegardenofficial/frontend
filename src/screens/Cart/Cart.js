@@ -1,36 +1,43 @@
 import React , {Component} from 'react';
 import {View , Text  , TouchableOpacity  , Image as Img } from 'react-native';
-import { BottomSheet , Button } from 'react-native-elements';
+import { BottomSheet , ListItem , Button  } from 'react-native-elements';
 import VerticalCategoryProductList from '../../containers/VerticalCategoryProductList/VerticalCategoryProductList';
 import styles from './CartStyles';
 import {findPrimaryAddress, isCartButtonEnabled, renderCheckoutButton} from '../../utils/ComponentRendererUtil'
 import { connect } from 'react-redux';
 import AddressCard from '../../components/AddressCard/AddressCard';
 import { DEVICE_WIDTH } from '../../utils/DeviceParamsUtil';
-import ROUTES from '../../routes/routeNames';
 import { requestPlaceOrderAction } from '../../redux/actions/cartAction';
+import PriceBreakup from '../../components/PriceBreakup/PriceBreakup';
+import AddressSelector from '../../components/AddressSelector/AddressSelector';
+import { selectAddressForDeliveryAction } from '../../redux/actions/userDataAction';
 
 class Cart extends Component {
-  selectedOrderForDelivery = null;
 
   constructor(props) {
     super(props);
-    this.selectedOrderForDelivery = findPrimaryAddress({
-      data: props.auth.address,
-    });
     this.state = {
       isVisible : false,
+      forPricing: true ,
     }
   }
 
   placeOrder = () => {
-    //open a modal for successfull order placement
     this.setState({ isVisible: false})
-    this.props.requestPlaceOrder({});
+    let deliverToAddress = findPrimaryAddress({
+      data: this.props.auth,
+    });
+    let requestPayload = {productList : {...this.props.cart} , deliverTo : deliverToAddress}; 
+    console.log(requestPayload);
+    this.props.requestPlaceOrder(requestPayload);
   }
 
   onPressCheckoutButton = () => {
-    this.setState({isVisible : true})
+    this.setState({isVisible : true , forPricing : true})
+  }
+
+  onPressAddressChangeButton = () => {
+    this.setState({isVisible : true , forPricing : false});
   }
 
   returnBackToHomeIfCartIsEmpty = () => {
@@ -41,36 +48,19 @@ class Cart extends Component {
 
   getComponentConditionally = (isForPriceDetails) => {
     return isForPriceDetails ? 
-    (<View style={styles.bottomSheetContainer}>
-        <View style={styles.bottomSheetItem}>
-          <Text style={styles.smallTitle}>Total Price </Text>
-          <Text style={styles.price}>{'\u20B9'} {this.props.cart.cartTotal}</Text>
-        </View>
-        <View style={styles.bottomSheetItem}>
-          <Text style={styles.smallTitle}>Delivery Charges </Text>
-          <Text style={styles.price}> + {'\u20B9'} {0}</Text>
-        </View>
-        <View style={{...styles.bottomSheetItem , ...styles.divider}}>
-          <Text style={styles.smallTitle}>Discount</Text>
-          <Text style={{...styles.price , ...styles.discount}}> - {'\u20B9'} {0}</Text>
-        </View>
-        <View style={styles.bottomSheetItem }>
-          <Text style={{...styles.smallTitle }}>Final Price : </Text>
-          <Text style={{...styles.price , ...styles.finalPrice}}>{'\u20B9'} {this.props.cart.cartTotal}</Text>
-        </View>
-        <TouchableOpacity style={styles.placeOrderButton} onPress={this.placeOrder}>
-          <Text style={styles.actionButtonTitle}>Place Order</Text>
-        </TouchableOpacity>
-      </View>) :
-     (<View><Text>GM</Text></View>)
+    (<PriceBreakup 
+      cart={this.props.cart} 
+      onPlaceOrder={this.placeOrder}
+      />) :
+     (<AddressSelector auth={this.props.auth} onSelectAddress={this.props.selectAddressForDelivery}/>)
   }
 
-  renderBottomSheetForPriceDetails = (isForPriceDetails) => {
+  renderBottomSheetForPriceDetails = () => {
     return (
       <BottomSheet
         isVisible={this.state.isVisible}
         containerStyle={{backgroundColor: 'rgba(0.5, 0.25, 0, 0.2)'}}>
-        {this.getComponentConditionally(isForPriceDetails)}
+        {this.getComponentConditionally(this.state.forPricing)}
         <TouchableOpacity 
         style={styles.closeBottomSheet} 
         onPress={() => this.setState({isVisible : false})} >
@@ -85,10 +75,12 @@ class Cart extends Component {
     return (
       <View style={styles.wrapper}>
         {this.returnBackToHomeIfCartIsEmpty()}
-        <View style={{height: '92%'}}>
+        <View style={{height: '98%'}}>
           <AddressCard
             addressCardStyle={{height: '14%', width: DEVICE_WIDTH}}
-            data={this.props.auth}></AddressCard>
+            data={this.props.auth}
+            onPressChange={this.onPressAddressChangeButton}
+            ></AddressCard>
           <VerticalCategoryProductList isForCart={true} />
         </View>
         {renderCheckoutButton({
@@ -96,7 +88,7 @@ class Cart extends Component {
           data: this.props.cart,
           onPressButton : this.onPressCheckoutButton
         })}
-        {this.renderBottomSheetForPriceDetails(true)}
+        {this.renderBottomSheetForPriceDetails()}
       </View>
     );
   }
@@ -114,7 +106,7 @@ const mapDispatchToProps = (dispatch , props) => {
   return {
     ...props,
     requestPlaceOrder: (payload) => {dispatch(requestPlaceOrderAction(payload))},
-    
+    selectAddressForDelivery : (addressId) => {dispatch(selectAddressForDeliveryAction(addressId))}
   }
 }
 

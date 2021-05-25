@@ -19,6 +19,7 @@ class Login extends Component {
   }
 
   requestLogin = () => {
+    // first apply field level validations
     this.props.requestForLoginUser({
       email: this.state.email,
       password: this.state.password,

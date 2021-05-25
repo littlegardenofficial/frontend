@@ -30,6 +30,7 @@ class Home extends Component {
   };
 
   openMyOrders = () => {
+    this.props.closePlaceOrderDialog();
     this.props.navigation.navigate(ROUTES.MY_ORDERS);
   }
 
@@ -78,21 +79,18 @@ class Home extends Component {
   };
 
   renderPlaceOrderModalComponent = () => {
+    console.log('Order placed dialog ', this.props.orderPlacedDialog);
     return (
       <Modal
-          animationType="fade"
-          style={styles.modalWrapper}
-          transparent={true}
-          visible={this.props.orderPlacedDialog}
-          statusBarTranslucent ={true}
-          onRequestClose={() => {}}
-        >
-          <OrderPlaced 
-            onPopupClose={this.props.closePlaceOrderDialog} 
-            openMyOrders={this.openMyOrders}
-            >
-            </OrderPlaced>
-        </Modal>
+        animationType="fade"
+        style={styles.modalWrapper}
+        transparent={true}
+        visible={this.props.orderPlacedDialog}
+        statusBarTranslucent={true}>
+        <OrderPlaced
+          onPopupClose={this.props.closePlaceOrderDialog}
+          openMyOrders={this.openMyOrders}></OrderPlaced>
+      </Modal>
     );
   }
 

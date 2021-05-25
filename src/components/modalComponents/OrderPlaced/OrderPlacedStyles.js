@@ -14,18 +14,19 @@ const styles = StyleSheet.create({
   dialogContainer: {
     height: '40%',
     width: '80%',
-    borderRadius: 10,
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
     backgroundColor: 'white',
     alignItems: 'center',
   },
-  image: {height: '70%', width: '90%'},
+  image: {height: '60%', width: '90%'},
   title: {
     fontSize: 20,
     fontWeight: '600',
-    height: '10%',
+    height: '20%',
     marginBottom: '5%',
   },
-  actions: {height: '15%', width: '100%', flexDirection: 'row'},
+  actions: {height: '16%', width: '100%', flexDirection: 'row'},
   viewOrdersbutton: {
     width: '50%',
     backgroundColor: BLUE_COLOR,

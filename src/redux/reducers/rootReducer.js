@@ -5,6 +5,7 @@ import productsReducer from './productsReducer';
 import authReducer from './authReducer';
 import loadingReducer from './loadingReducer';
 import orderPlacedDialog from './orderPlacedDialogReducer';
+import myOrdersReducer from './myOrdersReducer';
 
 
 
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
   auth: authReducer,
   isLoading: loadingReducer,
   orderPlacedDialog: orderPlacedDialog,
+  orders: myOrdersReducer,
 });
 
 
