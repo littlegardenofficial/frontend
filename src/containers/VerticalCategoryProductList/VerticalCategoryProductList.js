@@ -8,7 +8,7 @@ import {HIDE_SCROLL_INDICATOR, SCROLL_EVENT_THROTTLE} from '../../styles/theme';
 import {renderCartButton , isCartButtonEnabled, isUserLoggedIn } from '../../utils/ComponentRendererUtil';
 import { DEVICE_WIDTH } from '../../utils/DeviceParamsUtil';
 import CartProduct from '../../components/CartProduct/CartProduct'
-import { sortProductByProductId } from '../../utils/HelperUtil';
+import {isNotEmpty, sortProductByProductId} from '../../utils/HelperUtil';
 import { showInfoFlashMessage } from '../../utils/FlashMessageUtil';
 import { PLEASE_LOGIN_TO_ADD_TO_CART } from '../../utils/AppConstants';
 
@@ -61,9 +61,10 @@ class VerticalCategoryProductList extends Component {
             />
           </View>
         ));
-    }if(this.props.showSearchResults === true) {
-      return this.props.searchResults
-        .map(product => (
+    }else if(this.props.showSearchResults === true) {
+      console.log(this.props.searchResults);
+      return isNotEmpty(this.props.searchResults) ? (
+        this.props.searchResults.map(product => (
           <View style={styles.productCardWrapper}>
             <Product
               productCardStyle={{width: this.cardWidth, marginRight: 0}}
@@ -72,7 +73,10 @@ class VerticalCategoryProductList extends Component {
               item={product}
             />
           </View>
-        ));
+        ))
+      ) : (
+        <View></View>
+      );
     }else{
       return this.props.categoryProductMap
         .filter(

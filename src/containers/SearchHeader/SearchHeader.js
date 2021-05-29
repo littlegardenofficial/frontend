@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {View , Text} from 'react-native';
-import {SearchBar , Button} from 'react-native-elements';
+import {SearchBar, Icon} from 'react-native-elements';
 import { fetchProductsSearchResult } from '../../redux/actions/productsAction';
 import { generateRequestPayloadForProductSearch, isNotNullOrUndefined } from '../../utils/HelperUtil';
 import styles from './SearchHeaderStyles';
@@ -41,16 +41,19 @@ class SearchHeader extends Component {
         <View style={styles.search}>
           <SearchBar
             placeholder="Search Product "
+            placeholderTextColor={THEME_TEXT_COLOR}
             containerStyle={styles.searchBarContainerStyle}
             inputContainerStyle={styles.searchBarInputContainerStyle}
             inputStyle={styles.searchInputStyle}
             style={styles.searchBarStyle}
             onChangeText={this.onChange}
             value={this.state.search}
+            searchIcon={false}
           />
         </View>
         <TouchableOpacity style={styles.searchButton} onPress={this.hitSearch}>
-          <Text style={styles.searchButtonTitle}>Search</Text>
+          <Icon style={styles.searchButtonTitle} color={THEME_TEXT_COLOR} name="search">
+          </Icon>
         </TouchableOpacity>
       </View>
     );

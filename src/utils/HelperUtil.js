@@ -222,7 +222,5 @@ export const generateRequestPayloadForCategoryPageProductList = ({
       query: searchString,
       sort_type: 'price',
       sort_order: 'asc',
-      page_size: 100,
-      current_page: 0,
     };
   };
