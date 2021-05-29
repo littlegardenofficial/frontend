@@ -20,6 +20,7 @@ function* requestForFetchingMyOrders(action) {
     yield put(fetchMyOrderSuccededAction(myOrdersData));
     yield put(stopLoadingAction());
   } catch (e) {
+    yield put(stopLoadingAction());
     //   yield put({type: "USER_FETCH_FAILED", message: e.message});
   }
 }

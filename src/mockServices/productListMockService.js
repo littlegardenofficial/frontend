@@ -1,6 +1,6 @@
 import {Subject, Observable} from 'rxjs';
 
-const fetchProductList = () => {
+const fetchMockProductList = () => {
   return new Promise((resolve, reject) => {
     resolve([
       {
@@ -59,4 +59,4 @@ const fetchProductList = () => {
   });
 };
 
-export default fetchProductList;
+export default fetchMockProductList;

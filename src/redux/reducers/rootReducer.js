@@ -6,6 +6,7 @@ import authReducer from './authReducer';
 import loadingReducer from './loadingReducer';
 import orderPlacedDialog from './orderPlacedDialogReducer';
 import myOrdersReducer from './myOrdersReducer';
+import searchProductReducer from './searchProductsReducer';
 
 
 
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
   isLoading: loadingReducer,
   orderPlacedDialog: orderPlacedDialog,
   orders: myOrdersReducer,
+  searchResults: searchProductReducer,
 });
 
 

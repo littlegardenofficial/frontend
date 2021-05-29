@@ -72,17 +72,17 @@ function* removeItemFromUerCart(action) {
 
 function* requestPlaceOrder(action) {
   try {
-    console.log('inside request place order');
     yield put(startLoadingAction());
     const response = yield call(
       AppConfig.STAND_ALONE ? placeOrderRequest : null,
       action.payload,
     );
-    console.log(response);
     yield put(clearCartItemsAction());
     yield put(stopLoadingAction());
     yield put(openOrderPlacedDialogAction());
-  } catch (e) {}
+  } catch (e) {
+    yield put(stopLoadingAction());
+  }
 }
 
 function* fetchCartDataSaga() {

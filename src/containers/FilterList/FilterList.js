@@ -31,7 +31,7 @@ class FilterList extends React.Component {
             return (
               <TouchableOpacity
                 key={category.id}
-                onPress={() => this.onCategorySelect(category)}>
+                onPress={() => this.props.openCategoryProductList(category)}>
                 <ImageBackground
                   blurRadius={0}
                   imageStyle={styles.imageBackground}

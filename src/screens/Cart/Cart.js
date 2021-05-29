@@ -27,8 +27,10 @@ class Cart extends Component {
     let deliverToAddress = findPrimaryAddress({
       data: this.props.auth,
     });
-    let requestPayload = {productList : {...this.props.cart} , deliverTo : deliverToAddress}; 
-    console.log(requestPayload);
+    let requestPayload = {
+      productList: {...this.props.cart},
+      deliverTo: deliverToAddress,
+    }; 
     this.props.requestPlaceOrder(requestPayload);
   }
 

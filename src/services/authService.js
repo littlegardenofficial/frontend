@@ -8,14 +8,14 @@ export const loginRequest = ({email, password}) => {
 
 const successLoginData = {
   userId: 12,
-  userName: 'New Conception',
-  firstName : 'NewConception',
+  userName: 'Mritunjay Yadav',
+  firstName : 'Mritunjay',
   lastName : 'Yadav',
   profileImage: '',
   email: 'mj07yadav@gmail.com',
   address: [
     {
-      addressName: 'NewConception1',
+      addressName: 'Mritunjay Yadav',
       addressId: 1,
       primary: true,
       addressLine1: 'A - 4 Himgiri colony ',
@@ -27,7 +27,7 @@ const successLoginData = {
       country: 'India',
     },
     {
-      addressName: 'NewConception2',
+      addressName: 'Tanuj Yadav',
       addressId: 2,
       primary: false,
       addressLine1: 'A - 4 Himgiri colony ',

@@ -36,7 +36,7 @@ const cartReducer = (state = initialState, action) => {
           if (newState.cartItems != null) {
             let itemAlreadyPresent = false;
             let cartItems = newState.cartItems.map(item => {
-              if (item.productId === action.payload.productId) {
+              if (item.id === action.payload.productId) {
                 itemAlreadyPresent = true;
                 return {...item, quantity: item.quantity + 1};
               }
@@ -67,9 +67,7 @@ const cartReducer = (state = initialState, action) => {
       let newState = {...state};
       if (isNotEmpty(newState.cartItems)) {
         let cartItems = [...newState.cartItems];
-        let index = cartItems.findIndex(
-          item => item.productId === action.payload.productId,
-        );
+        let index = cartItems.findIndex(item => item.id === action.payload.id);
         if (isNotNullOrUndefined(index)) {
           let itemToBeUpdated = cartItems[index];
           let quantity = itemToBeUpdated.quantity - 1;

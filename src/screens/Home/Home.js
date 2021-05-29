@@ -7,18 +7,19 @@ import HorizontalCategoryProductList from '../../containers/HorizontalCategoryPr
 import Offerlist from '../../containers/OfferList/OfferList';
 import FilterList from '../../containers/FilterList/FilterList';
 import {fetchCategoryList} from '../../redux/actions/categoryAction';
-import {fetchUserCartAction, requestAddItemToCartAction} from '../../redux/actions/cartAction';
 import {SCROLL_EVENT_THROTTLE, HIDE_SCROLL_INDICATOR} from '../../styles/theme';
 import ROUTES from '../../routes/routeNames';
 import {
   renderCartButton,
   isCartButtonEnabled,
-  isUserLoggedIn,
 } from '../../utils/ComponentRendererUtil';
 import OrderPlaced from '../../components/modalComponents/OrderPlaced/OrderPlaced';
 import { closeOrderPlacedDialogAction } from '../../redux/actions/orderPlacedDialogAction';
+import {requestFetchProducts} from '../../redux/actions/productsAction';
+import { generateRequestPayloadForCategoryPageProductList, sortCategoryById } from '../../utils/HelperUtil';
 
 class Home extends Component {
+  
   constructor(props) {
     super(props);
     InterCommRoutingService.navigationProps = this.props.navigation;
@@ -26,13 +27,16 @@ class Home extends Component {
   }
 
   openCategoryProductList = category => {
+    if(category.productCount > category.productList.length){
+      this.props.fetchProductList(generateRequestPayloadForCategoryPageProductList({id : category.id , productCount: category.productCount}))
+    }
     this.props.navigation.navigate(ROUTES.CATEGORY_PRODUCT, category);
   };
 
   openMyOrders = () => {
     this.props.closePlaceOrderDialog();
     this.props.navigation.navigate(ROUTES.MY_ORDERS);
-  }
+  };
 
   getBodyStylesOnTheBasisOfCart = () => {
     return {
@@ -43,18 +47,20 @@ class Home extends Component {
 
   onClosePopup = () => {
     this.props.closePlaceOrderDialog();
-  }
-
+  };
+  
   renderCategoryProductsList = () => {
     return this.props.categoryProductMap != null &&
       this.props.categoryProductMap.length != 0 ? (
       this.props.categoryProductMap
         .filter(category => category.productList.length != 0)
+        .sort(sortCategoryById)
         .map(category => {
           return (
             <HorizontalCategoryProductList
               key={category.id}
               category={category}
+              homePageList={true}
               navigation={this.props.navigation}
               onAddingItemToCart={this.onAddingItemToCart}
               openCategoryProductList={this.openCategoryProductList}
@@ -71,6 +77,7 @@ class Home extends Component {
       this.props.categoryProductMap.length != 0 ? (
       <FilterList
         categoryProductMap={this.props.categoryProductMap}
+        openCategoryProductList={this.openCategoryProductList}
         navigation={this.props.navigation}
       />
     ) : (
@@ -79,7 +86,6 @@ class Home extends Component {
   };
 
   renderPlaceOrderModalComponent = () => {
-    console.log('Order placed dialog ', this.props.orderPlacedDialog);
     return (
       <Modal
         animationType="fade"
@@ -92,7 +98,7 @@ class Home extends Component {
           openMyOrders={this.openMyOrders}></OrderPlaced>
       </Modal>
     );
-  }
+  };
 
   render() {
     return (
@@ -129,7 +135,12 @@ const mapDispatchToProps = (dispatch, props) => {
     fetchCategoryList: () => {
       dispatch(fetchCategoryList());
     },
-    closePlaceOrderDialog : () => {dispatch(closeOrderPlacedDialogAction())},
+    closePlaceOrderDialog: () => {
+      dispatch(closeOrderPlacedDialogAction());
+    },
+    fetchProductList: request => {
+      dispatch(requestFetchProducts(request));
+    },
   };
 };
 

@@ -61,20 +61,35 @@ class VerticalCategoryProductList extends Component {
             />
           </View>
         ));
+    }if(this.props.showSearchResults === true) {
+      return this.props.searchResults
+        .map(product => (
+          <View style={styles.productCardWrapper}>
+            <Product
+              productCardStyle={{width: this.cardWidth, marginRight: 0}}
+              key={product.id}
+              addItem={this.onAddingItemToCart}
+              item={product}
+            />
+          </View>
+        ));
     }else{
-    return this.props.navigation.state.params.productList
-    .sort(sortProductByProductId)
-    .map(product => (
-      <View
-        style={styles.productCardWrapper}>
-        <Product
-          productCardStyle={{width : this.cardWidth , marginRight: 0}}
-          key={product.id}
-          addItem={this.onAddingItemToCart}
-          item={product}
-        />
-      </View>
-    ))
+      return this.props.categoryProductMap
+        .filter(
+          category => category.id === this.props.navigation.state.params.id,
+        )[0]
+        .productList
+        .sort(sortProductByProductId)
+        .map(product => (
+          <View style={styles.productCardWrapper}>
+            <Product
+              productCardStyle={{width: this.cardWidth, marginRight: 0}}
+              key={product.id}
+              addItem={this.onAddingItemToCart}
+              item={product}
+            />
+          </View>
+        ));
     }
   }
 
@@ -98,8 +113,10 @@ class VerticalCategoryProductList extends Component {
 const mapStateToProps = (state, ownProps) => {
   return {
     ...ownProps,
+    categoryProductMap: state.categoryProductMap,
     cart: state.cart,
     auth: state.auth,
+    searchResults : state.searchResults,
   };
 };
 

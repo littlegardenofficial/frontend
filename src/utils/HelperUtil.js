@@ -6,7 +6,7 @@ import {
   ORDER_PLACED,
   ORDER_SHIPPED,
 } from './AppConstants';
-import AsyncStorage from '@react-native-community/async-storage';
+
 import {async} from 'rxjs';
 
 /**
@@ -43,6 +43,23 @@ export const isNotEmpty = arr => {
  * @returns
  */
 export function sortProductByProductId(a, b) {
+  if (a.id < b.id) {
+    return -1;
+  }
+  if (a.id > b.id) {
+    return 1;
+  }
+  return 0;
+}
+
+/**
+ * Sorts categories on the basis of id
+ *
+ * @param {product} a
+ * @param {product} b
+ * @returns
+ */
+ export function sortCategoryById(a, b) {
   if (a.id < b.id) {
     return -1;
   }
@@ -160,30 +177,52 @@ export const getOrderStatusTitle = orderStatus => {
 };
 
 /**
- * Utility to save redux state to local Storage in the form of json
- * @param {} key 
- * @param {*} data 
- */
-export const saveDataInLocalStorage = async (key , data) => {
-  try {
-    await AsyncStorage.setItem(key, isNotNullOrUndefined(data) ?  JSON.stringify(data) : null);
-  } catch (err) {
-    console.log(err);
-  }
-}
-
-/**
- * Utility to load redux state from local Storage in the form of json
- * @param {*} key 
+ * creates request payload for fetching products to show on homepage 
+ * @param {*} param0 
  * @returns 
  */
-export const loadDataFromLocalStorage = async (key ) => {
-  try {
-    let data = await AsyncStorage.getItem(key);
-    data = isNotNullOrUndefined(data) ? JSON.parse(data) : null;
-    console.log(data);
-    return data;
-  } catch (err) {
-    console.log(err);
-  }
-}
+export const generateRequestPayloadForHomePageProductList = ({id}) => {
+  return {
+    category_id: id,
+    sort_type: 'name',
+    sort_order: 'asc',
+    include_in_homepage: true,
+    is_only_enabled: true,
+    page_size: 5,
+    current_page: 0,
+  };
+};
+
+/**
+ * creates request payload for fetching products on category page
+ * @param {*} param0
+ * @returns
+ */
+export const generateRequestPayloadForCategoryPageProductList = ({
+  id,
+  productCount,
+}) => {
+  return {
+    category_id: id,
+    sort_type: 'name',
+    sort_order: 'asc',
+    is_only_enabled: true,
+    page_size: productCount,
+    current_page: 0,
+  };
+};
+
+ /**
+ * creates request payload for searching products
+ * @param {*} param0 
+ * @returns 
+ */
+  export const generateRequestPayloadForProductSearch = ({searchString}) => {
+    return {
+      query: searchString,
+      sort_type: 'price',
+      sort_order: 'asc',
+      page_size: 100,
+      current_page: 0,
+    };
+  };

@@ -6,7 +6,6 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: 'red',
   },
   noPaddingMargin: {paddingLeft: 0, marginLeft: 0},
   search: {
@@ -16,7 +15,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   searchTitle: {color: THEME_COLOR, fontWeight: 'bold', fontSize: 18},
-  searchBarContainerStyle : {
+  searchBarContainerStyle: {
     flex: 1,
     height: 50,
     backgroundColor: THEME_COLOR,
@@ -27,7 +26,7 @@ const styles = StyleSheet.create({
     borderRadius: 0,
     color: THEME_TEXT_COLOR,
   },
-  searchBarInputContainerStyle : {
+  searchBarInputContainerStyle: {
     height: 50,
     backgroundColor: THEME_COLOR,
     borderColor: THEME_TEXT_COLOR,
@@ -38,10 +37,12 @@ const styles = StyleSheet.create({
     margin: 0,
     borderRadius: 0,
     borderBottomColor: THEME_TEXT_COLOR,
-    borderBottomWidth: 3,
+    borderBottomWidth: 2,
   },
-  searchInputStyle : {color: THEME_TEXT_COLOR},
-  searchBarStyle : {backgroundColor: THEME_COLOR}
+  searchInputStyle: {color: THEME_TEXT_COLOR},
+  searchBarStyle: {backgroundColor: THEME_COLOR},
+  searchButton : {backgroundColor: THEME_COLOR , borderColor: THEME_TEXT_COLOR , marginLeft: 5},
+  searchButtonTitle : {color: THEME_TEXT_COLOR , fontSize: 18},
 });
 
 export default styles;

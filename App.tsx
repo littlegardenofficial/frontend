@@ -1,7 +1,7 @@
 import React from 'react';
 import {Provider} from 'react-redux';
 import Navigator from './src/routes/drawerNavigation';
-import store from './src/redux/store';
+import store, {persistedStore} from './src/redux/store';
 import {
   SafeAreaProvider,
   initialWindowMetrics,
@@ -12,6 +12,7 @@ import {StatusBar, ActivityIndicator} from 'react-native';
 import {THEME_COLOR} from './src/styles/theme';
 import {View} from 'react-native';
 import Loader from './src/containers/Loader/Loader';
+import {PersistGate} from 'redux-persist/es/integration/react';
 
 export interface Props {}
 export interface State {}
@@ -19,17 +20,19 @@ class App extends React.Component<Props, State> {
   render() {
     return (
       <Provider store={store}>
-        <SafeAreaProvider initialMetrics={initialWindowMetrics}>
-          <Loader></Loader>
-          <StatusBar
-            animated={true}
-            backgroundColor={THEME_COLOR}
-            barStyle="light-content"
-            hidden={false}
-          />
-          <Navigator />
-          <FlashMessage position="top" style={{alignItems: 'center'}} />
-        </SafeAreaProvider>
+        <PersistGate persistor={persistedStore} loading={null}>
+          <SafeAreaProvider initialMetrics={initialWindowMetrics}>
+            <Loader></Loader>
+            <StatusBar
+              animated={true}
+              backgroundColor={THEME_COLOR}
+              barStyle="light-content"
+              hidden={false}
+            />
+            <Navigator />
+            <FlashMessage position="top" style={{alignItems: 'center'}} />
+          </SafeAreaProvider>
+        </PersistGate>
       </Provider>
     );
   }

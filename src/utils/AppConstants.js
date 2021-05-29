@@ -1,3 +1,5 @@
+import AppConfig from "../config/AppConfig";
+
 export const ADDED_TO_CART = 'Added to Cart!';
 export const ITEM_REMOVED_FROM_CART = 'Item removed from Cart!';
 export const PROCEED_TO_CHECKOUT = 'Proceed to Checkout!';
@@ -9,3 +11,15 @@ export const ORDER_SHIPPED = 'SHIPPED';
 export const ORDER_IN_TRANSIT = 'IN_TRANSIT';
 export const ORDER_OUT_FOR_DELIVERY = 'OUT_FOR_DELIVERY';
 export const ORDER_DELIVERED = 'DELIVERED';
+export const SOMETHING_WENT_WRONG = 'Something went wrong';
+export const PLEASE_ENTER_VALID_SEARCH_STRING = 'Please enter a valid string !';
+
+export const API_URL_CONSTANTS = {
+    fetchCategoryList : AppConfig.BASE_URL + "catalog/category/list",
+    FETCH_PRODUCT_LIST : AppConfig.BASE_URL + "catalog/product/list",
+    SEARCH_PRODUCT : AppConfig.BASE_URL + 'catalog/product/search',
+}
+
+export const API_RESPONSE_STATUS = {
+    SUCCESS : 200,
+}

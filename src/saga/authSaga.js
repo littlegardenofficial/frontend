@@ -9,6 +9,8 @@ import {
   startLoadingAction,
   stopLoadingAction,
 } from '../redux/actions/loadingAction';
+import {showDangerFlashMessage} from '../utils/FlashMessageUtil';
+import {SOMETHING_WENT_WRONG} from '../utils/AppConstants';
 
 // worker Saga: will be fired on USER_FETCH_REQUESTED actions
 function* requestForLogin(action) {
@@ -21,7 +23,9 @@ function* requestForLogin(action) {
     yield put(fetchUserCartAction(userData.userId));
     yield put(stopLoadingAction());
   } catch (e) {
-    //   yield put({type: "USER_FETCH_FAILED", message: e.message});
+    console.error(e);
+    yield put(stopLoadingAction());
+    showDangerFlashMessage(SOMETHING_WENT_WRONG + ' !');
   }
 }
 

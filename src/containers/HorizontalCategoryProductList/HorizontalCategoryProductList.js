@@ -10,6 +10,7 @@ import { requestAddItemToCartAction } from '../../redux/actions/cartAction';
 import {isUserLoggedIn} from '../../utils/ComponentRendererUtil';
 import {showInfoFlashMessage} from '../../utils/FlashMessageUtil';
 import {PLEASE_LOGIN_TO_ADD_TO_CART} from '../../utils/AppConstants';
+import { isNotNullOrUndefined } from '../../utils/HelperUtil';
 
 class HorizontalCategoryProductList extends Component {
   cardWidth = DEVICE_WIDTH -30;
@@ -26,6 +27,16 @@ class HorizontalCategoryProductList extends Component {
   };
 
   renderProductList = () => {
+    if(this.props.homePageList === true){
+      return this.props.category.productList.filter(product => product.include_in_homepage === true).map(product => (
+        <Product
+          productCardStyle={{width : this.cardWidth , marginRight: 8}}
+          key={product.id}
+          addItem={this.onAddingItemToCart}
+          item={product}
+        />
+      ));
+    }else{
       return this.props.category.productList.map(product => (
         <Product
           productCardStyle={{width : this.cardWidth , marginRight: 8}}
@@ -34,6 +45,8 @@ class HorizontalCategoryProductList extends Component {
           item={product}
         />
       ));
+    }
+      
   }
 
   renderCategoryHeader = () => {
