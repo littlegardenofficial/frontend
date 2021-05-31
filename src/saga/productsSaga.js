@@ -27,6 +27,7 @@ function* fetchProducts(action) {
     console.error(e);
     showDangerFlashMessage(SOMETHING_WENT_WRONG + " while fetching Products !");
     yield put(stopLoadingAction());
+    throw e;
   }
 }
 
@@ -45,13 +46,14 @@ function* fetchSearchProductsResults(action) {
       console.log(parsedProductList);
       yield put(productSearchResultRecieved([...parsedProductList]));
     }else{
-
+      throw e;
     }
     yield put(stopLoadingAction());
   } catch (e) {
     console.error(e);
     showDangerFlashMessage(SOMETHING_WENT_WRONG + " while fetching Products !");
     yield put(stopLoadingAction());
+    throw e;
   }
 }
 

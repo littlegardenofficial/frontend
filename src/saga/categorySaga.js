@@ -40,6 +40,7 @@ function* fetchCategoryListGenerator(action) {
     console.error(e);
     showDangerFlashMessage(SOMETHING_WENT_WRONG);
     yield put(stopLoadingAction());
+    throw e;
   }
 }
 
