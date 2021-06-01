@@ -5,7 +5,7 @@ const {StyleSheet} = require('react-native');
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
-    height: 180,
+    height: 190,
     zIndex: 1,
     width: '100%',
     marginVertical: 4,
@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  showMoreTitleStyle : {
+  showMoreTitleStyle: {
     color: 'blue',
     fontWeight: 'bold',
     marginRight: 0,

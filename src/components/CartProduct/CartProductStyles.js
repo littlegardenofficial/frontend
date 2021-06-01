@@ -10,14 +10,11 @@ const getStyles = productCardStyle => {
   return StyleSheet.create({
     productCard: {
       height: '100%',
-      borderWidth: 1,
       borderRadius: 5,
-      borderColor: 'grey',
-      shadowColor: '#000000',
-      shadowOffset: {width: 0, height: 2},
-      shadowOpacity: 0.9,
-      shadowRadius: 3,
-      elevation: 1,
+      borderWidth: 1 ,
+      borderColor: 'lightgrey',
+      borderBottomWidth: 0 ,
+      elevation: 5,
       alignItems: 'center',
       justifyContent: 'center',
       marginRight: 8,

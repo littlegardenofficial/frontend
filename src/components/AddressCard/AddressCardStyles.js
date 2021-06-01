@@ -15,6 +15,7 @@ const getStyles = addressCardStyle => {
       backgroundColor: PRODUCT_CARD_COLOR,
       borderWidth: 0,
       borderBottomWidth: 2,
+      elevation: 5,
       borderColor: 'lightgrey',
       ...addressCardStyle,
     },
@@ -50,7 +51,7 @@ const getStyles = addressCardStyle => {
       color: THEME_TEXT_COLOR,
       padding: 2,
       borderRadius: 6,
-        marginVertical: 3,
+      marginVertical: 3,
     },
     buttonTitleStyle: {
       color: 'blue',

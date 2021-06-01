@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
     height: '100%',
     zIndex: 1,
     width: '100%',
-    paddingTop: 10,
+    paddingTop: 0,
     // backgroundColor: 'yellow',
   },
   productsContainer: {

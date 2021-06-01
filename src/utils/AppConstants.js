@@ -15,10 +15,11 @@ export const SOMETHING_WENT_WRONG = 'Something went wrong';
 export const PLEASE_ENTER_VALID_SEARCH_STRING = 'Please enter a valid string !';
 
 export const API_URL_CONSTANTS = {
-    fetchCategoryList : AppConfig.BASE_URL + "catalog/category/list",
-    FETCH_PRODUCT_LIST : AppConfig.BASE_URL + "catalog/product/list",
-    SEARCH_PRODUCT : AppConfig.BASE_URL + 'catalog/product/search',
-}
+  fetchCategoryList: AppConfig.BASE_URL + 'catalog/category/list',
+  FETCH_PRODUCT_LIST: AppConfig.BASE_URL + 'catalog/product/list',
+  SEARCH_PRODUCT: AppConfig.BASE_URL + 'catalog/product/search',
+  FETCH_SERVICE_LOCATIONS: AppConfig.BASE_URL + 'service/location/list',
+};
 
 export const API_RESPONSE_STATUS = {
     SUCCESS : 200,

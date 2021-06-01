@@ -7,6 +7,7 @@ import loadingReducer from './loadingReducer';
 import orderPlacedDialog from './orderPlacedDialogReducer';
 import myOrdersReducer from './myOrdersReducer';
 import searchProductReducer from './searchProductsReducer';
+import locationReducer from './serviceLocationReducer';
 
 
 
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
   orderPlacedDialog: orderPlacedDialog,
   orders: myOrdersReducer,
   searchResults: searchProductReducer,
+  serviceLocations: locationReducer,
 });
 
 

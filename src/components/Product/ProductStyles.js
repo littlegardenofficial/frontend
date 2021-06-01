@@ -13,19 +13,17 @@ const announcement = {
 const getStyles = (productCardStyle) => {
   return StyleSheet.create({
     productCard: {
-      height: '100%',
-      borderWidth: 1,
-      // borderRadius: 5,
-      borderColor: 'grey',
-      shadowColor: '#000000',
-      shadowOffset: {width: 0, height: 2},
-      shadowOpacity: 0.9,
-      shadowRadius: 3,
-      elevation: 1,
+      height: '94%',
+      borderRadius: 5,
+      borderWidth: 1 ,
+      borderColor: 'lightgrey',
+      borderBottomWidth: 0 ,
+      elevation: 5,
       alignItems: 'center',
-      marginRight: 8,
+      marginBottom: 3,
       backgroundColor: PRODUCT_CARD_COLOR,
       ...productCardStyle,
+      marginRight: 8,
     },
     productDetail: {
       height: '76%',
@@ -37,6 +35,7 @@ const getStyles = (productCardStyle) => {
     imageSection: {
       flex: 1,
       width: '40%',
+      borderRadius: 5 ,
     },
     descriptionSection: {
       width: '60%',
@@ -66,6 +65,7 @@ const getStyles = (productCardStyle) => {
       height: '100%',
       width: '100%',
       alignItems: 'center',
+      borderRadius: 5 ,
     },
     limitedStock: {
       ...announcement,
