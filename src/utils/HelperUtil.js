@@ -108,6 +108,9 @@ export const getIconNameFromRouteNameForSideMenu = routeName => {
       case ROUTES.MY_ORDERS:
         iconName = 'list';
         break;
+      case ROUTES.HELP_AND_SUPPORT:
+        iconName = 'support';
+        break;
       default:
         break;
     }
@@ -136,6 +139,9 @@ export const getTitleFromRouteNameForSideMenu = routeName => {
         break;
       case ROUTES.MY_ORDERS:
         title = 'My Orders';
+        break;
+      case ROUTES.HELP_AND_SUPPORT:
+        title = 'Help And Support';
         break;
       default:
         title = routeName;

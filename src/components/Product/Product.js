@@ -77,14 +77,14 @@ const Product = props => {
               Price: {'\u20B9'}
             </Text>{' '}
             <Text style={{textDecorationLine: 'line-through'}}>
-              {props.item.productPrice} {props.item.perUnit}
+              {props.item.productPrice}
             </Text>{' '}
             <Text
               style={{
                 fontWeight: 'bold',
                 color: props.item.stockStatus === 'SOLD_OUT' ? 'grey' : 'black',
               }}>
-              {props.item.discountedPrice} {props.item.perUnit}
+              {props.item.discountedPrice}
             </Text>
           </Text>
           <Text

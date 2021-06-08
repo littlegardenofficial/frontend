@@ -12,7 +12,7 @@ const AddressCard = props => {
     <View style={styles.productCard}>
       <View style={styles.productDetail}>
         <View style={styles.descriptionSection}>
-          <Text style={{fontSize: 14, fontWeight: '700'}}>Deliver to : </Text>
+          <Text style={styles.deliveryText}>Deliver to : </Text>
           <View style={styles.primaryAddress}>
             <Text style={styles.addressLine}>{primaryAddress.addressName}</Text>
             <Text style={styles.addressLine}>
@@ -27,7 +27,7 @@ const AddressCard = props => {
             type="clear"
             title="Change"
             buttonStyle={styles.buttonStyle}
-            containerStyle={{width: '100%'}}
+            containerStyle={styles.buttonContainer}
             titleStyle={styles.buttonTitleStyle}
             onPress={props.onPressChange}
           />

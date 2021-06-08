@@ -46,7 +46,9 @@ class VerticalCategoryProductList extends Component {
       return this.props.cart.cartItems
         .sort(sortProductByProductId)
         .map(product => (
-          <View style={{...styles.productCardWrapper , height: 80}}>
+          <View
+            key={product.id}
+            style={{...styles.productCardWrapper, height: 80}}>
             <CartProduct
               productCardStyle={{
                 width: this.cardWidth,

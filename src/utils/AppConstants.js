@@ -19,6 +19,7 @@ export const API_URL_CONSTANTS = {
   FETCH_PRODUCT_LIST: AppConfig.BASE_URL + 'catalog/product/list',
   SEARCH_PRODUCT: AppConfig.BASE_URL + 'catalog/product/search',
   FETCH_SERVICE_LOCATIONS: AppConfig.BASE_URL + 'service/location/list',
+  REGISTER_USER: AppConfig.BASE_URL + 'customer/profile/create',
 };
 
 export const API_RESPONSE_STATUS = {

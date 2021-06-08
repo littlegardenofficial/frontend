@@ -59,6 +59,8 @@ const getStyles = addressCardStyle => {
       textDecorationLine: 'underline',
     },
     addressLine: {fontSize: 13, fontWeight: 'bold', color: THEME_COLOR},
+    deliveryText: {fontSize: 14, fontWeight: '700'},
+    buttonContainer: {width: '100%'},
   });
 };
 

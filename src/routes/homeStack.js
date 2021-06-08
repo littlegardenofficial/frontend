@@ -8,15 +8,14 @@ import {THEME_TEXT_COLOR, GLOBAL_STYLES, THEME_COLOR} from '../styles/theme';
 import Login from '../screens/Auth/login/Login';
 import SearchHeader from "../containers/SearchHeader/SearchHeader";
 import  VerticalCategoryProductList from '../containers/VerticalCategoryProductList/VerticalCategoryProductList';
+import Register from '../screens/Auth/register/Register';
 
 const screens = {
-  home : {
+  home: {
     screen: Home,
     navigationOptions: ({navigation}) => {
       return {
-        headerTitle: () => (
-          <Header navigation={navigation} />
-        ),
+        headerTitle: () => <Header navigation={navigation} />,
       };
     },
   },
@@ -30,13 +29,11 @@ const screens = {
     screen: Search,
     navigationOptions: ({navigation}) => {
       return {
-        headerTitle: () => (
-          <SearchHeader navigation={navigation} />
-        ),
+        headerTitle: () => <SearchHeader navigation={navigation} />,
         headerStyle: {
-          backgroundColor: THEME_COLOR
+          backgroundColor: THEME_COLOR,
         },
-        headerTintColor: THEME_TEXT_COLOR
+        headerTintColor: THEME_TEXT_COLOR,
       };
     },
   },
@@ -46,11 +43,11 @@ const screens = {
       return {
         title: navigation.state.params.categoryTitle,
         headerStyle: {
-          backgroundColor: THEME_COLOR
+          backgroundColor: THEME_COLOR,
         },
-        headerTintColor: THEME_TEXT_COLOR
+        headerTintColor: THEME_TEXT_COLOR,
       };
-    }
+    },
   },
   Login: {
     screen: Login,
@@ -58,11 +55,23 @@ const screens = {
       headerShown: false,
     },
     navigationOptions: {
-        headerStyle: {
-            backgroundColor: THEME_COLOR,
-        },
-        headerTintColor: THEME_TEXT_COLOR
-    }
+      headerStyle: {
+        backgroundColor: THEME_COLOR,
+      },
+      headerTintColor: THEME_TEXT_COLOR,
+    },
+  },
+  Register: {
+    screen: Register,
+    screenOptions: {
+      headerShown: false,
+    },
+    navigationOptions: {
+      headerStyle: {
+        backgroundColor: THEME_COLOR,
+      },
+      headerTintColor: THEME_TEXT_COLOR,
+    },
   },
 };
 

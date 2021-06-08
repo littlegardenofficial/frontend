@@ -18,6 +18,11 @@ class SideMenu extends Component {
     super(props);
   }
 
+  logout = () => {
+    this.props.requestLogout()
+    this.props.navigation.closeDrawer();
+  }
+
   render() {
     return (
       <SafeAreaView style={styles.wrapper}>
@@ -39,7 +44,7 @@ class SideMenu extends Component {
         <View style={styles.sidemenuFooter}>
           <TouchableOpacity
             style={styles.logoutButton}
-            onPress={this.props.requestLogout}>
+            onPress={this.logout}>
             <Text h4 h4Style={styles.logoutTitle}>
               Logout
             </Text>

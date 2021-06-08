@@ -8,6 +8,7 @@ import ServiceableAreas from '../screens/ServiceAreas/ServiceableAreas';
 import ordersStack from './orderStack';
 import profileStack from './profileStack';
 import serviceAreaStack from './serviceAreaStack';
+import helpAndSupportStack from './helpAndSupportStack';
 
 const drawerNavigation = createDrawerNavigator(
   {
@@ -33,6 +34,12 @@ const drawerNavigation = createDrawerNavigator(
       screen: ordersStack,
       navigationOptions: {
         title: 'My Orders',
+      },
+    },
+    HelpAndSupport: {
+      screen: helpAndSupportStack,
+      navigationOptions: {
+        title: 'Help And Support',
       },
     },
   },

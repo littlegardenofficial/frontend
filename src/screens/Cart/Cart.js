@@ -77,18 +77,17 @@ class Cart extends Component {
     return (
       <View style={styles.wrapper}>
         {this.returnBackToHomeIfCartIsEmpty()}
-        <View style={{height: '98%'}}>
+        <View style={styles.cartContainer}>
           <AddressCard
-            addressCardStyle={{height: '14%', width: DEVICE_WIDTH}}
+            addressCardStyle={styles.addressCardStyle}
             data={this.props.auth}
-            onPressChange={this.onPressAddressChangeButton}
-            ></AddressCard>
+            onPressChange={this.onPressAddressChangeButton}></AddressCard>
           <VerticalCategoryProductList isForCart={true} />
         </View>
         {renderCheckoutButton({
           styles: styles.checkoutButton,
           data: this.props.cart,
-          onPressButton : this.onPressCheckoutButton
+          onPressButton: this.onPressCheckoutButton,
         })}
         {this.renderBottomSheetForPriceDetails()}
       </View>

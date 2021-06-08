@@ -10,11 +10,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   topLevelLocationPicker: {
-    width: 150,
-    marginBottom: '10%',
-    alignItems: 'flex-end',
+    width: 120,
+    marginBottom: '6%',
+    alignItems: 'center',
     borderBottomWidth: 2,
     borderBottomColor: THEME_COLOR,
+    justifyContent: 'center',
   },
   pickerItemStyle: {color: THEME_COLOR, fontWeight: 'bold'},
   pickerDimension: {height: 50, width: 150},
@@ -43,6 +44,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   accordItemContentText: {color: THEME_TEXT_COLOR},
+  modalWrapper: {flex: 1, justifyContent: 'center', alignItems: 'center'},
 });
 
 export default styles;

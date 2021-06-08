@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, Text } from 'react-native';
+import {View, Text , Modal } from 'react-native';
 import {Picker} from '@react-native-picker/picker';
 import Accordion from 'react-native-collapsible/Accordion';
 import { connect } from 'react-redux';
@@ -9,12 +9,15 @@ import { fetchServiceLocations } from '../../redux/actions/serviceLocationAction
 import { isNotEmpty, isNotNullOrUndefined, sortProductByProductId } from '../../utils/HelperUtil';
 import { Icon } from 'react-native-elements';
 import styles from './ServiceableAreasStyles';
+import CustomPicker from '../../components/CustomPicker/CustomPicker';
+import CustomPickerOption from '../../components/modalComponents/CustomPickerOption/CustomPickerOption';
 
 class ServiceableAreas extends Component {
   state = {
     activeSections: [],
     selectedValue: null,
     sections: [],
+    popup: false,
   };
 
   constructor(props){
@@ -51,14 +54,15 @@ class ServiceableAreas extends Component {
      const list =  this.props.serviceLocations
       .filter(location => location.is_top_level === true && location.is_enabled === true)
       .map((location , index) => {
-        return (<Picker.Item key={index} label={location.title} value={location.id} />);
+        return { key:index , label:location.title , value:location.id };
       });
       return list;
     }
   }
 
   onDropDownChange = (itemValue) => {
-    this.setState({selectedValue: itemValue});
+    console.log(itemValue);
+    this.setState({selectedValue: itemValue , popup : false});
   }
   
   getSectionsList = () => {
@@ -89,34 +93,52 @@ class ServiceableAreas extends Component {
   }
 
   getDefaultSelectedValue = () => {
+    let selectedOptionId ;
     if(isNotEmpty(this.props.serviceLocations)){
       if(!isNotNullOrUndefined(this.state.selectedValue)){
         const id =  this.props.serviceLocations.sort(sortProductByProductId)[0].id;
-        return id;
+        selectedOptionId =  id;
       }else{
-        return this.state.selectedValue;
+        selectedOptionId = this.state.selectedValue;
       }
      }else{
-       return null;
+      selectedOptionId = null;
      }
+
+     console.log(selectedOptionId);
+     return selectedOptionId;
+  }
+
+  renderChangeTopLevelLocationComponent = () => {
+    return (
+      <Modal
+        animationType="fade"
+        style={styles.modalWrapper}
+        transparent={true}
+        visible={this.state.popup}
+        statusBarTranslucent={true}>
+        <CustomPickerOption
+          onOptionSelect={this.onDropDownChange}
+          listOfOptions={this.getTopLevelLocationList}
+          ></CustomPickerOption>
+      </Modal>
+    );
+  };
+
+  openOptionDialog = () => {
+    this.setState({popup : true});
   }
 
   render() {
     return (
       <View style={styles.wrapper}>
         <View style={styles.topLevelLocationPicker}>
-          <Picker
-          selectedValue={this.getDefaultSelectedValue()}
-          dropdownIconColor={THEME_COLOR}
-          itemStyle={styles.pickerItemStyle}
-          style={styles.pickerDimension}
-          onValueChange={(itemValue) =>
-            this.onDropDownChange(itemValue)
-          }
-          mode='dialog'
-          >
-            {this.getTopLevelLocationList()}
-          </Picker>
+          <CustomPicker 
+            onDialogOpen={this.openOptionDialog} 
+            selectedValue={this.getDefaultSelectedValue} 
+            getListOptions={this.getTopLevelLocationList} >
+          </CustomPicker>
+          {this.renderChangeTopLevelLocationComponent()}
         </View>
         <ScrollView 
           style={styles.scrollViewDimension}

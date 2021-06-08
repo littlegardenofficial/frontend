@@ -12,7 +12,7 @@ import { PLEASE_ENTER_VALID_SEARCH_STRING } from '../../utils/AppConstants';
 
 class SearchHeader extends Component {
   updateSearch;
-  lastSearch ;
+  lastSearch;
   constructor(props) {
     super(props);
     this.state = {
@@ -27,13 +27,21 @@ class SearchHeader extends Component {
 
   hitSearch = () => {
     console.log(this.state.search);
-    if(this.lastSearch !== this.state.search && isNotNullOrUndefined(this.state.search) && this.state.search !== ""){
-      this.props.searchProductsByName(generateRequestPayloadForProductSearch({searchString : this.state.search}));
+    if (
+      this.lastSearch !== this.state.search &&
+      isNotNullOrUndefined(this.state.search) &&
+      this.state.search !== ''
+    ) {
+      this.props.searchProductsByName(
+        generateRequestPayloadForProductSearch({
+          searchString: this.state.search,
+        }),
+      );
       this.lastSearch = this.state.search;
-    }else{
+    } else {
       showInfoFlashMessage(PLEASE_ENTER_VALID_SEARCH_STRING);
     }
-  }
+  };
 
   render() {
     return (
@@ -49,11 +57,16 @@ class SearchHeader extends Component {
             onChangeText={this.onChange}
             value={this.state.search}
             searchIcon={false}
+            keyboardType="default"
+            returnKeyType="search"
+            onSubmitEditing={this.hitSearch}
           />
         </View>
         <TouchableOpacity style={styles.searchButton} onPress={this.hitSearch}>
-          <Icon style={styles.searchButtonTitle} color={THEME_TEXT_COLOR} name="search">
-          </Icon>
+          <Icon
+            style={styles.searchButtonTitle}
+            color={THEME_TEXT_COLOR}
+            name="search"></Icon>
         </TouchableOpacity>
       </View>
     );

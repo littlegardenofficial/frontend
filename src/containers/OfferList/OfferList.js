@@ -21,7 +21,7 @@ class OfferList extends React.Component {
     return (
       <View style={styles.wrapper}>
         <HorizontalAutoScrollCards
-          cardWidth={DEVICE_HEIGHT}
+          cardWidth={DEVICE_WIDTH}
           autoScroll={true}
           cardStyle={this.cardStyle}
           cards={[

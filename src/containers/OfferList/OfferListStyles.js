@@ -1,7 +1,7 @@
 const {StyleSheet, Dimensions} = require('react-native');
 
 const {height, width} = Dimensions.get('window');
-const offerSectionHeight = (height * 16) / 100;
+const offerSectionHeight = (height * 20) / 100;
 
 const styles = StyleSheet.create({
   wrapper: {

@@ -5,7 +5,7 @@ import { THEME_COLOR } from '../../../styles/theme';
 import styles from './LoginStyles';
 import {connect} from 'react-redux';
 import {loginRequestAction} from '../../../redux/actions/authActions';
-import { fetchUserCartAction } from '../../../redux/actions/cartAction';
+import ROUTES from '../../../routes/routeNames';
 
 class Login extends Component {
   imageSource = require('../../../../assets/images/logo.png');
@@ -13,21 +13,32 @@ class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: '',
-      password: '',
+      email: {value: '' , error: null},
+      password: {value: '' , error : null},
     };
+  }
+
+  formValidation = () => {
+    this.setState({email: {value: '' , error: 'Wrong email'} , password: {value: '' , error: 'Wrong password'}});
+    return false;
   }
 
   requestLogin = () => {
     // first apply field level validations
-    this.props.requestForLoginUser({
-      email: this.state.email,
-      password: this.state.password,
-    });
+    if(this.formValidation()){
+      this.props.requestForLoginUser({
+        email: this.state.email,
+        password: this.state.password,
+      });
+    }
   };
 
   userIsLoggedIn = () => {
     this.props.navigation.goBack();
+  };
+
+  goToRegister = () => {
+    this.props.navigation.navigate(ROUTES.REGISTER);
   };
 
   render() {
@@ -38,17 +49,19 @@ class Login extends Component {
           <Image source={this.imageSource} style={styles.logoStyle}></Image>
           <View style={styles.inputSection}>
             <Input
-              placeholder="Email"
+              placeholder="Email/Mobile No."
               leftIcon={<Icon name="email" size={20} color={THEME_COLOR} />}
               inputStyle={styles.emailElement}
-              onChangeText={value => this.setState({email: value})}
+              onChangeText={value => this.setState({email: {value: value , error : null}})}
+              errorMessage={this.state.email.error}
             />
             <Input
               placeholder="Password"
               inputStyle={styles.passElement}
               leftIcon={<Icon name="lock" size={20} color={THEME_COLOR} />}
               secureTextEntry={true}
-              onChangeText={value => this.setState({password: value})}
+              errorMessage={this.state.password.error}
+              onChangeText={value => this.setState({password: {value: value , error : null}})}
             />
             <Button
               title="Login"
@@ -60,6 +73,7 @@ class Login extends Component {
               type="outline"
               raised={true}
               titleStyle={styles.registerTitle}
+              onPress={this.goToRegister}
             />
           </View>
         </View>

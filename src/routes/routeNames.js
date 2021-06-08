@@ -7,6 +7,8 @@ const ROUTES = {
   PROFILE: 'Profile',
   SERVICE_AREAS: 'ServiceAreas',
   MY_ORDERS: 'MyOrders',
+  REGISTER: 'Register',
+  HELP_AND_SUPPORT: 'HelpAndSupport',
 };
 
 export default ROUTES;

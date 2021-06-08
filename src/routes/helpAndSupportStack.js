@@ -4,20 +4,21 @@ import React from 'react';
 import {THEME_TEXT_COLOR, GLOBAL_STYLES} from '../styles/theme';
 
 import ROUTES from './routeNames';
-import Profile from '../screens/Profile/Profile';
-
-
+import HelpAndSupport from '../screens/HelpAndSupport/HelpAndSupport';
+import {getTitleFromRouteNameForSideMenu} from '../utils/HelperUtil';
 
 const screen = {
-  myorders: {
-    screen: Profile,
+  HelpAndSupport: {
+    screen: HelpAndSupport,
     navigationOptions: ({navigation}) => {
       return {
         headerTitle: () => (
           <Header
             navigation={navigation}
             toHomeButton={true}
-            routeName={ROUTES.PROFILE}
+            routeName={getTitleFromRouteNameForSideMenu(
+              ROUTES.HELP_AND_SUPPORT,
+            )}
           />
         ),
       };
@@ -25,11 +26,11 @@ const screen = {
   },
 };
 
-const profileStack = createStackNavigator(screen, {
+const helpAndSupportStack = createStackNavigator(screen, {
   defaultNavigationOptions: {
     headerStyle: GLOBAL_STYLES.headerStyle,
     headerTintColor: THEME_TEXT_COLOR,
   },
 });
 
-export default profileStack;
+export default helpAndSupportStack;
