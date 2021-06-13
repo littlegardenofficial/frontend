@@ -32,10 +32,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginVertical: 5,
+    // backgroundColor: 'blue',
   },
   scrollContainerStyle: {
     paddingHorizontal: 5,
     width: '100%',
+    // backgroundColor: 'red',
   },
 });
 

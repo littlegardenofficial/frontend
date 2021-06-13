@@ -5,9 +5,14 @@ import {
   ORDER_OUT_FOR_DELIVERY,
   ORDER_PLACED,
   ORDER_SHIPPED,
+  patternEmail,
+  patternMobile,
+  SOMETHING_WENT_WRONG,
 } from './AppConstants';
 
 import {async} from 'rxjs';
+import { showDangerFlashMessage } from './FlashMessageUtil';
+import InterCommRoutingService from '../services/interCommRoutingService';
 
 /**
  * this method returns boolean value if object is not null and not undefined
@@ -230,3 +235,82 @@ export const generateRequestPayloadForCategoryPageProductList = ({
       sort_order: 'asc',
     };
   };
+
+/**
+ * utility to handle and show error in flash message
+ * @param {*} err 
+ */
+export const genericExceptionHandling = err => {
+  if (err.response) {
+    // client received an error response (5xx, 4xx)
+    console.log(err.response);
+    showDangerFlashMessage(err.response.data.errorMessage);
+  } else if (err.request) {
+    // client never received a response, or request never left
+    console.log(err.request);
+    showDangerFlashMessage(err.request.data.errorMessage);
+  } else {
+    // anything else
+    console.log(err);
+    showDangerFlashMessage(SOMETHING_WENT_WRONG);
+  }
+};
+
+/**
+ * Utility to validate mobile number
+ * @param {*} data 
+ * @returns 
+ */
+export const isMobileNumber = (data) => {
+  if (isNotNullOrUndefined(data)) {
+    return patternMobile.test(data);
+  } else {
+    return false;
+  }
+}
+
+/**
+ * Utility to validate email address
+ * @param {*} data 
+ * @returns 
+ */
+export const isEmailAddress = (data) => {
+  if (isNotNullOrUndefined(data)) {
+    return patternEmail.test(data);
+  } else {
+    return false;
+  }
+}
+
+onPressPlace = () => {
+  console.log('place');
+};
+
+/**
+ * Utility to open calling app for calling
+ * @param {*} data 
+ * @returns 
+ */
+onPressTel = number => {
+  Linking.openURL(`tel://${number}`).catch(err => console.log('Error:', err));
+};
+
+/**
+ * Utility to open sms app for sending sms
+ * @param {*} data 
+ * @returns 
+ */
+onPressSms = () => {
+  console.log('sms');
+};
+
+/**
+ * Utility to open email app for sending email
+ * @param {*} data 
+ * @returns 
+ */
+onPressEmail = email => {
+  Linking.openURL(`mailto://${email}?subject=subject&body=body`).catch(err =>
+    console.log('Error:', err),
+  );
+};

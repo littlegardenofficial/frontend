@@ -69,7 +69,7 @@ class VerticalCategoryProductList extends Component {
         this.props.searchResults.map(product => (
           <View style={styles.productCardWrapper}>
             <Product
-              productCardStyle={{width: this.cardWidth, marginRight: 0}}
+              productCardStyle={{width: '100%', marginHorizontal: 5}}
               key={product.id}
               addItem={this.onAddingItemToCart}
               item={product}

@@ -17,6 +17,7 @@ import OrderPlaced from '../../components/modalComponents/OrderPlaced/OrderPlace
 import { closeOrderPlacedDialogAction } from '../../redux/actions/orderPlacedDialogAction';
 import {requestFetchProducts} from '../../redux/actions/productsAction';
 import { generateRequestPayloadForCategoryPageProductList, sortCategoryById } from '../../utils/HelperUtil';
+import { NavigationEvents } from 'react-navigation';
 
 class Home extends Component {
   
@@ -99,6 +100,7 @@ class Home extends Component {
       </Modal>
     );
   };
+
 
   render() {
     return (

@@ -54,11 +54,15 @@ const screens = {
     screenOptions: {
       headerShown: false,
     },
-    navigationOptions: {
-      headerStyle: {
-        backgroundColor: THEME_COLOR,
-      },
-      headerTintColor: THEME_TEXT_COLOR,
+    navigationOptions: ({ navigation }) => {
+      return {
+        // title: navigation.state.params.authFlow,
+        title: '',
+        headerStyle: {
+          backgroundColor: THEME_COLOR,
+        },
+        headerTintColor: THEME_TEXT_COLOR,
+      };
     },
   },
   Register: {

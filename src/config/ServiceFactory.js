@@ -5,7 +5,9 @@ import fetchCategoryList from '../services/categoryListService';
 import AppConfig from './AppConfig';
 import searchProductsService from '../services/searchProductsService';
 import fetchServiceLocations from '../services/locationService';
-import {registerRequest} from '../services/authService';
+import { forgotChangePasswordRequest, forgotPasswordRequest, loginRequest, registerRequest, verifyForgotPasswordRequest } from '../services/authService';
+import { loginMockRequest } from '../mockServices/authMockService';
+
 
 class ServiceFactory {
   static fetchCategoryList = false ? fetchMockCategoryList : fetchCategoryList;
@@ -21,6 +23,14 @@ class ServiceFactory {
     : fetchServiceLocations;
 
   static registerRequest = false ? registerRequest : registerRequest;
+
+  static sendLoginRequest = false ? loginMockRequest : loginRequest;
+
+  static sendForgotPasswordRequest = false ? forgotPasswordRequest : forgotPasswordRequest;
+
+  static sendVerifyForgotPasswordReq = false ? verifyForgotPasswordRequest : verifyForgotPasswordRequest;
+
+  static sendForgotChangePassReq = false ? forgotChangePasswordRequest : forgotChangePasswordRequest;
   // static static fetchCategoryList  = AppConfig.STAND_ALONE ?  fetchCategoryList : fetchCategoryListUtil ;
   // static static fetchCategoryList  = AppConfig.STAND_ALONE ?  fetchCategoryList : fetchCategoryListUtil ;
   // static static fetchCategoryList  = AppConfig.STAND_ALONE ?  fetchCategoryList : fetchCategoryListUtil ;

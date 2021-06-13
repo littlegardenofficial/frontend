@@ -1,237 +1,174 @@
 import React, {Component} from 'react';
-import {Card, Icon} from 'react-native-elements';
+import { connect } from 'react-redux'
+import { Card, Icon } from 'react-native-elements';
 import {
-  FlatList,
   Image,
   ImageBackground,
-  Linking,
-  Platform,
   ScrollView,
-  StyleSheet,
   Text,
   View,
+  TouchableOpacity
 } from 'react-native';
-import PropTypes from 'prop-types';
 
-import Email from '../../components/ProfileComponents/Email';
-import Separator from '../../components/ProfileComponents/Separator';
-import Tel from '../../components/ProfileComponents/Tel';
-
-const styles = StyleSheet.create({
-  cardContainer: {
-    backgroundColor: '#FFF',
-    borderWidth: 0,
-    flex: 1,
-    margin: 0,
-    padding: 0,
-  },
-  container: {
-    flex: 1,
-  },
-  emailContainer: {
-    backgroundColor: '#FFF',
-    flex: 1,
-    paddingTop: 30,
-  },
-  headerBackgroundImage: {
-    paddingBottom: 20,
-    paddingTop: 45,
-  },
-  headerContainer: {},
-  headerColumn: {
-    backgroundColor: 'transparent',
-    ...Platform.select({
-      ios: {
-        alignItems: 'center',
-        elevation: 1,
-        marginTop: -1,
-      },
-      android: {
-        alignItems: 'center',
-      },
-    }),
-  },
-  placeIcon: {
-    color: 'white',
-    fontSize: 26,
-  },
-  scroll: {
-    backgroundColor: '#FFF',
-  },
-  telContainer: {
-    backgroundColor: '#FFF',
-    flex: 1,
-    paddingTop: 30,
-  },
-  userAddressRow: {
-    alignItems: 'center',
-    flexDirection: 'row',
-  },
-  userCityRow: {
-    backgroundColor: 'transparent',
-  },
-  userCityText: {
-    color: 'white',
-    fontSize: 15,
-    fontWeight: '600',
-    textAlign: 'center',
-  },
-  userImage: {
-    borderColor: '#FFF',
-    borderRadius: 85,
-    borderWidth: 3,
-    height: 170,
-    marginBottom: 15,
-    width: 170,
-  },
-  userNameText: {
-    color: '#FFF',
-    fontSize: 22,
-    fontWeight: 'bold',
-    paddingBottom: 8,
-    textAlign: 'center',
-  },
-});
+import Separator from '../../components/Seperator/Separator';
+import styles from './ProfileStyles';
+import ProfileName from '../../components/ProfilePageField/ProfilePageField';
+import { THEME_TEXT_COLOR } from '../../styles/theme';
+import { showInfoFlashMessage, showSuccessFlashMessage } from '../../utils/FlashMessageUtil';
+import _ from "lodash";
+import { NavigationEvents } from 'react-navigation';
+import InterCommRoutingService from '../../services/interCommRoutingService';
+import ROUTES from '../../routes/routeNames';
+import { isUserLoggedIn } from '../../utils/ComponentRendererUtil';
 
 class Profile extends Component {
-  static propTypes = {
-    avatar: PropTypes.string,
-    avatarBackground: PropTypes.string,
-    name: PropTypes.string,
-    address: PropTypes.shape({
-      city: PropTypes.string,
-      country: PropTypes.string,
-    }),
-    emails: PropTypes.arrayOf(
-      PropTypes.shape({
-        email: PropTypes.string,
-        id: PropTypes.number,
-        name: PropTypes.string,
-      }),
-    ),
-    tels: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.number,
-        name: PropTypes.string,
-        number: PropTypes.string,
-      }),
-    ),
-  };
 
-  onPressPlace = () => {
-    console.log('place');
-  };
+  profilePageForm = {};
+  updatedProfilePageForm = {}
 
-  onPressTel = number => {
-    Linking.openURL(`tel://${number}`).catch(err => console.log('Error:', err));
-  };
+  constructor(props) {
+    super(props);
+    this.dataInitialization();
+    this.state = {
+      saveButton: false,
+    }
+  }
 
-  onPressSms = () => {
-    console.log('sms');
-  };
+  // used to update profilePageForm and updateProfilePageForm objects after updating store 
+  componentDidUpdate() {
+    console.log('updated in store');
+    this.dataInitialization();
+  }
 
-  onPressEmail = email => {
-    Linking.openURL(`mailto://${email}?subject=subject&body=body`).catch(err =>
-      console.log('Error:', err),
+  dataInitialization = () => {
+    if (isUserLoggedIn(this.props.auth)) {
+      this.profilePageForm = {
+        email: this.props.auth.email,
+        firstName: this.props.auth.firstName,
+        lastName: this.props.auth.lastName,
+        mobileNo: this.props.auth.mobileNo,
+      }
+      this.updatedProfilePageForm = _.cloneDeep(this.profilePageForm);
+    }
+  }
+
+  onEditFieldValue = (field, value) => {
+    this.setState({ saveButton: true });
+    switch (field) {
+      case 'firstName':
+        this.updatedProfilePageForm = { ...this.updatedProfilePageForm, 'firstName': value };
+        break;
+      case 'lastName':
+        this.updatedProfilePageForm = { ...this.updatedProfilePageForm, 'lastName': value, };
+        break;
+      case 'email':
+        this.updatedProfilePageForm = { ...this.updatedProfilePageForm, 'email': value, };
+        break;
+      case 'mobileNo':
+        this.updatedProfilePageForm = { ...this.updatedProfilePageForm, 'mobileNo': value, };
+        break;
+      default:
+        break;
+    }
+  }
+
+  onSaveProfileData = () => {
+    if (!_.isEqual(this.updatedProfilePageForm, this.profilePageForm)) {
+      // dispatch action for updating profile data
+      showSuccessFlashMessage('Updated Successfully');
+    } else {
+      showInfoFlashMessage('Please update atleast one field');
+    }
+    this.setState({ saveButton: false });
+  }
+
+  renderUpdateProfileButton = () => {
+    return (
+      <View style={styles.saveButtonWrapper}>
+        <TouchableOpacity style={styles.saveButtonContainer} onPress={this.onSaveProfileData}>
+          <Icon name="save" color={THEME_TEXT_COLOR}></Icon>
+        </TouchableOpacity>
+      </View>
     );
-  };
+  }
+
 
   renderHeader = () => {
-    let avatar =
-      'https://dailyish.s3.ap-south-1.amazonaws.com/aws/category/dryfruits.jpeg';
-    let avatarBackground =
-      'https://dailyish.s3.ap-south-1.amazonaws.com/aws/category/dryfruits.jpeg';
-    let name = 'NewConception';
-    // let address = {
-    let city = 'Moradabad';
-    let country = 'India';
-    // }
-
+    let name = this.props.auth.firstName + " " + this.props.auth.lastName;
     return (
       <View style={styles.headerContainer}>
         <ImageBackground
           style={styles.headerBackgroundImage}
           blurRadius={10}
-          source={{uri: avatarBackground}}>
+          source={this.props.auth.profileImage}>
           <View style={styles.headerColumn}>
-            <Image style={styles.userImage} source={{uri: avatar}} />
+            <Image style={styles.userImage} source={this.props.auth.profileImage} />
             <Text style={styles.userNameText}>{name}</Text>
-            <View style={styles.userAddressRow}>
-              <View>
-                <Icon
-                  name="place"
-                  underlayColor="transparent"
-                  iconStyle={styles.placeIcon}
-                  onPress={this.onPressPlace}
-                />
-              </View>
-              <View style={styles.userCityRow}>
-                <Text style={styles.userCityText}>
-                  {city}, {country}
-                </Text>
-              </View>
-            </View>
           </View>
         </ImageBackground>
       </View>
     );
   };
 
-  renderTel = () => (
-    <FlatList
-      contentContainerStyle={styles.telContainer}
-      data={[{id: 1, name: 'NewConception', number: '951234343'}]}
-      renderItem={list => {
-        const {id, name, number} = list.item;
+  renderField = (nameType, data) => {
+    return (
+      <View style={styles.emailContainer}>
+        <ProfileName
+          nameType={nameType}
+          name={data}
+          onEdit={this.onEditFieldValue}
+        />
+      </View>
+    );
+  };
 
-        return (
-          <Tel
-            key={`tel-${id}`}
-            index={list.index}
-            name={name}
-            number={number}
-            onPressSms={this.onPressSms}
-            onPressTel={this.onPressTel}
-          />
-        );
-      }}
-    />
-  );
+  navigateToLoginPage = () => {
+    console.log('here');
+    if (!isUserLoggedIn(this.props.auth)) {
+      showInfoFlashMessage("Please login to access your profile");
+      InterCommRoutingService.routeToScreen(ROUTES.LOGIN);
+    }
+    this.dataInitialization();
+  }
 
-  renderEmail = () => (
-    <FlatList
-      contentContainerStyle={styles.emailContainer}
-      data={[{email: 'newconception@gmail.com', id: 1, name: 'NewConception'}]}
-      renderItem={list => {
-        const {email, id, name} = list.item;
-
-        return (
-          <Email
-            key={`email-${id}`}
-            index={list.index}
-            name={name}
-            email={email}
-            onPressEmail={this.onPressEmail}
-          />
-        );
-      }}
-    />
-  );
 
   render() {
     return (
-      <ScrollView style={styles.scroll}>
+      <ScrollView style={styles.scroll} >
+        <NavigationEvents
+          onDidFocus={payload => this.navigateToLoginPage()}
+        />
+        {isUserLoggedIn(this.props.auth) ?
         <View style={styles.container}>
           <Card containerStyle={styles.cardContainer}>
             {this.renderHeader()}
-            {this.renderTel()}
-            {Separator()}
-            {this.renderEmail()}
+              {this.state.saveButton ? this.renderUpdateProfileButton() : <View></View>}
+              {this.renderField('mobileNo', this.props.auth.mobileNo)}
+              {Separator()}
+              {this.renderField('email', this.props.auth.email)}
+              {Separator()}
+              {this.renderField('firstName', this.props.auth.firstName)}
+              {Separator()}
+              {this.renderField('lastName', this.props.auth.lastName)}
           </Card>
         </View>
+          : <></>}
       </ScrollView>
     );
   }
 }
 
-export default Profile;
+const mapStateToProps = (state, props) => {
+  return {
+    ...props,
+    auth: state.auth,
+  };
+};
+
+const mapDispatchToProps = (dispatch, props) => {
+  return {
+    ...props,
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Profile);

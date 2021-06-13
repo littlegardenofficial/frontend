@@ -24,11 +24,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   sidemenuFooter: {
-    height: 50,
+    height: 70,
     flex: 1,
     position: 'absolute',
     width: '100%',
-    flexDirection: 'row',
+    flexDirection: 'column',
     bottom: 0,
     justifyContent: 'center',
     alignItems: 'center',
@@ -46,8 +46,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
+    marginBottom: 5,
   },
-  logoutTitle: {color: 'grey', fontSize: 18, marginRight: 10},
+  logoutTitle: { color: 'grey', fontSize: 20, marginRight: 10 },
 });
 
 export default styles;

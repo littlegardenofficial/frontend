@@ -4,10 +4,10 @@ import {
   LOGOUT_ACTION,
 } from './constants';
 
-export const loginRequestAction = ({email, password}) => {
+export const loginRequestAction = payload => {
   return {
     type: LOGIN_REQUEST_ACTION,
-    payload: {email, password},
+    payload: payload,
   };
 };
 

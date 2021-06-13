@@ -1,31 +1,29 @@
 import {call, put, takeEvery, takeLatest, fork} from 'redux-saga/effects';
 import {LOGIN_REQUEST_ACTION} from '../redux/actions/constants';
-
-import AppConfig from '../config/AppConfig';
-import {loginRequest} from '../mockServices/authMockService';
 import {loginRequestActionSucceeded} from '../redux/actions/authActions';
 import {fetchUserCartAction} from '../redux/actions/cartAction';
 import {
   startLoadingAction,
   stopLoadingAction,
 } from '../redux/actions/loadingAction';
-import {showDangerFlashMessage} from '../utils/FlashMessageUtil';
-import {SOMETHING_WENT_WRONG} from '../utils/AppConstants';
+import ServiceFactory from '../config/ServiceFactory';
+import {parseLoginRequest} from '../utils/DataParserUtils/authDataParserUtil';
+import {genericExceptionHandling} from '../utils/HelperUtil';
 
 // worker Saga: will be fired on USER_FETCH_REQUESTED actions
 function* requestForLogin(action) {
   try {
     yield put(startLoadingAction());
-    const userData = yield call(AppConfig.STAND_ALONE ? loginRequest : null, {
+    const userDataResponse = yield call(ServiceFactory.sendLoginRequest , {
       ...action.payload,
     });
-    yield put(loginRequestActionSucceeded(userData));
-    yield put(fetchUserCartAction(userData.userId));
+    const parsedUserData = parseLoginRequest(userDataResponse.data);
+    yield put(loginRequestActionSucceeded(parsedUserData));
+    yield put(fetchUserCartAction(parsedUserData.userId));
     yield put(stopLoadingAction());
   } catch (e) {
-    console.error(e);
     yield put(stopLoadingAction());
-    showDangerFlashMessage(SOMETHING_WENT_WRONG + ' !');
+    genericExceptionHandling(e);
   }
 }
 

@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
     color: THEME_COLOR,
     marginLeft: 15,
     fontSize: 14,
-    fontWeight: 'bold',
+    fontWeight: '700',
   },
 });
 

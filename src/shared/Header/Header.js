@@ -9,6 +9,7 @@ import {isUserLoggedIn} from '../../utils/ComponentRendererUtil';
 import styles from './HeaderStyles';
 import {connect} from 'react-redux';
 import { getTitleFromRouteNameForSideMenu } from '../../utils/HelperUtil';
+import { COMMON_AUTH_FLOWS } from '../../utils/AppConstants';
 
 class Header extends Component {
   search;
@@ -25,7 +26,7 @@ class Header extends Component {
   };
 
   openLoginPage = () => {
-    InterCommRoutingService.routeToScreen(ROUTES.LOGIN, null);
+    InterCommRoutingService.routeToScreen(ROUTES.LOGIN, { authFlow: COMMON_AUTH_FLOWS.LOGIN });
   };
 
   openProfilePage = () => {
@@ -56,8 +57,12 @@ class Header extends Component {
   render() {
     return (
       <View style={styles.wrapper}>
-       {this.renderNavigationButton()}
-        <Text style={styles.loginText}>{this.props.toHomeButton ? getTitleFromRouteNameForSideMenu(this.props.routeName) : APP_NAME}</Text>
+        {this.renderNavigationButton()}
+        <Text style={styles.loginText}>
+          {this.props.toHomeButton
+            ? getTitleFromRouteNameForSideMenu(this.props.routeName)
+            : APP_NAME}
+        </Text>
         <View style={styles.searchLogin}>
           <Button
             icon={<Icon name="search" size={24} color={THEME_TEXT_COLOR} />}
@@ -70,7 +75,7 @@ class Header extends Component {
               rounded
               containerStyle={styles.avatarContainer}
               titleStyle={styles.avatartitle}
-              title={this.props.auth.userName.substring(0, 2)}
+              title={this.props.auth.firstName.substring(0, 2)}
               onPress={this.openProfilePage}
               activeOpacity={0.7}
             />

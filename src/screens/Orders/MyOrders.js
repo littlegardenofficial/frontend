@@ -4,10 +4,15 @@ import { ScrollView } from 'react-native-gesture-handler';
 import {connect} from 'react-redux';
 import OrderItem from '../../components/OrderItem/OrderItem';
 import {fetchMyOrdersAction} from '../../redux/actions/myOrders';
+import ROUTES from '../../routes/routeNames';
+import InterCommRoutingService from '../../services/interCommRoutingService';
 import { HIDE_SCROLL_INDICATOR, SCROLL_EVENT_THROTTLE } from '../../styles/theme';
 import {isUserLoggedIn} from '../../utils/ComponentRendererUtil';
+import { showInfoFlashMessage } from '../../utils/FlashMessageUtil';
 import { isNotEmpty, isNotNullOrUndefined } from '../../utils/HelperUtil';
 import styles from './MyOrdersStyles';
+import { CommonActions, StackActions } from '@react-navigation/native';
+import { NavigationEvents } from 'react-navigation';
 
 class MyOrders extends Component {
   constructor(props) {
@@ -30,6 +35,21 @@ class MyOrders extends Component {
     }
   }
 
+  navigateToLoginPage = () => {
+    if (!isUserLoggedIn(this.props.auth)) {
+      showInfoFlashMessage('Please login to see your orders');
+      this.props.navigation.navigate(ROUTES.LOGIN, null);
+    }
+  };
+
+  componentDidMount() {
+    console.log('component mounted myorders')
+  }
+
+  componentWillUnmount() {
+    console.log('compoentn will unmount myorders');
+  }
+
   renderOrderItemList = () => {
     return isNotNullOrUndefined(this.props.orders) &&
       isNotEmpty(this.props.orders.orders) ? (
@@ -49,6 +69,7 @@ class MyOrders extends Component {
   };
 
   renderOrders = () => {
+    this.navigateToLoginPage();
     return (
       <View
         style={{
@@ -57,6 +78,9 @@ class MyOrders extends Component {
           height: '100%',
           justifyContent: 'center',
         }}>
+        <NavigationEvents
+          onDidFocus={payload => this.navigateToLoginPage()}
+        />
         {isUserLoggedIn(this.props.auth) ? (
           this.renderOrderItemList()
         ) : (

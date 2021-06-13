@@ -50,6 +50,7 @@ class SideMenu extends Component {
             </Text>
             <Icon name="logout" color="red" />
           </TouchableOpacity>
+          <Text style={{ color: 'grey', fontSize: 13, alignItems: 'center', justifyContent: 'center' }}> <Icon name="favorite" iconStyle={{ fontSize: 13, marginRight: 8 }} color="red" />Made by <Text style={{ fontWeight: 'bold' }}>Newconception</Text></Text>
         </View>
       </SafeAreaView>
     );

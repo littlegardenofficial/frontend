@@ -20,8 +20,23 @@ export const API_URL_CONSTANTS = {
   SEARCH_PRODUCT: AppConfig.BASE_URL + 'catalog/product/search',
   FETCH_SERVICE_LOCATIONS: AppConfig.BASE_URL + 'service/location/list',
   REGISTER_USER: AppConfig.BASE_URL + 'customer/profile/create',
+  LOGIN_USER: AppConfig.BASE_URL + 'customer/profile/login',
+  FORGOT_PASSWORD: AppConfig.BASE_URL + 'customer/forgot-password/create',
+  VERIFY_FORGOT_PASSWORD: AppConfig.BASE_URL + 'customer/forgot-password/verify',
+  FORGOT_CHANGE_PASSWORD: AppConfig.BASE_URL + 'customer/forgot-password/change',
 };
 
 export const API_RESPONSE_STATUS = {
     SUCCESS : 200,
+}
+
+export const patternMobile = /^\d{10}$/;
+export const patternEmail = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+export const COMMON_AUTH_FLOWS = {
+  LOGIN: 'LOGIN',
+  REGISTER: 'REGISTER',
+  FORGOT_PASSWORD: 'FORGOT_PASSWORD',
+  CHANGE_PASSWORD: 'CHANGE_PASSWORD',
+  VERIFY_FORGOT_PASSWORD: 'VERIFY_FORGOT_PASSWORD',
 }

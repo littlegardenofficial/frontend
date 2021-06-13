@@ -1,4 +1,4 @@
-export const loginRequest = ({email, password}) => {
+export const loginMockRequest = ({email, password}) => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       resolve(successLoginData);
@@ -9,8 +9,8 @@ export const loginRequest = ({email, password}) => {
 const successLoginData = {
   userId: 12,
   userName: 'New Conception',
-  firstName : 'NewConception',
-  lastName : 'Yadav',
+  firstName: 'NewConception',
+  lastName: 'Yadav',
   profileImage: '',
   email: 'mj07yadav@gmail.com',
   address: [

@@ -17,6 +17,7 @@ import {
   API_RESPONSE_STATUS,
   SOMETHING_WENT_WRONG,
 } from '../../../utils/AppConstants';
+import { genericExceptionHandling, isEmailAddress, isMobileNumber, isNotEmpty } from '../../../utils/HelperUtil';
 
 class Register extends Component {
   imageSource = require('../../../../assets/images/logo.png');
@@ -45,8 +46,7 @@ class Register extends Component {
 
       // validtion for mobile phone validation
       if (item === 'phone') {
-        const pattern = /^\d{10}$/;
-        if (!pattern.test(stateItem[1].value)) {
+        if (!isMobileNumber(stateItem[1].value)) {
           isFormValidated = false;
           this.setState({phone: {value: '', error: 'Enter a valid Phone no.'}});
         }
@@ -55,8 +55,7 @@ class Register extends Component {
       // validation for email format validation
       if (item === 'email') {
         console.log(stateItem[1].value.toLowerCase().trim());
-        const pattern = /^\w+([+\.-]?\w+)@\w+([\.-]?\w+)(\.\w{2,3})+$/gm;
-        if (!pattern.test(stateItem[1].value.toLowerCase().trim())) {
+        if (!isEmailAddress(stateItem[1].value.toLowerCase().trim())) {
           isFormValidated = false;
           this.setState({email: {value: '', error: 'Enter a valid Email'}});
         }
@@ -64,6 +63,16 @@ class Register extends Component {
 
       // validation for both password and rePassword should be same
       if (item === 'password') {
+        if (stateItem[1].value.trim().length < 6) {
+          isFormValidated = false;
+          this.setState({
+            password: {
+              value: '',
+              error: "Password can't be less than 6 characters",
+            },
+          });
+        }
+
         if (stateItem[1].value.trim() !== this.state.rePassword.value.trim()) {
           isFormValidated = false;
           this.setState({
@@ -74,6 +83,16 @@ class Register extends Component {
       }
 
       if (item === 'rePassword') {
+        if (stateItem[1].value.trim().length < 6) {
+          isFormValidated = false;
+          this.setState({
+            rePassword: {
+              value: '',
+              error: "Password can't be less than 6 characters",
+            },
+          });
+        }
+
         if (stateItem[1].value.trim() !== this.state.password.value.trim()) {
           isFormValidated = false;
           this.setState({
@@ -108,7 +127,7 @@ class Register extends Component {
 
   getRegisterRequestPayload = () => {
     return JSON.stringify({
-      user_name: this.state.email.value.toLowerCase().trim(),
+      user_name: encodeURIComponent(this.state.email.value.toLowerCase().trim()),
       first_name: this.state.firstName.value.trim(),
       last_name: this.state.lastName.value.trim(),
       mobile_no: this.state.phone.value,
@@ -118,33 +137,24 @@ class Register extends Component {
   };
 
   registerMe = () => {
-    // first apply field level validations
     if (this.formValidation()) {
       // call api to register here an route
       this.props.startLoading();
-      try {
-        parseRegisterRequestData(this.getRegisterRequestPayload())
-          .then(response => {
-            console.log(response);
-            if (response.status === API_RESPONSE_STATUS.SUCCESS) {
-              showInfoFlashMessage('Registered Successfully!');
-              this.props.navigation.goBack();
-            } else {
-              showDangerFlashMessage(response.errorMessage);
-            }
-          })
-          .catch(e => {
-            console.error(e);
-            showDangerFlashMessage(
-              "Can't Register User " + SOMETHING_WENT_WRONG,
-            );
-          });
-      } catch (e) {
-        this.props.stopLoading();
-        console.log(e);
-        console.error(e);
-        showDangerFlashMessage("Can't Register User " + SOMETHING_WENT_WRONG);
-      }
+      parseRegisterRequestData(this.getRegisterRequestPayload())
+        .then(response => {
+          if (
+            isNotEmpty(response.data) &&
+            response.data.statusCode === API_RESPONSE_STATUS.SUCCESS
+          ) {
+            showInfoFlashMessage('Registered Successfully!');
+            this.props.navigation.goBack();
+          } else {
+            showDangerFlashMessage(response.errorMessage);
+          }
+        })
+        .catch(err => {
+          genericExceptionHandling(err);
+        });
     }
     this.props.stopLoading();
   };
@@ -209,7 +219,7 @@ class Register extends Component {
                 onSubmitEditing={this.registerMe}
               />
               <Input
-                placeholder="Retype Password"
+                placeholder="Confirm Password"
                 inputStyle={styles.passElement}
                 leftIcon={<Icon name="lock" size={13} color={THEME_COLOR} />}
                 secureTextEntry={true}

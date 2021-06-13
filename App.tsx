@@ -6,11 +6,10 @@ import {
   SafeAreaProvider,
   initialWindowMetrics,
 } from 'react-native-safe-area-context';
-import FlashMessage, {positionStyle} from 'react-native-flash-message';
+import FlashMessage from 'react-native-flash-message';
 import SplashScreen from 'react-native-splash-screen';
-import {StatusBar, ActivityIndicator} from 'react-native';
+import {StatusBar} from 'react-native';
 import {THEME_COLOR} from './src/styles/theme';
-import {View} from 'react-native';
 import Loader from './src/containers/Loader/Loader';
 import {PersistGate} from 'redux-persist/es/integration/react';
 
