@@ -5,7 +5,7 @@ import fetchCategoryList from '../services/categoryListService';
 import AppConfig from './AppConfig';
 import searchProductsService from '../services/searchProductsService';
 import fetchServiceLocations from '../services/locationService';
-import { forgotChangePasswordRequest, forgotPasswordRequest, loginRequest, registerRequest, verifyForgotPasswordRequest } from '../services/authService';
+import { forgotChangePasswordRequest, forgotPasswordRequest, loginRequest, registerRequest, updateUserProfileRequest, verifyForgotPasswordRequest } from '../services/authService';
 import { loginMockRequest } from '../mockServices/authMockService';
 
 
@@ -25,6 +25,8 @@ class ServiceFactory {
   static registerRequest = false ? registerRequest : registerRequest;
 
   static sendLoginRequest = false ? loginMockRequest : loginRequest;
+
+  static sendUserProfileDataUpdateRequest = false ? updateUserProfileRequest : updateUserProfileRequest;
 
   static sendForgotPasswordRequest = false ? forgotPasswordRequest : forgotPasswordRequest;
 

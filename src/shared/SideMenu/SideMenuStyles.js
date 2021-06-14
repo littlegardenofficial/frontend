@@ -49,6 +49,9 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   logoutTitle: { color: 'grey', fontSize: 20, marginRight: 10 },
+  companyText: { color: 'grey', fontSize: 13, alignItems: 'center', justifyContent: 'center', marginVertical: 5 },
+  companyTextIconStyle: { fontSize: 13, marginRight: 8 },
 });
 
 export default styles;
+

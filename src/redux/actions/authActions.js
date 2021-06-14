@@ -2,6 +2,8 @@ import {
   LOGIN_REQUEST_ACTION,
   LOGIN_REQUEST_SUCCEEDED_ACTION,
   LOGOUT_ACTION,
+  REQUEST_USER_PROFILE_UPDATE_ACTION,
+  REQUEST_USER_PROFILE_UPDATE_SUCCEEDED,
 } from './constants';
 
 export const loginRequestAction = payload => {
@@ -24,3 +26,17 @@ export const logoutAction = () => {
     payload: null,
   };
 };
+
+export const requestUserDataUpdateAction = (requestData) => {
+  return {
+    type: REQUEST_USER_PROFILE_UPDATE_ACTION,
+    payload: requestData
+  }
+}
+
+export const requestUserDataUpdateSucceededAction = (response) => {
+  return {
+    type: REQUEST_USER_PROFILE_UPDATE_SUCCEEDED,
+    payload: response
+  }
+}

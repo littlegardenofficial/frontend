@@ -127,7 +127,7 @@ class Register extends Component {
 
   getRegisterRequestPayload = () => {
     return JSON.stringify({
-      user_name: encodeURIComponent(this.state.email.value.toLowerCase().trim()),
+      user_name: this.state.email.value.toLowerCase().trim(),
       first_name: this.state.firstName.value.trim(),
       last_name: this.state.lastName.value.trim(),
       mobile_no: this.state.phone.value,

@@ -12,7 +12,7 @@ import {
 
 import Separator from '../../components/Seperator/Separator';
 import styles from './ProfileStyles';
-import ProfileName from '../../components/ProfilePageField/ProfilePageField';
+import ProfilePageField from '../../components/ProfilePageField/ProfilePageField';
 import { THEME_TEXT_COLOR } from '../../styles/theme';
 import { showInfoFlashMessage, showSuccessFlashMessage } from '../../utils/FlashMessageUtil';
 import _ from "lodash";
@@ -20,6 +20,7 @@ import { NavigationEvents } from 'react-navigation';
 import InterCommRoutingService from '../../services/interCommRoutingService';
 import ROUTES from '../../routes/routeNames';
 import { isUserLoggedIn } from '../../utils/ComponentRendererUtil';
+import { requestUserDataUpdateAction } from '../../redux/actions/authActions';
 
 class Profile extends Component {
 
@@ -29,9 +30,7 @@ class Profile extends Component {
   constructor(props) {
     super(props);
     this.dataInitialization();
-    this.state = {
-      saveButton: false,
-    }
+    InterCommRoutingService.navigationProps = this.props.navigation;
   }
 
   // used to update profilePageForm and updateProfilePageForm objects after updating store 
@@ -53,33 +52,69 @@ class Profile extends Component {
   }
 
   onEditFieldValue = (field, value) => {
-    this.setState({ saveButton: true });
     switch (field) {
       case 'firstName':
-        this.updatedProfilePageForm = { ...this.updatedProfilePageForm, 'firstName': value };
-        break;
+        {
+          if (!_.isMatch(value, this.updatedProfilePageForm.firstName)) {
+            InterCommRoutingService.haveUnsavedProfilePageChanges = true;
+          }
+          this.updatedProfilePageForm = { ...this.updatedProfilePageForm, 'firstName': value };
+          break;
+        }
       case 'lastName':
-        this.updatedProfilePageForm = { ...this.updatedProfilePageForm, 'lastName': value, };
-        break;
+        {
+          if (!_.isMatch(value, this.updatedProfilePageForm.lastName)) {
+            InterCommRoutingService.haveUnsavedProfilePageChanges = true;
+          }
+          this.updatedProfilePageForm = { ...this.updatedProfilePageForm, 'lastName': value, };
+          break;
+        }
       case 'email':
-        this.updatedProfilePageForm = { ...this.updatedProfilePageForm, 'email': value, };
-        break;
+        {
+          if (!_.isMatch(value, this.updatedProfilePageForm.email)) {
+            InterCommRoutingService.haveUnsavedProfilePageChanges = true;
+          }
+          this.updatedProfilePageForm = { ...this.updatedProfilePageForm, 'email': value, };
+          break;
+        }
       case 'mobileNo':
-        this.updatedProfilePageForm = { ...this.updatedProfilePageForm, 'mobileNo': value, };
-        break;
+        {
+          if (!_.isMatch(value, this.updatedProfilePageForm.mobileNo)) {
+            InterCommRoutingService.haveUnsavedProfilePageChanges = true;
+          }
+          this.updatedProfilePageForm = { ...this.updatedProfilePageForm, 'mobileNo': value, };
+          break;
+        }
       default:
         break;
     }
   }
 
+  generateRequestPayload = () => {
+    console.log(this.props.auth);
+    return {
+      'requestBody': {
+        'user_name': this.updatedProfilePageForm.email.toLowerCase().trim(),
+        'first_name': this.updatedProfilePageForm.firstName.trim(),
+        'last_name': this.updatedProfilePageForm.lastName.trim(),
+        'mobile_no': this.updatedProfilePageForm.mobileNo.trim(),
+      },
+      authToken: this.props.auth.jwt_token,
+    };
+  }
+
   onSaveProfileData = () => {
+    console.log(this.updatedProfilePageForm);
+    console.log(this.profilePageForm);
+    console.log(!_.isEqual(this.updatedProfilePageForm, this.profilePageForm));
     if (!_.isEqual(this.updatedProfilePageForm, this.profilePageForm)) {
-      // dispatch action for updating profile data
-      showSuccessFlashMessage('Updated Successfully');
+      this.props.requestUserProfileUpdate(this.generateRequestPayload())
+      this.setState({ saveButton: false });
+      InterCommRoutingService.haveUnsavedProfilePageChanges = false;
     } else {
       showInfoFlashMessage('Please update atleast one field');
+      this.setState({ saveButton: false });
     }
-    this.setState({ saveButton: false });
   }
 
   renderUpdateProfileButton = () => {
@@ -95,14 +130,15 @@ class Profile extends Component {
 
   renderHeader = () => {
     let name = this.props.auth.firstName + " " + this.props.auth.lastName;
+    let sourceImage = require('../../../assets/images/profile.png')
     return (
       <View style={styles.headerContainer}>
         <ImageBackground
           style={styles.headerBackgroundImage}
           blurRadius={10}
-          source={this.props.auth.profileImage}>
+          source={sourceImage}>
           <View style={styles.headerColumn}>
-            <Image style={styles.userImage} source={this.props.auth.profileImage} />
+            <Image style={styles.userImage} source={sourceImage} />
             <Text style={styles.userNameText}>{name}</Text>
           </View>
         </ImageBackground>
@@ -113,7 +149,7 @@ class Profile extends Component {
   renderField = (nameType, data) => {
     return (
       <View style={styles.emailContainer}>
-        <ProfileName
+        <ProfilePageField
           nameType={nameType}
           name={data}
           onEdit={this.onEditFieldValue}
@@ -142,7 +178,7 @@ class Profile extends Component {
         <View style={styles.container}>
           <Card containerStyle={styles.cardContainer}>
             {this.renderHeader()}
-              {this.state.saveButton ? this.renderUpdateProfileButton() : <View></View>}
+              {this.renderUpdateProfileButton()}
               {this.renderField('mobileNo', this.props.auth.mobileNo)}
               {Separator()}
               {this.renderField('email', this.props.auth.email)}
@@ -168,6 +204,7 @@ const mapStateToProps = (state, props) => {
 const mapDispatchToProps = (dispatch, props) => {
   return {
     ...props,
+    requestUserProfileUpdate: (payload) => { dispatch(requestUserDataUpdateAction(payload)) },
   };
 };
 

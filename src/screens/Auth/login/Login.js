@@ -6,10 +6,11 @@ import styles from './LoginStyles';
 import { connect } from 'react-redux';
 import { loginRequestAction } from '../../../redux/actions/authActions';
 import ROUTES from '../../../routes/routeNames';
-import { genericExceptionHandling, isEmailAddress, isMobileNumber, isNotNullOrUndefined } from '../../../utils/HelperUtil';
+import { genericExceptionHandling, isEmailAddress, isMobileNumber, isNotNullOrUndefined, isValidPassword } from '../../../utils/HelperUtil';
 import { COMMON_AUTH_FLOWS } from '../../../utils/AppConstants';
 import { parseForgotChangePasswordData, parseForgotPasswordData, parseVerifyForgotPasswordData } from '../../../utils/DataParserUtils/authDataParserUtil';
 import { showInfoFlashMessage, showSuccessFlashMessage } from '../../../utils/FlashMessageUtil';
+import { startLoadingAction, stopLoadingAction } from '../../../redux/actions/loadingAction';
 
 class Login extends Component {
   imageSource = require('../../../../assets/images/logo.png');
@@ -83,6 +84,26 @@ class Login extends Component {
     return isFormValidated;
   };
 
+  changePasswordFormValidation = () => {
+    if (isValidPassword(this.state.changePass.value) && isValidPassword(this.state.reTypChangePass.value)) {
+      if (this.state.changePass.value.trim() === this.state.reTypChangePass.value.trim()) {
+        return true;
+      } else {
+        this.setState({
+          changePass: { value: '', error: 'Password and confirm password should be same' },
+          reTypChangePass: { value: '', error: 'Password and confirm password should be same' }
+        });
+        return false;
+      }
+    } else {
+      this.setState({
+        changePass: { value: '', error: 'Password should have min 6 characters and max 10 characters' },
+        reTypChangePass: { value: '', error: 'Password should have min 6 characters and max 10 characters' }
+      });
+      return false;
+    }
+  }
+
   getLoginRequestPayload = () => {
     if (isEmailAddress(this.state.userName.value)) {
       return {
@@ -108,14 +129,17 @@ class Login extends Component {
 
   requestForgotPassword = () => {
     if (isEmailAddress(this.state.forgotPassEmail.value.trim())) {
+      this.props.startLoading();
       parseForgotPasswordData({ 'user_name': this.state.forgotPassEmail.value.toLowerCase().trim() })
         .then(data => {
           console.log(data);
           showInfoFlashMessage(data.data.message);
           this.setState({ authFlow: COMMON_AUTH_FLOWS.VERIFY_FORGOT_PASSWORD });
+          this.props.stopLoading();
         })
         .catch(err => {
           genericExceptionHandling(err);
+          this.props.stopLoading();
         })
     } else {
       this.setState({ userName: { error: 'Enter a valid Email address' } });
@@ -125,6 +149,7 @@ class Login extends Component {
 
   requestChangePasswordBody = () => {
     if (isNotNullOrUndefined(this.state.otp.value.trim())) {
+      this.props.startLoading();
       parseVerifyForgotPasswordData({
         'user_name': this.state.forgotPassEmail.value.trim()
         , otp: this.state.otp.value.trim()
@@ -134,10 +159,11 @@ class Login extends Component {
           // set tokenForChangePass for change password request
           console.log(data.data.data.fp_token);
           this.setState({ tokenForChangePass: data.data.data.fp_token, authFlow: COMMON_AUTH_FLOWS.CHANGE_PASSWORD });
+          this.props.stopLoading();
         })
         .catch(err => {
           genericExceptionHandling(err);
-
+          this.props.stopLoading();
         })
     } else {
       this.setState({ otp: { error: 'Enter a valid OTP' } });
@@ -146,18 +172,19 @@ class Login extends Component {
 
   requestChangePassword = () => {
     console.log('change password finally');
-    if (true) {
+    if (this.changePasswordFormValidation()) {
+      this.props.startLoading();
       parseForgotChangePasswordData(JSON.stringify({ confirm_password: this.state.changePass.value.trim(), password: this.state.changePass.value.trim() }), this.state.tokenForChangePass)
         .then(data => {
           console.log(data);
           showSuccessFlashMessage(data.data.message);
           this.setState({ authFlow: COMMON_AUTH_FLOWS.LOGIN, password: { value: '', error: null } });
+          this.props.stopLoading();
         })
         .catch(err => {
           genericExceptionHandling(err);
+          this.props.stopLoading();
         })
-    } else {
-      console.log('error');
     }
   }
 
@@ -344,6 +371,8 @@ const mapDispatchToProps = (dispatch, ownprops) => {
   return {
     ...ownprops,
     requestForLoginUser: data => dispatch(loginRequestAction(data)),
+    startLoading: () => { dispatch(startLoadingAction()) },
+    stopLoading: () => { dispatch(stopLoadingAction()) },
   };
 };
 

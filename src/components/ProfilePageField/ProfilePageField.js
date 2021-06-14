@@ -3,11 +3,12 @@ import { Text, TouchableOpacity, View } from 'react-native';
 import { Input } from 'react-native-elements';
 import { Icon } from 'react-native-elements';
 import { THEME_COLOR } from '../../styles/theme';
+import { showDangerFlashMessage } from '../../utils/FlashMessageUtil';
 import { isEmailAddress, isMobileNumber, isNotNullOrUndefined } from '../../utils/HelperUtil';
 import styles from './ProfilePageFieldStyles'
 
 
-class ProfileName extends React.Component {
+class ProfilePageField extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -20,6 +21,7 @@ class ProfileName extends React.Component {
     setErrorMessage = (message) => {
         console.log(message);
         this.setState({ 'error': message });
+        showDangerFlashMessage(message);
     }
 
     fieldValidation = () => {
@@ -140,4 +142,4 @@ class ProfileName extends React.Component {
 
 }
 
-export default ProfileName;
+export default ProfilePageField;

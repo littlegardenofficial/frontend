@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
         fontSize: 26,
     },
     scroll: {
-        backgroundColor: 'red',
+        backgroundColor: 'white',
     },
     telContainer: {
         backgroundColor: '#FFF',
@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
         paddingBottom: 8,
         textAlign: 'center',
     },
-    saveButtonWrapper: { width: '100%', justifyContent: 'center', alignItems: 'flex-end', height: 50, },
+    saveButtonWrapper: { width: '100%', justifyContent: 'center', alignItems: 'flex-end', height: 40, },
     saveButtonContainer: { width: '20%', backgroundColor: THEME_COLOR, marginHorizontal: 5, marginVertical: 5, height: '90%', borderRadius: 100, justifyContent: 'center', alignItems: 'center' },
 
 });

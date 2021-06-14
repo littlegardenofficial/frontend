@@ -24,6 +24,7 @@ export const API_URL_CONSTANTS = {
   FORGOT_PASSWORD: AppConfig.BASE_URL + 'customer/forgot-password/create',
   VERIFY_FORGOT_PASSWORD: AppConfig.BASE_URL + 'customer/forgot-password/verify',
   FORGOT_CHANGE_PASSWORD: AppConfig.BASE_URL + 'customer/forgot-password/change',
+  UPDATE_USER_PROFILE: AppConfig.BASE_URL + 'customer/profile/update',
 };
 
 export const API_RESPONSE_STATUS = {

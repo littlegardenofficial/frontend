@@ -11,6 +11,7 @@ const {
   LOGIN_REQUEST_SUCCEEDED_ACTION,
   LOGOUT_ACTION,
   SELECT_ADDRESS_FOR_DELIVERY_ACTION,
+  REQUEST_USER_PROFILE_UPDATE_SUCCEEDED,
 } = require('../actions/constants');
 import {
   saveDataInLocalStorage,
@@ -27,6 +28,11 @@ const authReducer = (state = initialState, action) => {
       let newState = {...action.payload};
       // saveDataInLocalStorage("auth" , newState);
       showSuccessFlashMessage(LOGGED_IN_SUCCESSFULLY);
+      return newState;
+    }
+    case REQUEST_USER_PROFILE_UPDATE_SUCCEEDED: {
+      let newState = { ...action.payload, jwt_token: state.jwt_token };
+      showSuccessFlashMessage('Profile data updated');
       return newState;
     }
     case LOGOUT_ACTION: {

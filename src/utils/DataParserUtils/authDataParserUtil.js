@@ -22,6 +22,7 @@ export const parseLoginRequest = response => {
   if (isNotNullOrUndefined(response.data)) {
     let userDataResponse = response.data;
     parsedUserData = {
+      ...userDataResponse,
       userId: userDataResponse.id,
       userName: userDataResponse.user_name,
       firstName: userDataResponse.first_name,

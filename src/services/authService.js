@@ -29,15 +29,20 @@ export const registerRequest = requestPayload => {
   return axios(config);
 };
 
-export const updateUserProfileRequest = requestPayload => {
+export const updateUserProfileRequest = (requestPayload) => {
   console.log(requestPayload);
+  let data = JSON.stringify({
+    ...requestPayload.requestBody
+  })
+  console.log(requestPayload.authToken);
   var config = {
-    method: 'post',
-    url: API_URL_CONSTANTS.REGISTER_USER,
+    method: 'put',
+    url: API_URL_CONSTANTS.UPDATE_USER_PROFILE,
     headers: {
       'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + requestPayload.authToken,
     },
-    data: requestPayload,
+    data: data,
   };
   return axios(config);
 };

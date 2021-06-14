@@ -36,7 +36,7 @@ export default class HelpAndSupport extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={{textAlign: 'center', fontSize: 20, paddingVertical: 30}}>
+        {/* <Text style={{textAlign: 'center', fontSize: 20, paddingVertical: 30}}>
           Open WhatsApp chat box from React-native App
         </Text>
 
@@ -57,7 +57,7 @@ export default class HelpAndSupport extends Component {
         />
         <View style={{marginTop: 20}}>
           <Button onPress={this.openWhatsApp} title="Open WhatsApp message" />
-        </View>
+        </View> */}
       </View>
     );
   }

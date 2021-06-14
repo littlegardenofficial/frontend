@@ -282,6 +282,19 @@ export const isEmailAddress = (data) => {
   }
 }
 
+/**
+ * Utility to validate password
+ * @param {*} data 
+ * @returns 
+ */
+export const isValidPassword = (data) => {
+  if (isNotNullOrUndefined(data.trim()) && data.trim().length <= 10) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
 onPressPlace = () => {
   console.log('place');
 };
