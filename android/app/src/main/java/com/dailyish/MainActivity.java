@@ -1,4 +1,4 @@
-package com.dailyish;
+package com.little_garden;
 import android.os.Bundle; // here
 import com.facebook.react.ReactActivity;
 import org.devio.rn.splashscreen.SplashScreen; // here
@@ -16,6 +16,6 @@ public class MainActivity extends ReactActivity {
    */
   @Override
   protected String getMainComponentName() {
-    return "Dailyish";
+    return "Little Garden";
   }
 }

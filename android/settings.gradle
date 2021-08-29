@@ -1,4 +1,4 @@
-rootProject.name = 'Dailyish'
+rootProject.name = 'Little Garden'
 include ':react-native-splash-screen'
 project(':react-native-splash-screen').projectDir = new File(rootProject.projectDir, '../../../../../AppData/Roaming/npm/node_modules/react-native-splash-screen/android')
 include ':react-native-config'

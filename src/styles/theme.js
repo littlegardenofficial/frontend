@@ -11,8 +11,8 @@ export const PRODUCT_CARD_COLOR = 'white';
 export const DRAWER_WIDTH = 300;
 export const SCROLL_EVENT_THROTTLE = 16;
 export const HIDE_SCROLL_INDICATOR = false;
-export const APP_NAME = 'Dailyish';
-export const APP_NAME_CAPS = 'DAILYISH';
+export const APP_NAME = 'Little Garden';
+export const APP_NAME_CAPS = 'LITTLE GARDEN';
 export const WHITE_BACKGROUND = 'white';
 export const BLUE_COLOR = '#315AEE';
 
